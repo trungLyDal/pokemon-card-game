@@ -1,0 +1,87 @@
+/* src/components/PackOpening.css */
+.pack-opening-container {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.pack-opening-container h2 {
+  color: #3a5ca3; /* Pokémon blue */
+  margin-bottom: 15px;
+}
+
+.pack-opening-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #ffcb05; /* Pokémon yellow */
+  color: #2a3179; /* Dark blue */
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.pack-opening-container button:hover:enabled {
+  background-color: #eeca03;
+}
+
+.pack-opening-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.opened-cards {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.opened-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.opened-card img {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.opened-card button {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  transition: background-color 0.3s ease;
+}
+
+.opened-card button:hover {
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
