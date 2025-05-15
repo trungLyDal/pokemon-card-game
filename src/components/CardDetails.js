@@ -49,7 +49,6 @@ const CardDetails = ({ card, onClose }) => {
             </ul>
           </div>
         )}
-        {/* Add other relevant details here based on the API response */}
       </div>
     </div>
   );
