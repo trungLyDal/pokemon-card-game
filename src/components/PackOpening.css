@@ -7,12 +7,18 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
   text-align: center; /* Example: Center button in pack opening */
 }
+
 .pack-opening-container h2 {
-  color: #3a5ca3; /* Pokémon blue */
-  margin-bottom: 20px;
-  font-size: 1.8em;
+  font-family: 'Montserrat', sans-serif; /* Apply the Montserrat font */
+  font-weight: 600; /* Use semibold for emphasis */
+  font-size: 2em; /* Adjust the size as needed */
+  color: #333; /* A dark gray color for readability */
+  text-align: center; /* Center the heading */
+  margin-bottom: 1em; /* Add some space below the heading */
+  letter-spacing: 0.05em; /* Add a little letter spacing for a modern feel */
 }
 
+/* ... other styles in your PackOpening.css ... */
 .pack-opening-container button {
   padding: 12px 24px;
   font-size: 18px;
@@ -42,23 +48,26 @@
 }
 
 .opened-cards {
-  display: flex; /* Change to flexbox */
-  flex-wrap: wrap; /* Enable wrapping to the next line */
-  gap: 15px;
-  margin-top: 20px;
-  justify-content: center; /* Center the cards on each line */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px; /* Add some space above the cards */
+  margin-bottom: 20px; /* Add some space below the cards */
+  max-width: 90%; /* Adjust as needed */
 }
 
 .opened-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-  text-align: center;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fade-in 0.5s ease-out forwards;
+  width: 150px; /* Adjust card size as needed */
+  height: 210px; /* Adjust card size as needed */
+  margin: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes fade-in {
@@ -73,10 +82,25 @@
 }
 
 .opened-card img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 0; /* Removed margin as there's no button below each card */
+  max-width: 90%;
+  max-height: 90%;
 }
+
+.add-all-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50; /* Example button color */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Space above the button */
+}
+
+.add-all-button:hover {
+  background-color: #45a049;
+}
+
 
 .error-message {
   color: red;
@@ -99,3 +123,64 @@
 .add-all-button:hover {
   background-color: #0056b3;
 }
+
+/* PackOpening.css */
+
+.pack-opening-container {
+  /* Existing styles */
+  position: relative; /* For the modal overlay to be positioned correctly */
+   display: flex; /* To potentially align button below cards */
+  flex-direction: column; /* Stack elements vertically */
+  align-items: center; /* Center horizontally */
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Darken the background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top */
+  cursor: pointer; /* Indicate it's clickable for revealing */
+}
+
+.modal-content {
+  position: relative;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: -160px;
+}
+
+
+.modal-card {
+  position: absolute;
+  width: 180px; /* Increased width */
+  height: 252px; /* Increased height (maintaining aspect ratio) */
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-card img {
+  max-width: 95%; /* Adjust image size within the card */
+  max-height: 95%;
+}
+
+/* ... other styles ... */
+
+.modal-card.card-0 {
+  /* Initial top card style */
+}
+
+/* Style for subsequent cards if needed */
