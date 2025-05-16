@@ -1,34 +1,26 @@
 // src/components/PackOpening.js
 import React, { useState } from 'react';
-import axios from 'axios';
 import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
+import cardData from '../data/all_pokemon_cards.json';
+
+
 
 const PackOpening = ({ addToCollection }) => {
   const [openedCards, setOpenedCards] = useState([]);
   const [isOpening, setIsOpening] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchRandomCard = async () => {
-    try {
-      const apiKey = process.env.REACT_APP_POKEMON_TCG_API_KEY;
-      const headers = apiKey ? { 'X-Api-Key': apiKey } : {};
-      const response = await axios.get('https://api.pokemontcg.io/v2/cards?pageSize=10', { headers });
-      console.log('Larger Batch Card Response:', response);
-      if (response.data && response.data.data && response.data.data.length > 0) {
-        const randomIndex = Math.floor(Math.random() * response.data.data.length);
-        return response.data.data[randomIndex];
-      } else {
-        console.warn('No card data received from larger batch request:', response.data);
-        setError('Failed to fetch random cards (empty larger batch). Please try again.');
-        return null;
-      }
-    } catch (error) {
-      console.error('Error fetching larger card batch:', error);
-      setError(`Failed to fetch random cards: ${error.message}`);
-      return null;
-    }
-  };
+   const fetchRandomCard = () => {
+    if (cardData && cardData.length > 0) {
+      const randomIndex = Math.floor(Math.random() * cardData.length);
+      return cardData[randomIndex];
+    } else {
+      console.warn('No card data found in local JSON file (all_pokemon_cards.json).');
+      setError('Failed to fetch random cards (local data empty).');
+      return null;
+    }
+  };
 
   const openPack = async () => {
     setIsOpening(true);
