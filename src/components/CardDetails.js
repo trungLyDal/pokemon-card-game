@@ -7,37 +7,39 @@ const CardDetails = ({ card, onClose }) => {
   const card3DRef = useRef(null);
 
   useEffect(() => {
+    const currentModalRef = modalRef.current; // Capture the current ref value
+    const currentCard3DRef = card3DRef.current; // Capture the current ref value
+
     const handleMouseMove = (event) => {
-      if (modalRef.current && card3DRef.current) {
-        const modal = modalRef.current.getBoundingClientRect();
+      if (currentModalRef && currentCard3DRef) {
+        const modal = currentModalRef.getBoundingClientRect();
         const centerX = modal.left + modal.width / 2;
         const centerY = modal.top + modal.height / 2;
         const mouseX = event.clientX - centerX;
         const mouseY = event.clientY - centerY;
 
-        // Normalize mouse coordinates to a range of -1 to 1
-        const rotateYAmount = (mouseX / (modal.width / 2)) * 15; // Adjust multiplier for sensitivity
-        const rotateXAmount = (mouseY / (modal.height / 2)) * -10; // Negative for intuitive vertical rotation
+        const rotateYAmount = (mouseX / (modal.width / 2)) * 15;
+        const rotateXAmount = (mouseY / (modal.height / 2)) * -10;
 
-        card3DRef.current.style.transform = `rotateY(${rotateYAmount}deg) rotateX(${rotateXAmount}deg)`;
+        currentCard3DRef.style.transform = `rotateY(${rotateYAmount}deg) rotateX(${rotateXAmount}deg)`;
       }
     };
 
     const handleMouseLeave = () => {
-      if (card3DRef.current) {
-        card3DRef.current.style.transform = 'rotateY(0deg) rotateX(0deg)'; // Reset rotation
+      if (currentCard3DRef) {
+        currentCard3DRef.style.transform = 'rotateY(0deg) rotateX(0deg)'; // Reset rotation
       }
     };
 
-    if (modalRef.current) {
-      modalRef.current.addEventListener('mousemove', handleMouseMove);
-      modalRef.current.addEventListener('mouseleave', handleMouseLeave);
+    if (currentModalRef) {
+      currentModalRef.addEventListener('mousemove', handleMouseMove);
+      currentModalRef.addEventListener('mouseleave', handleMouseLeave);
     }
 
     return () => {
-      if (modalRef.current) {
-        modalRef.current.removeEventListener('mousemove', handleMouseMove);
-        modalRef.current.removeEventListener('mouseleave', handleMouseLeave);
+      if (currentModalRef) {
+        currentModalRef.removeEventListener('mousemove', handleMouseMove);
+        currentModalRef.removeEventListener('mouseleave', handleMouseLeave);
       }
     };
   }, []);
