@@ -1,98 +1,127 @@
 /* src/components/CardGallery.css */
 .card-gallery-container {
-  margin-bottom: 30px;
+  margin: 20px auto; /* Center the gallery with some top/bottom margin */
+  max-width: 1200px; /* Limit the maximum width for better readability */
+  padding: 20px;
+  background-color: #f8f8f8; /* Light gray background */
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
 }
 
 .card-gallery-container h2 {
-  color: #3a5ca3;
-  margin-bottom: 15px;
+  color: #2c3e50; /* Darker, more professional blue */
+  margin-bottom: 25px;
   text-align: center;
+  font-size: 2em; /* Slightly larger heading */
+  border-bottom: 2px solid #ddd; /* Light separator under the heading */
+  padding-bottom: 10px;
 }
 
 .filter-section {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  padding: 10px;
+  background-color: #fff; /* White background for the filter section */
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
 }
 
 .filter-section label {
-  margin-right: 10px;
-  font-weight: bold;
+  margin-right: 15px;
+  font-weight: 600; /* Semi-bold font weight */
+  color: #555;
 }
 
 .filter-input {
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 5px;
   flex-grow: 1;
+  font-size: 1em;
+  color: #333;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: #3a5ca3; /* Highlight on focus */
+  box-shadow: 0 0 5px rgba(58, 92, 163, 0.3);
 }
 
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Slightly larger card items */
+  gap: 20px;
+  padding: 15px;
+  background-color: #fff; /* White background for the grid */
+  border-radius: 5px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
 }
 
 .card-item {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  background-color: #fff; /* White card background */
+  border: 1px solid #eee; /* Very light border */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* More noticeable shadow */
   cursor: pointer;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Stack image and buttons vertically */
+  justify-content: space-between; /* Space out image and buttons */
   align-items: center;
-  overflow: hidden; /* To contain the image */
+  overflow: hidden;
   position: relative;
+  padding: 10px;
 }
 
 .card-item:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: scale(1.03);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
 }
 
 .remove-button {
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  background-color: #f44336; /* Red */
+  background-color: #e74c3c; /* More vibrant red */
   color: white;
   border: none;
-  padding: 5px 8px;
+  padding: 8px 12px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
+  font-size: 0.9em;
   cursor: pointer;
-  border-radius: 3px;
-  opacity: 0.8;
+  border-radius: 5px;
+  opacity: 0.9;
   transition: opacity 0.2s ease-in-out;
+  width: 80%; /* Make the button a bit wider */
+  margin-top: 10px; /* Space from the image */
+  position: static; /* Override absolute positioning */
 }
 
 .remove-button:hover {
   opacity: 1;
+  background-color: #c0392b; /* Darker red on hover */
 }
 
 .card-item img {
   max-width: 100%;
   height: auto;
   display: block;
-  cursor: pointer; /* Indicate that clicking the image shows details */
+  cursor: pointer;
+  border-radius: 5px; /* Slightly rounded image corners */
 }
 
 .card-count {
   position: absolute;
-  top: 5px;
-  right: 5px;
-  background-color: rgba(0, 0, 0, 0.7);
+  top: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.8); /* Darker background for count */
   color: white;
-  padding: 3px 6px;
-  border-radius: 3px;
-  font-size: 0.8em;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 0.9em;
 }
 
-/* Example for rare holo glow */
+/* More pronounced glow for rare holos */
 .card-item.rare-holo {
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
 }

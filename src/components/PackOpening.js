@@ -10,52 +10,52 @@ const PackOpening = ({ addToCollection }) => {
   const [error, setError] = useState(null);
 
   const fetchRandomCard = async () => {
-  try {
-    const apiKey = process.env.REACT_APP_POKEMON_TCG_API_KEY;
-    const headers = apiKey ? { 'X-Api-Key': apiKey } : {};
-    const response = await axios.get('https://api.pokemontcg.io/v2/cards?pageSize=250', { headers }); // Increased pageSize
-    console.log('Larger Batch Card Response:', response);
-    if (response.data && response.data.data && response.data.data.length > 0) {
-      const randomIndex = Math.floor(Math.random() * response.data.data.length);
-      return response.data.data[randomIndex];
-    } else {
-      console.warn('No card data received from larger batch request:', response.data);
-      setError('Failed to fetch random cards (empty larger batch). Please try again.');
+    try {
+      const apiKey = process.env.REACT_APP_POKEMON_TCG_API_KEY;
+      const headers = apiKey ? { 'X-Api-Key': apiKey } : {};
+      const response = await axios.get('https://api.pokemontcg.io/v2/cards?pageSize=10', { headers });
+      console.log('Larger Batch Card Response:', response);
+      if (response.data && response.data.data && response.data.data.length > 0) {
+        const randomIndex = Math.floor(Math.random() * response.data.data.length);
+        return response.data.data[randomIndex];
+      } else {
+        console.warn('No card data received from larger batch request:', response.data);
+        setError('Failed to fetch random cards (empty larger batch). Please try again.');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error fetching larger card batch:', error);
+      setError(`Failed to fetch random cards: ${error.message}`);
       return null;
     }
-  } catch (error) {
-    console.error('Error fetching larger card batch:', error);
-    setError(`Failed to fetch random cards: ${error.message}`);
-    return null;
-  }
-};
+  };
 
   const openPack = async () => {
     setIsOpening(true);
     setOpenedCards([]);
     setError(null);
     const numberOfCardsInPack = 10;
-    const drawnCardIds = new Set(); 
+    const drawnCardIds = new Set();
 
     for (let i = 0; i < numberOfCardsInPack; i++) {
       let randomCard = await fetchRandomCard();
       if (randomCard) {
         while (drawnCardIds.has(randomCard.id)) {
           randomCard = await fetchRandomCard();
-          if (!randomCard) break; // If fetching fails repeatedly, stop
+          if (!randomCard) break;
         }
 
         if (randomCard) {
           drawnCardIds.add(randomCard.id);
-          await new Promise(resolve => setTimeout(resolve, 550)); // Animation delay
+          await new Promise(resolve => setTimeout(resolve, 550));
           setOpenedCards(prevCards => [...prevCards, randomCard]);
         } else {
           setIsOpening(false);
-          return; // Stop if we couldn't get a unique card
+          return;
         }
       } else {
         setIsOpening(false);
-        return; // Stop if initial fetch fails
+        return;
       }
     }
     setIsOpening(false);
@@ -66,6 +66,13 @@ const PackOpening = ({ addToCollection }) => {
     setOpenedCards(prevOpenedCards =>
       prevOpenedCards.filter(openedCard => openedCard.id !== cardToAdd.id)
     );
+  };
+
+  const handleAddAllToCollection = () => {
+    openedCards.forEach(card => {
+      addToCollection(card);
+    });
+    setOpenedCards([]); // Clear the opened cards after adding all
   };
 
   return (
@@ -79,10 +86,14 @@ const PackOpening = ({ addToCollection }) => {
         {openedCards.map((card, index) => (
           <div key={card.id} className={`opened-card card-${index}`} style={{ animationDelay: `${index * 0.5}s` }}>
             <img src={card.images.small} alt={card.name} />
-            <button onClick={() => handleAddToCollection(card)}>Add to Collection</button>
           </div>
         ))}
       </div>
+      {openedCards.length > 0 && (
+        <button className="add-all-button" onClick={handleAddAllToCollection}>
+          Add All to Collection
+        </button>
+      )}
     </div>
   );
 };
