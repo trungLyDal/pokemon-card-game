@@ -15,15 +15,13 @@ const useCollection = () => {
     setCollection(prevCollection => {
       const existingCardIndex = prevCollection.findIndex(item => item.id === card.id);
       if (existingCardIndex !== -1) {
-        // Card already exists, increment count
         const updatedCollection = [...prevCollection];
         updatedCollection[existingCardIndex] = {
           ...updatedCollection[existingCardIndex],
-          count: (updatedCollection[existingCardIndex].count || 0) + 1, // Use || 0 to handle undefined count
+          count: (updatedCollection[existingCardIndex].count || 0) + 1,
         };
         return updatedCollection;
       } else {
-        // Card doesn't exist, add it with count 1
         return [...prevCollection, { ...card, count: 1 }];
       }
     });
@@ -33,25 +31,27 @@ const useCollection = () => {
     setCollection(prevCollection => {
       const existingCardIndex = prevCollection.findIndex(c => c.id === cardId);
       if (existingCardIndex !== -1) {
-        // Card exists
         const updatedCollection = [...prevCollection];
         if (updatedCollection[existingCardIndex].count > 1) {
-          // More than one copy, decrement count
           updatedCollection[existingCardIndex] = {
             ...updatedCollection[existingCardIndex],
             count: updatedCollection[existingCardIndex].count - 1,
           };
         } else {
-          // Only one copy, remove the card
           updatedCollection.splice(existingCardIndex, 1);
         }
         return updatedCollection;
       }
-      return prevCollection; // Card not found, return existing collection
+      return prevCollection;
     });
   };
 
-  return { collection, addToCollection, removeFromCollection };
+  const removeAllFromCollection = () => {
+    setCollection([]); // Set the collection state to an empty array
+    localStorage.removeItem('pokemonCollection'); // Optionally clear from localStorage as well
+  };
+
+  return { collection, addToCollection, removeFromCollection, removeAllFromCollection };
 };
 
 export default useCollection;

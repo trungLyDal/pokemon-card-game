@@ -7,7 +7,7 @@ import './App.css';
 import useCollection from './hooks/useCollection';
 
 function App() {
-  const { collection, addToCollection, removeFromCollection } = useCollection();
+  const { collection, addToCollection, removeFromCollection, removeAllFromCollection } = useCollection(); // Destructure removeAllFromCollection
   const [selectedCard, setSelectedCard] = useState(null);
 
   const openCardDetails = (card) => {
@@ -22,7 +22,12 @@ function App() {
     <div className="app-container">
       <h1>My Digital Pokémon Card Collection</h1>
       <PackOpening addToCollection={addToCollection} />
-      <CardGallery collection={collection} openCardDetails={openCardDetails} removeFromCollection={removeFromCollection} />
+      <CardGallery
+        collection={collection}
+        openCardDetails={openCardDetails}
+        removeFromCollection={removeFromCollection}
+        removeAllFromCollection={removeAllFromCollection} // Pass it as a prop
+      />
       {selectedCard && <CardDetails card={selectedCard} onClose={closeCardDetails} />}
     </div>
   );

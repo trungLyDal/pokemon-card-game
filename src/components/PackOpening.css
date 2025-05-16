@@ -1,9 +1,12 @@
 /* src/components/PackOpening.css */
 .pack-opening-container {
-  margin-bottom: 40px;
-  text-align: center;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  text-align: center; /* Example: Center button in pack opening */
 }
-
 .pack-opening-container h2 {
   color: #3a5ca3; /* Pokémon blue */
   margin-bottom: 20px;
@@ -20,6 +23,13 @@
   border-radius: 5px;
   margin-bottom: 25px;
   transition: background-color 0.3s ease;
+  outline: 2px solid #ffcb05; 
+  outline-offset: 2px;
+}
+
+.pack-opening-container button:focus {
+  outline: 3px solid #eeca03; /* Slightly stronger outline on focus for accessibility */
+  outline-offset: 2px;
 }
 
 .pack-opening-container button:hover:enabled {

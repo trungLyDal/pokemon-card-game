@@ -1,21 +1,44 @@
+@font-face {
+  font-family: 'Pokemon-Solid';
+  src: local('Pokemon-Solid'),
+       url('./assets/fonts/Pokemon Solid.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Pokemon-Hollow';
+  src: local('Pokemon-Hollow'),
+       url('./assets/fonts/Pokemon Hollow.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 body {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif; /* A more modern and readable font */
   margin: 0;
-  background-color: #f4f4f4;
+  background-color: #f0f2f5; /* A softer, lighter background */
   color: #333;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .app-container {
-  max-width: 1200px;
-  margin: 20px auto;
-  padding: 20px;
+  max-width: 960px; /* A slightly more focused width for content */
+  margin: 40px auto; /* Increased top/bottom margin for better spacing */
+  padding: 30px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px; /* More pronounced rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* A more noticeable but still subtle shadow */
 }
 
 h1 {
   text-align: center;
-  color: #e00; /* Pokémon red */
+  color: #272727;
   margin-bottom: 30px;
+  font-size: 2.5em;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  font-family: 'Pokemon-Hollow', sans-serif; /* Apply the hollow Pokémon font */
 }

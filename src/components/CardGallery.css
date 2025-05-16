@@ -79,8 +79,16 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* More pronounced shadow on hover */
 }
 
-.remove-button {
-  background-color: #e74c3c; /* More vibrant red */
+.card-actions {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  width: 80%;
+  margin-top: 5px;
+}
+
+.remove-button,
+.remove-all-button {
+  background-color: #e74c3c; /* Red color */
   color: white;
   border: none;
   padding: 8px 12px;
@@ -91,15 +99,42 @@
   cursor: pointer;
   border-radius: 5px;
   opacity: 0.9;
-  transition: opacity 0.2s ease-in-out;
-  width: 80%; /* Make the button a bit wider */
-  margin-top: 10px; /* Space from the image */
-  position: static; /* Override absolute positioning */
+  transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  width: 100%;
+  margin-top: 5px;
 }
 
-.remove-button:hover {
+.remove-everything-button {
+  background-color: #c0392b; /* Darker red */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  transition: background-color 0.3s ease;
+}
+
+.remove-everything-button:hover {
+  background-color: #a93226; /* Even darker red */
+}
+
+.remove-button:hover,
+.remove-all-button:hover {
   opacity: 1;
   background-color: #c0392b; /* Darker red on hover */
+}
+
+.remove-all-button {
+  background-color: #3498db; /* Blue color for "Remove All" */
+}
+
+.remove-all-button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
 }
 
 .card-item img {
@@ -124,4 +159,53 @@
 /* More pronounced glow for rare holos */
 .card-item.rare-holo {
   box-shadow: 0 0 15px rgba(255, 215, 0, 0.9);
+}
+
+/* Type-specific glows */
+.card-item.glow-grass {
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.7); /* Green */
+}
+
+.card-item.glow-fire {
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.7); /* Red */
+}
+
+.card-item.glow-water {
+  box-shadow: 0 0 15px rgba(0, 0, 255, 0.7); /* Blue */
+}
+
+.card-item.glow-lightning {
+  box-shadow: 0 0 15px rgba(255, 255, 0, 0.7); /* Yellow */
+}
+
+.card-item.glow-psychic {
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.7); /* Pink/Purple */
+}
+
+.card-item.glow-fighting {
+  box-shadow: 0 0 15px rgba(192, 192, 192, 0.7); /* Gray */
+}
+
+.card-item.glow-darkness {
+  box-shadow: 0 0 15px rgba(50, 50, 50, 0.7); /* Dark Gray/Black */
+}
+
+.card-item.glow-metal {
+  box-shadow: 0 0 15px rgba(169, 169, 169, 0.7); /* Silver */
+}
+
+.card-item.glow-fairy {
+  box-shadow: 0 0 15px rgba(255, 105, 180, 0.7); /* Hot Pink */
+}
+
+.card-item.glow-dragon {
+  box-shadow: 0 0 15px rgba(139, 0, 255, 0.7); /* Dark Violet */
+}
+
+.card-item.glow-colorless {
+  box-shadow: 0 0 15px rgba(200, 200, 200, 0.7); /* Light Gray */
+}
+
+.card-item.glow-poison {
+  box-shadow: 0 0 15px rgba(128, 0, 128, 0.7); /* Purple */
 }

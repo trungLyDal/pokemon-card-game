@@ -61,13 +61,6 @@ const PackOpening = ({ addToCollection }) => {
     setIsOpening(false);
   };
 
-  const handleAddToCollection = (cardToAdd) => {
-    addToCollection(cardToAdd);
-    setOpenedCards(prevOpenedCards =>
-      prevOpenedCards.filter(openedCard => openedCard.id !== cardToAdd.id)
-    );
-  };
-
   const handleAddAllToCollection = () => {
     openedCards.forEach(card => {
       addToCollection(card);
