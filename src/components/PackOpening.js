@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
@@ -12,6 +12,16 @@ const PackOpening = ({ addToCollection }) => {
   const [packClicked, setPackClicked] = useState(false);
   const [revealedCardIndex, setRevealedCardIndex] = useState(-1);
   const [packZoomed, setPackZoomed] = useState(false);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a small initial load time if needed, or remove the setTimeout
+    const timer = setTimeout(() => {
+      setIsInitialLoading(false);
+    }, 500); // Adjust the time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
@@ -90,10 +100,15 @@ const PackOpening = ({ addToCollection }) => {
     }
   }, [isModalOpen, packClicked]);
 
-  return (
+return (
     <div className="pack-opening-container">
       <h2>Open a Booster Pack</h2>
-      {!packClicked ? (
+      {isInitialLoading ? (
+        <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <LoadingSpinner />
+          <div style={{ color: '#555', marginLeft: '10px' }}>Loading...</div>
+        </div>
+      ) : !packClicked ? (
         <div
           className="booster-pack-container"
           onClick={handlePackClick}
@@ -155,7 +170,7 @@ const PackOpening = ({ addToCollection }) => {
             )}
           </div>
         </div>
-      ) : (
+      ) : ( 
         openedCards.length > 0 && (
           <>
             <div className="opened-cards">
