@@ -1,4 +1,12 @@
 /* src/components/CardGallery.css */
+@font-face {
+  font-family: 'Pokemon-Hollow';
+  src: local('Pokemon-Hollow'),
+       url('../assets/fonts/Pokemon Hollow.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .card-gallery-container {
   margin: 20px auto; /* Center the gallery with some top/bottom margin */
   max-width: 1200px; /* Limit the maximum width for better readability */
@@ -9,12 +17,13 @@
 }
 
 .card-gallery-container h2 {
-  color: #2c3e50; /* Darker, more professional blue */
+  color: #0e0e0e; /* Darker, more professional blue */
   margin-bottom: 25px;
   text-align: center;
-  font-size: 2em; /* Slightly larger heading */
+  font-size: 3em; /* Slightly larger heading */
   border-bottom: 2px solid #ddd; /* Light separator under the heading */
   padding-bottom: 10px;
+  font-family: 'Pokemon-Hollow', sans-serif; /* Apply the hollow Pokémon font */
 }
 
 .filter-section {

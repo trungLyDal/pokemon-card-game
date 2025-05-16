@@ -18,7 +18,6 @@
   letter-spacing: 0.05em; /* Add a little letter spacing for a modern feel */
 }
 
-/* ... other styles in your PackOpening.css ... */
 .pack-opening-container button {
   padding: 12px 24px;
   font-size: 18px;
@@ -124,8 +123,6 @@
   background-color: #0056b3;
 }
 
-/* PackOpening.css */
-
 .pack-opening-container {
   /* Existing styles */
   position: relative; /* For the modal overlay to be positioned correctly */
@@ -137,50 +134,61 @@
 .modal-overlay {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Darken the background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000; /* Ensure it's on top */
-  cursor: pointer; /* Indicate it's clickable for revealing */
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex; /* Enable flexbox for centering */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  z-index: 1000;
 }
 
 .modal-content {
-  position: relative;
-  background-color: #f0f0f0;
+  background-color: white; /* Or any other background for the modal content */
   padding: 20px;
-  border-radius: 8px; 
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-left: -160px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center; /* Center text within the modal */
+  position: relative; /* Needed for absolute positioning of cards within */
+  display: flex; /* Use flex to stack cards or arrange as needed */
+  flex-direction: column; /* Stack items vertically by default */
+  align-items: center; /* Center items horizontally within the modal */
 }
 
-
 .modal-card {
-  position: absolute;
-  width: 180px; /* Increased width */
-  height: 252px; /* Increased height (maintaining aspect ratio) */
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  opacity: 0;
+  transform: scale(0.5); /* Start smaller */
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, z-index 0s;
+  position: absolute; /* Position cards on top of each other */
+}
+
+.modal-card.active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 10; /* Ensure the active card is on top */
 }
 
 .modal-card img {
-  max-width: 95%; /* Adjust image size within the card */
-  max-height: 95%;
+  max-width: 20vw; 
+  max-height: 20vh;
+  object-fit: contain;
+  border-radius: 5px; 
+  margin-left: -25%
 }
 
-/* ... other styles ... */
-
-.modal-card.card-0 {
-  /* Initial top card style */
+.add-all-button {
+  /* Styles for the add all button */
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
 }
 
-/* Style for subsequent cards if needed */
+.add-all-button:hover {
+  background-color: #45a049;
+}

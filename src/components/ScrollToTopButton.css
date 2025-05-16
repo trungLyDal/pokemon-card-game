@@ -1,0 +1,42 @@
+/* src/components/ScrollToTopButton.css */
+.scroll-to-top-button {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background-color: white; /* Default background for the bottom half */
+  color: rgb(7, 7, 7);
+  border: solid 2px black;
+  border-radius: 50%;
+  padding: 15px;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Clip the pseudo-element */
+}
+
+.scroll-to-top-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: red;
+  z-index: -1; /* Place it behind the icon and text */
+}
+
+
+
+.arrow-up-icon {
+  width: 2em;
+  height: 2em;
+  stroke: #0a0a0a;
+}
+
+.scroll-to-top-button:hover .arrow-up-icon {
+  stroke: #0a0a0a;
+}

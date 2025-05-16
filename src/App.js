@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PackOpening from './components/PackOpening';
 import CardGallery from './components/CardGallery';
 import CardDetails from './components/CardDetails';
+import ScrollToTopButton from './components/ScrollToTopButton'; // Import the new component
 import './App.css';
 import useCollection from './hooks/useCollection';
 
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>My Digital Pokémon Card Collection</h1>
+      <h1>Digital Pokémon Card Collection</h1>
       <PackOpening addToCollection={addToCollection} />
       <CardGallery
         collection={collection}
@@ -29,6 +30,7 @@ function App() {
         removeAllFromCollection={removeAllFromCollection} // Pass it as a prop
       />
       {selectedCard && <CardDetails card={selectedCard} onClose={closeCardDetails} />}
+      <ScrollToTopButton /> {/* Render the ScrollToTopButton */}
     </div>
   );
 }
