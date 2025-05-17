@@ -195,11 +195,12 @@
 }
 
 .modal-card img {
-  max-width: 20vw; 
-  max-height: 20vh;
+  max-width: 25vw; 
+  max-height: 25vh;
+  margin-bottom: 40%;
   object-fit: contain;
   border-radius: 5px; 
-  margin-left: -25%
+  margin-left: -25%;
 }
 
 .add-all-button {
