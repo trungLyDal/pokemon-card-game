@@ -19,6 +19,9 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
     setFilteredCollection(filtered);
   }, [collection, filter]);
 
+  const totalCards = collection.length;
+  const totalCardsText = `Total Cards: ${totalCards}`;
+  
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
@@ -60,6 +63,7 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
       <button className="remove-everything-button" onClick={openRemoveAllConfirmation}>
         Remove Entire Collection
       </button>
+      <p>{totalCardsText} </p>
       <div className="filter-section">
         <label htmlFor="filter">Filter Cards:</label>
         <input
@@ -70,6 +74,12 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
           onChange={handleFilterChange}
           className="filter-input"
         />
+        {filter && ( 
+        <p id="filterNo">
+          {filteredCollection.length} {filteredCollection.length === 1 ? 'card' : 'cards'}
+        </p>
+      )}
+
       </div>
       <div className="card-grid">
         {filteredCollection.map(cardObj => {

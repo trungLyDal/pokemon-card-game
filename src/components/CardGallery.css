@@ -36,6 +36,10 @@
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
 }
 
+#filterNo{
+  margin: 10px;
+}
+
 .filter-section label {
   margin-right: 15px;
   font-weight: 600; /* Semi-bold font weight */
@@ -362,7 +366,6 @@
   }
 
   .card-actions {
-    flex-direction: row; /* Buttons in a row */
     width: 70%; /* Adjust width of the actions container */
     margin-top: 0;
     justify-content: flex-end; /* Align buttons to the right */
