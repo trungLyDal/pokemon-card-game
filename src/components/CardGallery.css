@@ -350,18 +350,15 @@
   }
 
   .card-item {
-    width: 100%; /* Each card takes full width */
     margin-bottom: 10px; /* Spacing between stacked cards */
     padding: 15px; /* Add some padding inside each card */
     flex-direction: row; /* Arrange image and actions in a row */
     align-items: center; /* Vertically align image and actions */
-    justify-content: space-between; /* Space out image and actions */
   }
 
   .card-item img {
-    max-width: 30%; /* Adjust image size within the row */
+    max-width: 40%; /* Adjust image size within the row */
     height: auto;
-    margin-right: 15px; /* Spacing between image and actions */
   }
 
   .card-actions {
@@ -369,19 +366,15 @@
     width: 70%; /* Adjust width of the actions container */
     margin-top: 0;
     justify-content: flex-end; /* Align buttons to the right */
-    align-items: center;
   }
 
   .remove-all-button {
-    padding: 8px;
     font-size: 0.8em; /* Smaller font for button */
     margin-top: 0;
-    margin-left: 10px; /* Spacing between buttons */
   }
 
   .remove-everything-button {
     width: 100%; /* Full width button */
-    padding: 10px 15px;
     font-size: 1em;
     margin-bottom: 10px;
   }
