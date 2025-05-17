@@ -24,17 +24,16 @@
   padding: 0;
   border-radius: 0;
   box-shadow: none;
-  max-width: 90%; 
-  max-height: 90%; 
-  overflow: hidden;
+  max-width: 95vw;
+  max-height: 95vh;
+  overflow: hidden; /* Changed from auto to hidden */
   position: relative;
   animation: zoomIn 0.3s ease-out forwards;
-  perspective: 1000px; /* Establish the 3D perspective */
+  perspective: 800px;
   display: flex;
   justify-content: center;
   align-items: center;
-  perspective: 800px; 
-  padding: 40px;
+  padding: 2vh;
 }
 
 @keyframes zoomIn {
@@ -42,12 +41,10 @@
   to { transform: scale(1); opacity: 1; }
 }
 
-
-
 .close-button {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 2vh;
+  right: 2vw;
   background: rgba(0, 0, 0, 0.5);
   border: none;
   font-size: 1.5em;
@@ -55,7 +52,7 @@
   color: white;
   z-index: 1001;
   border-radius: 5px;
-  padding: 5px 10px;
+  padding: 0.5vh 1vw;
   transition: opacity 0.2s ease-in-out;
 }
 
@@ -68,11 +65,14 @@
   height: auto;
   transition: transform 0.3s ease-out;
   transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-3d-image {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 80%;
+  max-height: 80%;
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
@@ -80,8 +80,74 @@
 }
 
 .card-details-modal:hover .card-3d-container {
-  transform: rotateY(10deg) rotateX(5deg); 
+  transform: rotateY(10deg) rotateX(5deg);
 }
 
-.card-details-modal:hover:active .card-3d-container { 
-  transform: rotateY(20deg) rotateX(-10deg) scale(1.05);}
+.card-details-modal:hover:active .card-3d-container {
+  transform: rotateY(20deg) rotateX(-10deg) scale(1.05);
+}
+
+/* Responsive styles for tablets (portrait and landscape) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .card-details-modal {
+    max-width: 90vw;
+    max-height: 90vh;
+    padding: 3vh;
+  }
+
+  .close-button {
+    top: 1.5vh;
+    right: 1.5vw;
+    font-size: 1.3em;
+    padding: 0.4vh 0.9vw;
+  }
+}
+
+/* Responsive styles for larger desktops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .card-details-modal {
+    max-width: 80vw;
+    max-height: 85vh;
+    padding: 4vh;
+  }
+
+  .close-button {
+    top: 2vh;
+    right: 2vw;
+    font-size: 1.6em;
+    padding: 0.6vh 1.2vw;
+  }
+}
+
+/* You can add even larger screen adjustments if needed */
+@media (min-width: 1441px) {
+  .card-details-modal {
+    max-width: 70vw;
+    max-height: 80vh;
+  }
+
+  .close-button {
+    top: 2.5vh;
+    right: 2.5vw;
+  }
+}
+
+/* Mobile specific adjustments (overriding defaults if needed) */
+@media (max-width: 600px) {
+  .card-details-modal {
+    max-width: 98vw;
+    max-height: 98vh;
+    padding: 1vh;
+  }
+
+  .close-button {
+    top: 1vh;
+    right: 1vw;
+    font-size: 1em;
+    padding: 0.2vh 0.6vw;
+  }
+
+  .card-3d-container {
+    transform: none !important;
+  }
+}

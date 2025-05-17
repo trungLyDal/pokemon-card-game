@@ -313,3 +313,371 @@
   stroke: #c0392b; /* Hover color */
 }
 
+@media (max-width: 600px) {
+  .card-gallery-container {
+    padding: 15px; /* Adjust padding for smaller screens */
+  }
+
+  .card-gallery-container h2 {
+    font-size: 2em; /* Smaller heading */
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+  }
+
+  .filter-section {
+    flex-direction: column; /* Stack label and input vertically */
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+
+  .filter-section label {
+    margin-right: 0;
+    margin-bottom: 5px;
+    font-size: 1em;
+  }
+
+  .filter-input {
+    width: 100%; /* Full width input */
+    padding: 10px;
+    font-size: 1em;
+  }
+
+  .card-grid {
+    display: flex;
+    flex-direction: column; /* Single column layout */
+    gap: 15px; /* Spacing between cards */
+    padding: 10px;
+  }
+
+  .card-item {
+    width: 100%; /* Each card takes full width */
+    margin-bottom: 10px; /* Spacing between stacked cards */
+    padding: 15px; /* Add some padding inside each card */
+    flex-direction: row; /* Arrange image and actions in a row */
+    align-items: center; /* Vertically align image and actions */
+    justify-content: space-between; /* Space out image and actions */
+  }
+
+  .card-item img {
+    max-width: 30%; /* Adjust image size within the row */
+    height: auto;
+    margin-right: 15px; /* Spacing between image and actions */
+  }
+
+  .card-actions {
+    flex-direction: row; /* Buttons in a row */
+    width: 70%; /* Adjust width of the actions container */
+    margin-top: 0;
+    justify-content: flex-end; /* Align buttons to the right */
+    align-items: center;
+  }
+
+  .remove-all-button {
+    padding: 8px;
+    font-size: 0.8em; /* Smaller font for button */
+    margin-top: 0;
+    margin-left: 10px; /* Spacing between buttons */
+  }
+
+  .remove-everything-button {
+    width: 100%; /* Full width button */
+    padding: 10px 15px;
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+
+  .card-count {
+    font-size: 0.8em;
+    top: 5px;
+    right: 5px;
+    padding: 3px 6px;
+  }
+}
+
+
+/* Responsive styles for tablets (portrait) */
+@media (min-width: 601px) and (max-width: 768px) {
+  .card-gallery-container {
+    padding: 15px;
+  }
+
+  .card-gallery-container h2 {
+    font-size: 2.2em;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+  }
+
+  .filter-section {
+    margin-bottom: 20px;
+    padding: 8px;
+  }
+
+  .filter-section label {
+    margin-right: 10px;
+    font-size: 0.9em;
+  }
+
+  .filter-input {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Adjust min-width for tablet */
+    gap: 15px;
+    padding: 10px;
+  }
+
+  .card-item {
+    padding: 10px;
+    flex-direction: column; /* Back to column for grid layout */
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-item img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 0; /* Reset mobile row layout margin */
+    margin-bottom: 5px; /* Add some space below the image */
+  }
+
+  .card-actions {
+    flex-direction: column; /* Back to column for grid layout */
+    width: 80%;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: stretch; /* Make buttons take full width of container */
+  }
+
+  .remove-all-button {
+    padding: 8px;
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-left: 0; /* Reset mobile row layout margin */
+  }
+
+  .remove-everything-button {
+    padding: 10px 15px;
+    font-size: 1em;
+    margin-bottom: 10px;
+  }
+
+  .card-count {
+    font-size: 0.8em;
+    top: 5px;
+    right: 5px;
+    padding: 3px 6px;
+  }
+}
+
+/* Responsive styles for tablets (landscape) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .card-gallery-container {
+    padding: 20px;
+  }
+
+  .card-gallery-container h2 {
+    font-size: 2.5em;
+    margin-bottom: 25px;
+    padding-bottom: 10px;
+  }
+
+  .filter-section {
+    margin-bottom: 25px;
+    padding: 10px;
+  }
+
+  .filter-section label {
+    margin-right: 15px;
+    font-size: 1em;
+  }
+
+  .filter-input {
+    padding: 10px;
+    font-size: 1em;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); /* Slightly wider columns in landscape */
+    gap: 20px;
+    padding: 15px;
+  }
+
+  .card-item {
+    padding: 10px;
+    flex-direction: column; /* Back to column for grid layout */
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-item img {
+    max-width: 100%;
+    height: auto;
+    margin-right: 0; /* Reset mobile row layout margin */
+    margin-bottom: 5px; /* Add some space below the image */
+  }
+
+  .card-actions {
+    flex-direction: column; /* Back to column for grid layout */
+    width: 80%;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: stretch; /* Make buttons take full width of container */
+  }
+
+  .remove-all-button {
+    padding: 8px;
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-left: 0; /* Reset mobile row layout margin */
+  }
+
+  .remove-everything-button {
+    padding: 10px 15px;
+    font-size: 1em;
+    margin-bottom: 15px;
+  }
+
+  .card-count {
+    font-size: 0.9em;
+    top: 8px;
+    right: 8px;
+    padding: 5px 8px;
+  }
+}
+
+/* Responsive styles for small to medium desktops */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .card-gallery-container {
+    padding: 25px;
+    max-width: 1400px; /* Slightly wider max-width */
+  }
+
+  .card-gallery-container h2 {
+    font-size: 2.8em;
+    margin-bottom: 30px;
+    padding-bottom: 12px;
+  }
+
+  .filter-section {
+    margin-bottom: 30px;
+    padding: 12px;
+  }
+
+  .filter-section label {
+    margin-right: 20px;
+    font-size: 1em;
+  }
+
+  .filter-input {
+    padding: 12px;
+    font-size: 1em;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Wider card columns */
+    gap: 25px;
+    padding: 20px;
+  }
+
+  .card-item {
+    padding: 12px;
+  }
+
+  .card-item img {
+    margin-bottom: 8px; /* Slightly more space below image */
+  }
+
+  .card-actions {
+    width: 75%;
+  }
+
+  .remove-all-button {
+    padding: 10px;
+    font-size: 1em;
+    margin-top: 8px;
+  }
+
+  .remove-everything-button {
+    padding: 12px 18px;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+  }
+
+  .card-count {
+    font-size: 1em;
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+  }
+}
+
+/* Responsive styles for larger desktops */
+@media (min-width: 1441px) {
+  .card-gallery-container {
+    max-width: 1600px; /* Even wider max-width */
+    padding: 30px;
+  }
+
+  .card-gallery-container h2 {
+    font-size: 3.2em;
+    margin-bottom: 35px;
+    padding-bottom: 15px;
+  }
+
+  .filter-section {
+    margin-bottom: 35px;
+    padding: 15px;
+  }
+
+  .filter-section label {
+    margin-right: 25px;
+    font-size: 1.1em;
+  }
+
+  .filter-input {
+    padding: 15px;
+    font-size: 1.1em;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Even wider card columns */
+    gap: 30px;
+    padding: 25px;
+  }
+
+  .card-item {
+    padding: 15px;
+  }
+
+  .card-item img {
+    margin-bottom: 10px;
+  }
+
+  .card-actions {
+    width: 70%;
+  }
+
+  .remove-all-button {
+    padding: 12px;
+    font-size: 1.1em;
+    margin-top: 10px;
+  }
+
+  .remove-everything-button {
+    padding: 15px 20px;
+    font-size: 1.2em;
+    margin-bottom: 25px;
+  }
+
+  .card-count {
+    font-size: 1.1em;
+    top: 12px;
+    right: 12px;
+    padding: 8px 12px;
+  }
+}

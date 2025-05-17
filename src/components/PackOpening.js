@@ -100,7 +100,7 @@ const PackOpening = ({ addToCollection }) => {
     }
   }, [isModalOpen, packClicked]);
 
-return (
+  return (
     <div className="pack-opening-container">
       <h2>Open a Booster Pack</h2>
       {isInitialLoading ? (
@@ -119,7 +119,6 @@ return (
             alignItems: 'center',
             margin: '3vh auto',
             width: '15vw',
-            maxWidth: '220px',
             height: 'auto',
           }}
         >
@@ -170,7 +169,7 @@ return (
             )}
           </div>
         </div>
-      ) : ( 
+      ) : (
         openedCards.length > 0 && (
           <>
             <div className="opened-cards">
