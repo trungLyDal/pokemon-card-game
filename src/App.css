@@ -26,10 +26,12 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
 }
 
 .app-container {
-  max-width: 960px; /* A slightly more focused width for content */
+  max-width: 70vw; /* A slightly more focused width for content */
   margin: 40px auto; /* Increased top/bottom margin for better spacing */
   padding: 30px;
   background-color: #f4f4f4;
