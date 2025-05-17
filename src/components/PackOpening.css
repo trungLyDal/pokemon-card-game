@@ -221,3 +221,19 @@
 }
 
 
+/* Responsive styles for tablet screens (typically 601px to 1024px width) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .pack-opening-container {
+    padding: 40px !important; /* Further increase padding for tablets */
+    margin-bottom: 50px !important; /* Further increase margin-bottom */
+  }
+  .booster-pack-container {
+    width: 80% !important; /* Slightly smaller than full width, centered */
+    height: auto !important;
+    margin-bottom: 30px !important; /* More space below the booster pack on tablet */
+  }
+  .booster-pack-container img {
+    min-width: 50vw !important; /* Increased minimum width for booster pack image on tablets */
+    object-fit: contain !important;
+  }
+}
