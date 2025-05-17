@@ -13,12 +13,14 @@ const PackOpening = ({ addToCollection }) => {
   const [revealedCardIndex, setRevealedCardIndex] = useState(-1);
   const [packZoomed, setPackZoomed] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isTearing, setIsTearing] = useState(false);
+  const [packHalves, setPackHalves] = useState(null);
+  const [isSplitting, setIsSplitting] = useState(false);
 
   useEffect(() => {
-    // Simulate a small initial load time if needed, or remove the setTimeout
     const timer = setTimeout(() => {
       setIsInitialLoading(false);
-    }, 500); // Adjust the time as needed
+    }, 500);
 
     return () => clearTimeout(timer);
   }, []);
@@ -68,12 +70,43 @@ const PackOpening = ({ addToCollection }) => {
   };
 
   const handlePackClick = () => {
-    if (!isOpening && !packClicked) {
+    if (!isOpening && !packClicked && !isSplitting) {
       setPackClicked(true);
+      setIsTearing(true);
       setPackZoomed(true);
-      setTimeout(() => {
-        openPack();
-      }, 300);
+      const packImageElement = document.querySelector('.booster-pack-container img');
+      if (packImageElement) {
+        const { offsetWidth, offsetHeight } = packImageElement;
+        setPackHalves({
+          top: {
+            backgroundImage: `url(${boosterPackImage})`,
+            backgroundPosition: 'top center',
+            width: offsetWidth,
+            height: offsetHeight * 0.2,
+            top: 0,
+            left: 0,
+          },
+          bottom: {
+            backgroundImage: `url(${boosterPackImage})`,
+            backgroundPosition: 'bottom center',
+            width: offsetWidth,
+            height: offsetHeight * 0.8,
+            top: offsetHeight * 0.2,
+            left: 0,
+          },
+        });
+        setTimeout(() => {
+          setIsTearing(false);
+          setIsSplitting(true);
+          document.querySelector('.booster-pack-container').classList.add('splitting');
+          setTimeout(() => {
+            setPackZoomed(false);
+            openPack();
+            document.querySelector('.booster-pack-container').classList.remove('splitting');
+            setPackHalves(null);
+          }, 800); // Duration of the split animation
+        }, 300); // Delay after initial click/zoom
+      }
     }
   };
 
@@ -91,12 +124,15 @@ const PackOpening = ({ addToCollection }) => {
     });
     setOpenedCards([]);
     setIsModalOpen(false);
+    setPackClicked(false); // Reset for next open
+    setIsSplitting(false); // Reset for next open
   };
 
   useEffect(() => {
     if (!isModalOpen && packClicked) {
       setPackClicked(false);
       setPackZoomed(false);
+      setIsSplitting(false); // Ensure splitting is also reset when modal closes without adding
     }
   }, [isModalOpen, packClicked]);
 
@@ -125,15 +161,21 @@ const PackOpening = ({ addToCollection }) => {
           <img
             src={boosterPackImage}
             alt="Booster Pack"
+            className={isTearing ? 'tearing' : ''}
             style={{
               width: '25vw',
               height: 'auto',
               transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
               transform: packZoomed ? 'scale(1.5)' : 'scale(1)',
               opacity: packClicked ? 0 : 1,
-              
             }}
           />
+          {packClicked && packHalves && (
+            <div className="booster-pack-split-container">
+              <div className="pack-half top" style={packHalves.top}></div>
+              <div className="pack-half bottom" style={packHalves.bottom}></div>
+            </div>
+          )}
         </div>
       ) : (
         <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: packClicked ? 0 : 1, transition: 'opacity 0.3s ease-in-out' }}>

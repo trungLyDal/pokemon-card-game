@@ -237,3 +237,74 @@
     object-fit: contain !important;
   }
 }
+
+.booster-pack-container {
+  position: relative;
+  z-index: 2;
+}
+
+.booster-pack-container img.tearing {
+  animation: tear-pack 0.3s ease-in-out forwards; /* Shorter tear */
+}
+
+@keyframes tear-pack {
+  0% {
+    transform: scale(1.5) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.53) rotate(2deg);
+  }
+  100% {
+    transform: scale(1.5) rotate(0deg);
+  }
+}
+
+.booster-pack-split-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transform: scale(1.5);
+}
+
+.pack-half {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: transform 0.5s ease-out; /* Transition for the movement */
+}
+
+.pack-half.top {
+  top: 0;
+  height: 20%; /* Top 1/5th */
+  background-position: top center;
+  transform: translateY(0); /* Starts at the top */
+}
+
+.pack-half.bottom {
+  top: 20%; /* Starts at the rip line */
+  height: 80%; /* Bottom 4/5th */
+  background-position: bottom center;
+  transform: translateY(0); /* Starts at the rip line */
+}
+
+.booster-pack-container.splitting .booster-pack-split-container .pack-half.top {
+  transform: translateY(-100%); /* Move upwards out of view */
+}
+
+.booster-pack-container.splitting .booster-pack-split-container .pack-half.bottom {
+  transform: translateY(0); /* Stays in place */
+}
+
+.booster-pack-container img {
+  opacity: 1;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.booster-pack-container.clicked img {
+  opacity: 0;
+}
