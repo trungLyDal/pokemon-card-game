@@ -71,12 +71,26 @@
 }
 
 .card-3d-image {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 90vw; /* Adjust as needed */
+  max-height: 90vh; /* Adjust as needed */
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   transform-style: preserve-3d;
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  .card-3d-image {
+    max-width: 85vw;
+    max-height: 85vh;
+  }
+}
+
+@media (min-width: 1025px) {
+  .card-3d-image {
+    max-width: 75vw;
+    max-height: 80vh;
+  }
 }
 
 .card-details-modal:hover .card-3d-container {
@@ -109,6 +123,7 @@
     max-width: 80vw;
     max-height: 85vh;
     padding: 4vh;
+    overflow: auto;
   }
 
   .close-button {

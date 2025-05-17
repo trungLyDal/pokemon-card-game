@@ -127,7 +127,6 @@ const PackOpening = ({ addToCollection }) => {
             alt="Booster Pack"
             style={{
               width: '100%',
-              maxWidth: '100%',
               height: 'auto',
               transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
               transform: packZoomed ? 'scale(1.5)' : 'scale(1)',
