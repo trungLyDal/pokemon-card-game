@@ -131,6 +131,7 @@ const PackOpening = ({ addToCollection }) => {
               transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
               transform: packZoomed ? 'scale(1.5)' : 'scale(1)',
               opacity: packClicked ? 0 : 1,
+              
             }}
           />
         </div>

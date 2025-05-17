@@ -11,26 +11,20 @@
 /* Responsive styles for mobile screens */
 @media (max-width: 600px) {
   .pack-opening-container {
-    padding: 30px; /* Increased padding significantly */
-    margin-bottom: 40px; /* Increased margin-bottom */
+    padding: 30px !important; /* Increased padding significantly */
+    margin-bottom: 40px !important; /* Increased margin-bottom */
+  }
+  .booster-pack-container {
+    width: 100% !important; /* Full width on mobile */
+    height: auto !important; /* Auto height to maintain aspect ratio */
+    margin-bottom: 20px !important; /* Space below the booster pack */
+  }
+  .booster-pack-container img {
+    min-width: 60vw !important; /* Minimum width for images */
+    object-fit: contain !important; /* Maintain aspect ratio */
   }
 }
 
-/* Responsive styles for tablets */
-@media (min-width: 601px) and (max-width: 1024px) {
-  .pack-opening-container {
-    padding: 25px; /* Slightly increased padding */
-    margin-bottom: 35px; /* Slightly increased margin-bottom */
-  }
-}
-
-/* Responsive styles for desktops */
-@media (min-width: 1025px) {
-  .pack-opening-container {
-    padding: 30px;
-    margin-bottom: 30px;
-  }
-}
 
 
 .pack-opening-container h2 {
@@ -220,168 +214,10 @@
 }
 
 @media (max-width: 600px) {
-  .pack-opening-container {
-    padding: 15px; /* Adjust padding for smaller screens */
-  }
-
-  .pack-opening-container h2 {
-    font-size: 1.5em; /* Smaller heading on mobile */
-    margin-bottom: 20px;
-  }
-
-  .pack-opening-container button {
-    font-size: 16px; /* Smaller button text */
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    width: 100%; /* Make button full width on mobile */
-  }
-
-  .opened-cards {
-    flex-direction: column; /* Stack cards vertically */
-    align-items: center; /* Center stacked cards */
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .opened-card {
-    width: 80vw; /* Use viewport width for card width on mobile */
-    height: auto; /* Maintain aspect ratio, so height auto */
-    max-height: 200px; /* Limit maximum height if needed */
-    margin: 10px 0; /* Vertical margin, remove horizontal */
-  }
-
-  .opened-card img {
-    max-width: 90%;
-    max-height: 90%;
-  }
-
-  .add-all-button {
-    font-size: 16px;
-    padding: 10px 20px;
-    margin-top: 20px;
-    width: 100%; /* Make button full width on mobile */
-  }
-
-  .modal-content {
-    padding: 10px;
-  }
-
+ 
   .modal-card img {
-    max-width: 80vw; /* Make image width responsive */
-    max-height: 60vh; /* Limit image height */
-    margin-left: 0;
+    max-width: 30vw; /* Make image width responsive */
   }
 }
 
-/* src/components/PackOpening.css */
-
-/* ... your existing CSS ... */
-
-/* Responsive styles for tablets (portrait) */
-@media (min-width: 601px) and (max-width: 768px) {
-  .pack-opening-container {
-    padding: 20px;
-  }
-
-  .pack-opening-container h2 {
-    font-size: 1.8em;
-    margin-bottom: 25px;
-  }
-
-  .pack-opening-container button {
-    font-size: 18px;
-    padding: 12px 24px;
-    margin-bottom: 25px;
-  }
-
-  .opened-cards {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center; /* Center cards in a row */
-    margin-top: 15px;
-    margin-bottom: 15px;
-  }
-
-  .opened-card {
-    width: 30vw; /* Use viewport width for card width */
-    height: auto;
-    max-height: 250px; /* Limit card height */
-    margin: 10px;
-  }
-
-  .opened-card img {
-    max-width: 90%;
-    max-height: 90%;
-  }
-
-  .add-all-button {
-    font-size: 18px;
-    padding: 12px 24px;
-    margin-top: 25px;
-  }
-
-  .modal-content {
-    padding: 15px;
-  }
-
-  .modal-card img {
-    max-width: 50vw;
-    max-height: 70vh;
-    margin-left: 0;
-  }
-}
-
-/* Responsive styles for tablets (landscape) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .pack-opening-container {
-    padding: 25px;
-  }
-
-  .pack-opening-container h2 {
-    font-size: 2em;
-    margin-bottom: 30px;
-  }
-
-  .pack-opening-container button {
-    font-size: 18px;
-    padding: 12px 24px;
-    margin-bottom: 30px;
-  }
-
-  .opened-cards {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-  .opened-card {
-    width: 25vw;
-    height: auto;
-    max-height: 300px;
-    margin: 15px;
-  }
-
-  .opened-card img {
-    max-width: 90%;
-    max-height: 90%;
-  }
-
-  .add-all-button {
-    font-size: 18px;
-    padding: 12px 24px;
-    margin-top: 30px;
-  }
-
-  .modal-content {
-    padding: 20px;
-  }
-
-  .modal-card img {
-    max-width: 40vw;
-    max-height: 80vh;
-    margin-left: 0;
-  }
-}
 
