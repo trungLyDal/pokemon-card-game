@@ -17,7 +17,7 @@ const PackOpening = ({ addToCollection }) => {
   const [packHalves, setPackHalves] = useState(null);
   const [isSplitting, setIsSplitting] = useState(false);
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
-
+  const [totalPackValue, setTotalPackValue] = useState(0); // New state for total value
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,13 +27,25 @@ const PackOpening = ({ addToCollection }) => {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleCardMouseEnter = (index) => {
-  setHoveredCardIndex(index);
-};
+  useEffect(() => {
+    // Calculate total value whenever openedCards changes and has data
+    if (openedCards.length > 0) {
+      const total = openedCards.reduce((sum, card) => {
+        return sum + (card?.cardmarket?.prices?.averageSellPrice || 0);
+      }, 0);
+      setTotalPackValue(total.toFixed(2)); // Store with 2 decimal places
+    } else {
+      setTotalPackValue(0); // Reset if no opened cards
+    }
+  }, [openedCards]);
 
-const handleCardMouseLeave = () => {
-  setHoveredCardIndex(null);
-};
+  const handleCardMouseEnter = (index) => {
+    setHoveredCardIndex(index);
+  };
+
+  const handleCardMouseLeave = () => {
+    setHoveredCardIndex(null);
+  };
 
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
@@ -193,6 +205,11 @@ const handleCardMouseLeave = () => {
         </div>
       )}
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
+      {openedCards.length > 0 && (
+        <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '1.1em' }}>
+          Estimated Pack Value (Avg): ${totalPackValue}
+        </p>
+      )}
       {error && <p className="error-message">{error}</p>}
 
       {isModalOpen ? (
@@ -227,17 +244,17 @@ const handleCardMouseLeave = () => {
             <div className="opened-cards">
               {openedCards.map((card, index) => (
                 <div key={card.id} className={`opened-card card-${index}`} style={{ animationDelay: `${index * 0.5}s` }}
-                 onMouseEnter={() => handleCardMouseEnter(index)}
+                  onMouseEnter={() => handleCardMouseEnter(index)}
                   onMouseLeave={handleCardMouseLeave} >
                   <img src={card.images.large} alt={card.name} />
                   {hoveredCardIndex === index && card?.cardmarket?.prices && (
-    <div className="card-info">
-      <p>Avg Price: ${card.cardmarket.prices.averageSellPrice}</p>
-      <p>Low Price: ${card.cardmarket.prices.lowPrice}</p>
-      <p>Trend Price: ${card.cardmarket.prices.trendPrice}</p>
-      <p>Updated At: {card?.cardmarket?.updatedAt}</p>
-    </div>
-  )}
+                    <div className="card-info">
+                      <p>Avg Price: ${card.cardmarket.prices.averageSellPrice}</p>
+                      <p>Low Price: ${card.cardmarket.prices.lowPrice}</p>
+                      <p>Trend Price: ${card.cardmarket.prices.trendPrice}</p>
+                      <p>Updated At: {card?.cardmarket?.updatedAt}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

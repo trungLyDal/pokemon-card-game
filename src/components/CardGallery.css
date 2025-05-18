@@ -677,3 +677,35 @@
     padding: 8px 12px;
   }
 }
+
+.hover-price-box {
+  position: absolute;
+  top: 5px; /* Adjust vertical position as needed */
+  left: 5px; /* Adjust horizontal position as needed */
+  background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+  color: white;
+  padding: 5px;
+  font-size: 0.8em;
+  border-radius: 5px;
+  z-index: 30; /* Ensure it's on top of other card elements */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.2s ease-in-out;
+}
+
+.card-item:hover .hover-price-box {
+  opacity: 1; /* Fade in on hover */
+}
+
+/* Ensure other elements like card-count and card-actions are also positioned correctly with z-index if needed */
+.card-count {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 0.7em;
+  z-index: 25; /* Ensure it's below or above the price box as desired */
+}
+
