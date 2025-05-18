@@ -206,7 +206,7 @@ const PackOpening = ({ addToCollection }) => {
             ))}
             {revealedCardIndex === openedCards.length - 1 && (
               <button className="add-all-button" onClick={handleAddAllToCollection}>
-                Add All to Collection
+                Register to Pokedex
               </button>
             )}
           </div>
@@ -223,7 +223,7 @@ const PackOpening = ({ addToCollection }) => {
             </div>
             <div>
               <button className="add-all-button" onClick={handleAddAllToCollection}>
-                Add All to Collection
+                Register to Pokedex
               </button>
             </div>
           </>
