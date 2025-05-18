@@ -8,6 +8,8 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
   const [cardToRemoveId, setCardToRemoveId] = useState(null);
   const [isRemoveAllModalOpen, setIsRemoveAllModalOpen] = useState(false);
+  const [hoveredCardId, setHoveredCardId] = useState(null);
+
 
   useEffect(() => {
     const filtered = collection.filter(cardObj =>
@@ -21,7 +23,14 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
 
   const totalCards = collection.length;
   const totalCardsText = `Total Cards: ${totalCards}`;
-  
+
+  const handleCardMouseEnter = (cardId) => {
+  setHoveredCardId(cardId);
+};
+
+const handleCardMouseLeave = () => {
+  setHoveredCardId(null);
+};
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   };
@@ -88,6 +97,10 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
     <div
       key={cardObj.id}
       className={`card-item ${glowClass} ${cardObj.rarity?.includes('Rare Holo') ? 'rare-holo' : ''}`}
+      onMouseEnter={() => handleCardMouseEnter(cardObj.id)} // Add this
+  onMouseLeave={handleCardMouseLeave}   // Add this
+  style={{ position: 'relative', overflow: 'hidden' }} // Ensure relative positioning
+
     >
       <img src={cardObj.images.small} alt={cardObj.name} onClick={() => openCardDetails(cardObj)} style={{ cursor: 'pointer' }} />
       {cardObj.count > 1 && <div className="card-count">{cardObj.count}</div>}

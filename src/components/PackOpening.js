@@ -16,6 +16,8 @@ const PackOpening = ({ addToCollection }) => {
   const [isTearing, setIsTearing] = useState(false);
   const [packHalves, setPackHalves] = useState(null);
   const [isSplitting, setIsSplitting] = useState(false);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -24,6 +26,14 @@ const PackOpening = ({ addToCollection }) => {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const handleCardMouseEnter = (index) => {
+  setHoveredCardIndex(index);
+};
+
+const handleCardMouseLeave = () => {
+  setHoveredCardIndex(null);
+};
 
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
@@ -216,8 +226,18 @@ const PackOpening = ({ addToCollection }) => {
           <>
             <div className="opened-cards">
               {openedCards.map((card, index) => (
-                <div key={card.id} className={`opened-card card-${index}`} style={{ animationDelay: `${index * 0.5}s` }}>
+                <div key={card.id} className={`opened-card card-${index}`} style={{ animationDelay: `${index * 0.5}s` }}
+                 onMouseEnter={() => handleCardMouseEnter(index)}
+                  onMouseLeave={handleCardMouseLeave} >
                   <img src={card.images.large} alt={card.name} />
+                  {hoveredCardIndex === index && card?.cardmarket?.prices && (
+    <div className="card-info">
+      <p>Avg Price: ${card.cardmarket.prices.averageSellPrice}</p>
+      <p>Low Price: ${card.cardmarket.prices.lowPrice}</p>
+      <p>Trend Price: ${card.cardmarket.prices.trendPrice}</p>
+      <p>Updated At: {card?.cardmarket?.updatedAt}</p>
+    </div>
+  )}
                 </div>
               ))}
             </div>

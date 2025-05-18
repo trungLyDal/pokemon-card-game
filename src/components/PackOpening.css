@@ -86,6 +86,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  overflow: hidden;
 }
 
 @keyframes fade-in {
@@ -220,7 +222,34 @@
   }
 }
 
+.opened-card .card-info {
+  position: absolute;
+  top: 0;
+  left: 0; /* Change from right to left alignment */
+  width: 100%; /* Make it cover the full width */
+  height: 100%; /* Make it cover the full height */
+  background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+  color: white;
+  padding: 10px; /* Increase padding for better coverage */
+  font-size: 1em; /* Adjust font size if needed */
+  border-radius: 5px; /* Apply border-radius to all corners */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease-in-out; /* Fade in on hover */
+  display: flex; /* Use flexbox for content alignment */
+  flex-direction: column; /* Stack the text vertically */
+  justify-content: center; /* Center content vertically */
+  align-items: flex-start; /* Align text to the left */
+  box-sizing: border-box; /* Include padding in width and height */
+  z-index: 10; /* Ensure it's on top */
+}
 
+.opened-card:hover .card-info {
+  opacity: 1; /* Fade in on hover */
+}
+
+.opened-card .card-info p {
+  margin: 8px 0; /* Adjust spacing between lines */
+}
 /* Responsive styles for tablet screens (typically 601px to 1024px width) */
 @media (min-width: 601px) and (max-width: 1024px) {
   .pack-opening-container {
