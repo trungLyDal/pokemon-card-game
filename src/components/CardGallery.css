@@ -67,8 +67,9 @@
   gap: 20px;
   padding: 15px;
   background-color: #fff; /* White background for the grid */
-  border-radius: 5px;
+  border-radius: 30px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  border: 3px solid black; /* Light border around the grid */
 }
 
 .card-item {
