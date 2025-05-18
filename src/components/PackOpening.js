@@ -40,7 +40,7 @@ const PackOpening = ({ addToCollection }) => {
     setIsOpening(true);
     setOpenedCards([]);
     setError(null);
-    const numberOfCardsInPack = 10;
+    const numberOfCardsInPack = 5;
     const drawnCardIds = new Set();
     const newOpenedCards = [];
 
