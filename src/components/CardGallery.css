@@ -798,3 +798,19 @@
     margin-bottom: 0; /* Remove bottom margin from last button */
   }
 }
+
+.pokemon-type-box.clickable {
+  cursor: pointer;
+}
+
+.price-link-least.clickable {
+  cursor: pointer;
+  color: rgb(232, 30, 7); 
+  text-decoration: underline; 
+}
+
+.price-link-most.clickable {
+  cursor: pointer;
+  color: rgb(12, 174, 53); 
+  text-decoration: underline; 
+}

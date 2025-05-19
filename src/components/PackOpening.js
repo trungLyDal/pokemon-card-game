@@ -279,7 +279,6 @@ const PackOpening = ({ addToCollection }) => {
                       <p><strong>Avg Price:</strong> ${card.cardmarket.prices.averageSellPrice}</p>
                       <p><strong>Low Price:</strong> ${card.cardmarket.prices.lowPrice}</p>
                       <p><strong>Trend Price:</strong> ${card.cardmarket.prices.trendPrice}</p>
-                      <p><strong>Updated:</strong> {card?.cardmarket?.updatedAt}</p>
                     </div>
                   )}
                 </div>
