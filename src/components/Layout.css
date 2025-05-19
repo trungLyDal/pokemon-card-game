@@ -21,7 +21,7 @@ html, body, #root {
 
 /* Header Styles */
 .main-app-layout-header {
-  background-color: #0e0e0f; /* Darker shade for header */
+  background-color: #0e0e0f47; /* Darker shade for header */
   color: white;
   padding: 1rem 1.5rem; /* Padding top/bottom, left/right */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
