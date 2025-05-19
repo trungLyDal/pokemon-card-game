@@ -43,3 +43,31 @@ A web application for managing and experiencing a digital Pokémon Trading Card 
     This will run the application in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ## Project Structure
+pokemon-card-collection/
+├── public/
+│   ├── index.html
+│   └── ... (other public assets)
+├── src/
+│   ├── App.js
+│   ├── App.css
+│   ├── index.js
+│   ├── components/
+│   │   ├── CardGallery.js
+│   │   ├── CardGallery.css
+│   │   ├── CardDetails.js
+│   │   ├── CardDetails.css
+│   │   ├── PackOpening.js
+│   │   ├── PackOpening.css
+│   │   ├── LoadingSpinner.js
+│   │   └── LoadingSpinner.css
+│   └── hooks/
+│       └── useCollection.js
+├── assets/
+│   ├── fonts/
+│   │   └── Pokemon Hollow.ttf
+│   └── images/
+│       └── binderBackground.jpg
+├── package.json
+├── package-lock.json
+├── README.md
+└── .gitignore
