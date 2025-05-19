@@ -168,10 +168,6 @@ const PackOpening = ({ addToCollection }) => {
     }
   }, [isModalOpen, packClicked]);
 
-    const openRemoveModal = (card) => {
-    setCardToRemove(card);
-    setIsRemoveModalOpen(true);
-  };
 
   const closeRemoveModal = () => {
     setIsRemoveModalOpen(false);
