@@ -372,10 +372,15 @@
   transform: translateY(0); /* Stays in place */
 }
 
-.booster-pack-container img {
+.booster-pack-container {
   opacity: 1;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
+
+.booster-pack-container:hover {
+  transform: translateY(-10px); /* Move the element up by 5 pixels on hover */
+}
+
 
 .booster-pack-container.clicked img {
   opacity: 0;
