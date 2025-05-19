@@ -206,7 +206,7 @@
 
 .modal-card.hidden {
   opacity: 0;
-  transform: translateX(-120%) scale(1);
+  transform: translateX(150%) scale(1);
   z-index: 0;
 }
 
