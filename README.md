@@ -43,3 +43,24 @@ A web application for managing and experiencing a digital Pokémon Trading Card 
     This will run the application in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 ## Project Structure
+**Explanation of Key Directories and Files:**
+
+- **`public/`:** Contains static assets served directly by the web server, including the main HTML file.
+- **`src/`:** Holds the main source code of the React application.
+    - **`App.js`:** The root component of the application.
+    - **`App.css`:** Global styles for the application.
+    - **`index.js`:** The entry point that renders the `App` component into the DOM.
+    - **`components/`:** Houses reusable UI components:
+        - `CardGallery`: Displays a grid or list of Pokémon cards.
+        - `CardDetails`: Shows detailed information for a selected card.
+        - `PackOpening`: Implements the virtual pack opening functionality.
+        - `LoadingSpinner`: A visual indicator for loading states.
+    - **`hooks/`:** Contains custom React hooks:
+        - `useCollection.js`: Manages the logic and state related to fetching and handling the Pokémon card collection data.
+- **`assets/`:** Stores static assets used by the application.
+    - **`fonts/`:** Contains custom font files, such as `Pokemon Hollow.ttf`.
+    - **`images/`:** Holds image assets, like `binderBackground.jpg`.
+- **`package.json`:** Contains metadata about the project, including dependencies and scripts.
+- **`package-lock.json`:** Records the exact versions of dependencies used in the project.
+- **`README.md`:** This file, providing an overview and instructions for the project.
+- **`.gitignore`:** Specifies files and directories that should be ignored by Git.
