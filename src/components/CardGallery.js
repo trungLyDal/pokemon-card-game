@@ -95,6 +95,22 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
     setIsRemoveAllModalOpen(false);
   };
 
+  const handleLeastValuablePriceClick = (event) => {
+    event.stopPropagation();
+    if (leastValuableCard){
+      const pokemonName = leastValuableCard.name;
+      const url = `https://pokemoncardprices.io/card-info/${pokemonName}`;
+      window.open(url, '_blank'); // Open in a new tab
+    }};
+
+  const handleMostValuablePriceClick = (event) => {
+    event.stopPropagation();
+    if (mostValuableCard){
+      const pokemonName = mostValuableCard.name;
+      const url = `https://pokemoncardprices.io/card-info/${pokemonName}`;
+      window.open(url, '_blank'); // Open in a new tab
+    }}
+
   return (
     <div className="card-gallery-container">
       <h2>My Collection</h2>
@@ -107,13 +123,24 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
           <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
         </p> ||
         {mostValuableCard && (
-          <p className="pokemon-type-box">
-            <strong>Most Valuable Card:</strong> {mostValuableCard.name} (${mostValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0})
+<p className="pokemon-type-box clickable" // Added 'clickable' class for styling
+            onClick={() => openCardDetails(mostValuableCard)} // Added onClick handler
+          >            
+            <strong>Most Valuable Card:</strong> {mostValuableCard.name} (<span
+              className="price-link-most clickable" // Style the price as clickable
+              onClick={handleMostValuablePriceClick} // Click on the price opens the link
+            >${mostValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}</span>) 
           </p>
         )} ||
         {leastValuableCard && (
-          <p className="pokemon-type-box">
-            <strong>Least Valuable Card:</strong> {leastValuableCard.name} (${leastValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0})
+          <p
+            className="pokemon-type-box clickable"
+            onClick={() => openCardDetails(leastValuableCard)} // Click on the whole paragraph opens details
+          >
+            <strong>Least Valuable Card:</strong> {leastValuableCard.name} (<span
+              className="price-link-least clickable" // Style the price as clickable
+              onClick={handleLeastValuablePriceClick} // Click on the price opens the link
+            >${leastValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}</span>)
           </p>
         )}
       </div>
