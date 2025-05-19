@@ -1,0 +1,248 @@
+/* src/components/Layout.css */
+
+/* Overall Layout Container */
+.main-app-layout-container {
+  display: flex;
+  flex-direction: column; /* Stack header, main, and footer vertically */
+  min-height: 100vh; /* Ensures the container always takes at least the full viewport height */
+  background-color: #1112123c; /* Dark background, matches your App.js assuming Tailwind-like colors */
+  color: #141515; /* Light text for contrast */
+}
+/* src/components/Layout.css */
+
+html, body, #root {
+  height: 100%; /* This is crucial! It makes sure your app container can actually take up the full viewport height. */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+/* Header Styles */
+.main-app-layout-header {
+  background-color: #0e0e0f; /* Darker shade for header */
+  color: white;
+  padding: 1rem 1.5rem; /* Padding top/bottom, left/right */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  position: sticky; /* Make header sticky */
+  top: 0;
+  z-index: 100; /* Ensure header stays on top */
+}
+
+.main-app-layout-header-content {
+  display: flex;
+  justify-content: space-between; /* Puts name left, menu right */
+  align-items: center; /* Vertically align items */
+  max-width: 1200px; /* Max width for content to keep it readable on large screens */
+  margin: 0 auto; /* Center the content within the max-width */
+  width: 100%; /* Ensure it takes full width up to max-width */
+}
+
+.main-app-layout-app-name {
+  font-size: 2rem; /* Larger font size for the app name */
+  font-weight: bold;
+  margin: 0; /* Remove default margin */
+}
+
+/* Navigation Links (Desktop Styles) */
+.main-app-layout-nav-links {
+  display: flex; /* Always flex for desktop */
+  list-style: none; /* Remove bullet points if using ul/li */
+  margin: 0;
+  padding: 0;
+  gap: 1.5rem; /* Space between links */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* For mobile menu transition */
+}
+
+.main-app-layout-nav-links a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 0.5rem 0; /* Vertical padding for hover area */
+  position: relative; /* For underline effect */
+}
+
+.main-app-layout-nav-links a:hover {
+  color: #a0aec0; /* Slightly lighter color on hover */
+}
+
+/* Simple underline hover effect for desktop links */
+.main-app-layout-nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: white;
+  transition: width 0.3s ease-out;
+}
+
+.main-app-layout-nav-links a:hover::after {
+  width: 100%;
+}
+
+
+/* Hamburger Menu Button (Hidden on Desktop) */
+.main-app-layout-hamburger-menu {
+  display: none; /* Hidden by default on desktop */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 30px; /* Width of the hamburger icon */
+  height: 24px; /* Height of the hamburger icon */
+  position: relative;
+  z-index: 1001; /* Ensure hamburger is above mobile menu and overlay */
+  outline: none; /* Remove outline on focus if desired */
+}
+
+/* Hamburger bars */
+.main-app-layout-hamburger-bar {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease; /* Smooth transition for bars */
+}
+
+.main-app-layout-hamburger-menu .main-app-layout-hamburger-bar:nth-child(1) { top: 0; }
+.main-app-layout-hamburger-menu .main-app-layout-hamburger-bar:nth-child(2) { top: 50%; transform: translateY(-50%); }
+.main-app-layout-hamburger-menu .main-app-layout-hamburger-bar:nth-child(3) { bottom: 0; }
+
+/* Hamburger 'X' animation when open */
+.main-app-layout-hamburger-menu.open .main-app-layout-hamburger-bar:nth-child(1) {
+  transform: translateY(10.5px) rotate(45deg); /* Move to center and rotate */
+}
+.main-app-layout-hamburger-menu.open .main-app-layout-hamburger-bar:nth-child(2) {
+  opacity: 0; /* Hide middle bar */
+}
+.main-app-layout-hamburger-menu.open .main-app-layout-hamburger-bar:nth-child(3) {
+  transform: translateY(-10.5px) rotate(-45deg); /* Move to center and rotate */
+}
+
+/* Main Content Area */
+.main-app-layout-main {
+  flex-grow: 1; /* Allows the main content to take up all available vertical space */
+  padding: 2rem 1.5rem; /* Padding around the main content */
+  max-width: 1200px; /* Max width for content to keep it readable on large screens */
+  margin: 0 auto; /* Center the content within the max-width */
+  width: 100%; /* Ensure it takes full width up to max-width */
+  box-sizing: border-box; /* Important for padding not to cause overflow */
+}
+
+/* Footer Styles */
+.main-app-layout-footer {
+  background-color: #2d3748; /* Same background as header for consistency */
+  color: #cbd5e0; /* Slightly lighter text for footer */
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-size: 0.9rem; /* Smaller font size for footer text */
+  margin-top: auto; /* Pushes the footer to the bottom if content is short */
+}
+.main-app-layout-logo {
+  height: 9vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
+  width: auto; /* This is crucial: maintains the logo's original aspect ratio */
+  display: block; /* Ensures proper rendering and alignment of the image */
+  margin-right: 1.5rem;
+}
+/* Overlay for Mobile Menu */
+.main-app-layout-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black overlay */
+  z-index: 999; /* Below hamburger, above main content */
+  display: block; /* Always block when rendered */
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+/* --- Responsiveness (Media Queries) --- */
+
+/* Adjustments for screens up to 768px (tablets and small desktops) */
+@media (max-width: 768px) {
+  .main-app-layout-app-name {
+    font-size: 1.75rem; /* Slightly smaller app name */
+  }
+
+  /* Show hamburger menu */
+  .main-app-layout-hamburger-menu {
+    display: block;
+  }
+
+  /* Navigation Links (Mobile Styles - Hidden by default, slides in) */
+  .main-app-layout-nav-links {
+    position: fixed; /* Fixed position relative to viewport */
+    top: 0;
+    right: -250px; /* Start off-screen (width of menu) */
+    width: 250px; /* Fixed width for the mobile menu */
+    height: 100vh; /* Full viewport height */
+    background-color: #2d3748; /* Same as header/footer for consistency */
+    flex-direction: column; /* Stack links vertically */
+    padding-top: 5rem; /* Space from top to avoid header overlap */
+    align-items: flex-start; /* Align links to the left within the menu */
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.4); /* Shadow for menu depth */
+    z-index: 1000; /* Below hamburger, above overlay */
+    transition: right 0.3s ease-in-out; /* Smooth slide transition */
+  }
+
+  .main-app-layout-nav-links.open {
+    right: 0; /* Slide in when open */
+  }
+
+  .main-app-layout-nav-links a {
+    width: 100%; /* Make links take full width for easier tapping */
+    padding: 1rem 1.5rem; /* Increase padding for better touch targets */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Separator lines between links */
+  }
+
+  .main-app-layout-nav-links a:last-child {
+    border-bottom: none; /* No border on the last link */
+  }
+
+  /* Remove desktop hover underline for mobile links */
+  .main-app-layout-nav-links a::after {
+    display: none;
+  }
+
+  .main-app-layout-main {
+    padding: 1.5rem 1rem; /* Reduce main content padding for smaller screens */
+  }
+
+  .main-app-layout-footer {
+    font-size: 0.85rem; /* Slightly smaller footer text */
+  }
+}
+
+/* Adjustments for very small screens (e.g., mobile phones) */
+@media (max-width: 480px) {
+  .main-app-layout-header {
+    padding: 0.75rem 1rem; /* More compact header padding */
+  }
+
+  .main-app-layout-app-name {
+    font-size: 1.5rem; /* Even smaller app name */
+  }
+
+  .main-app-layout-main {
+    padding: 1rem 0.75rem; /* Even less main content padding */
+  }
+
+  .main-app-layout-footer {
+    padding: 0.75rem 1rem;
+    font-size: 0.8rem; /* Smallest footer text */
+  }
+
+  /* Make mobile menu smaller if needed for very narrow screens */
+  .main-app-layout-nav-links {
+    width: 200px; /* Adjust width for very small screens */
+    right: -200px;
+  }
+}
