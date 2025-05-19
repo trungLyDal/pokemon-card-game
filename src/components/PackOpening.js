@@ -18,6 +18,8 @@ const PackOpening = ({ addToCollection }) => {
   const [isSplitting, setIsSplitting] = useState(false);
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
   const [totalPackValue, setTotalPackValue] = useState(0);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false); // State for remove confirmation
+  const [cardToRemove, setCardToRemove] = useState(null); // State to store the card to remove
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -58,6 +60,11 @@ const PackOpening = ({ addToCollection }) => {
   };
 
   const openPack = async () => {
+    if (openedCards.length > 0 && !isModalOpen) {
+      setError("You must add the current cards to your collection before opening another pack!");
+      return;
+    }
+
     setIsOpening(true);
     setOpenedCards([]);
     setError(null);
@@ -91,6 +98,10 @@ const PackOpening = ({ addToCollection }) => {
   };
 
   const handlePackClick = () => {
+    if (openedCards.length > 0 && !isModalOpen) {
+      setError("You must add the current cards to your collection before opening another pack!");
+      return;
+    }
     if (!isOpening && !packClicked && !isSplitting) {
       setPackClicked(true);
       setIsTearing(true);
@@ -157,6 +168,25 @@ const PackOpening = ({ addToCollection }) => {
     }
   }, [isModalOpen, packClicked]);
 
+    const openRemoveModal = (card) => {
+    setCardToRemove(card);
+    setIsRemoveModalOpen(true);
+  };
+
+  const closeRemoveModal = () => {
+    setIsRemoveModalOpen(false);
+    setCardToRemove(null);
+  };
+
+  const confirmRemoveCard = () => {
+    if (cardToRemove) {
+      // Remove the card from the openedCards array
+      setOpenedCards(prevCards => prevCards.filter(c => c.id !== cardToRemove.id));
+    }
+    setIsRemoveModalOpen(false); // Close the modal
+    setCardToRemove(null); // Reset the card to remove
+  };
+
   return (
     <div className="pack-opening-container">
       <h2>Open a Booster Pack</h2>
@@ -205,7 +235,7 @@ const PackOpening = ({ addToCollection }) => {
       )}
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
       {openedCards.length > 0 && (
-        <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '1.1em' }}>
+        <p className="pack-value-text">
           Estimated Pack Value (Avg): ${totalPackValue}
         </p>
       )}
@@ -245,14 +275,15 @@ const PackOpening = ({ addToCollection }) => {
               {openedCards.map((card, index) => (
                 <div key={card.id} className={`opened-card card-${index}`}
                   onMouseEnter={() => handleCardMouseEnter(index)}
-                  onMouseLeave={handleCardMouseLeave} >
+                  onMouseLeave={handleCardMouseLeave}
+                  >
                   <img src={card.images.large} alt={card.name} />
                   {hoveredCardIndex === index && card?.cardmarket?.prices && (
                     <div className="card-info">
-                      <p>Avg Price: ${card.cardmarket.prices.averageSellPrice}</p>
-                      <p>Low Price: ${card.cardmarket.prices.lowPrice}</p>
-                      <p>Trend Price: ${card.cardmarket.prices.trendPrice}</p>
-                      <p>Updated At: {card?.cardmarket?.updatedAt}</p>
+                      <p><strong>Avg Price:</strong> ${card.cardmarket.prices.averageSellPrice}</p>
+                      <p><strong>Low Price:</strong> ${card.cardmarket.prices.lowPrice}</p>
+                      <p><strong>Trend Price:</strong> ${card.cardmarket.prices.trendPrice}</p>
+                      <p><strong>Updated:</strong> {card?.cardmarket?.updatedAt}</p>
                     </div>
                   )}
                 </div>
@@ -265,6 +296,19 @@ const PackOpening = ({ addToCollection }) => {
             </div>
           </>
         )
+      )}
+      {/* Remove Card Confirmation Modal */}
+      {isRemoveModalOpen && (
+        <div className="modal-overlay-confirmation">
+          <div className="modal-content-confirmation">
+            <h3>Confirm Removal</h3>
+            <p>Are you sure you want to remove this card from your collection?</p>
+            <div className="modal-actions">
+              <button className="confirm-button" onClick={confirmRemoveCard}>Yes, Remove</button>
+              <button className="cancel-button" onClick={closeRemoveModal}>No, Cancel</button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
