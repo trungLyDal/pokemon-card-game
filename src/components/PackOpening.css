@@ -145,7 +145,6 @@
 }
 
 .pack-opening-container {
-  /* Existing styles */
   position: relative; /* For the modal overlay to be positioned correctly */
    display: flex; /* To potentially align button below cards */
   flex-direction: column; /* Stack elements vertically */
@@ -155,7 +154,7 @@
 .modal-overlay {
   position: fixed;
   top: 0;
-  left: 50%;
+  left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
@@ -166,41 +165,76 @@
 }
 
 .modal-content {
-  background-color: white; /* Or any other background for the modal content */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  text-align: center; /* Center text within the modal */
-  position: relative; /* Needed for absolute positioning of cards within */
-  display: flex; /* Use flex to stack cards or arrange as needed */
-  flex-direction: column; /* Stack items vertically by default */
-  align-items: center; /* Center items horizontally within the modal */
+  /* Existing styles */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent; /* Make the background transparent */
+  padding: 0; /* Remove padding */
+  border-radius: 0; /* Remove border radius */
+  box-shadow: none; /* Remove shadow */
+  text-align: center;
+  position: relative;
+  height: 0;
 }
 
 .modal-card {
   opacity: 0;
-  transform: scale(0.5); /* Start smaller */
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, z-index 0s;
-  position: absolute; /* Position cards on top of each other */
+  transform: scale(1);
+  transition: opacity 0.4s ease-in-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0s 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.modal-card.active {
+.modal-card.revealed {
   opacity: 1;
-  transform: scale(1);
-  z-index: 10; /* Ensure the active card is on top */
+  transform: translate(-50%, -50%) scale(3);
+  z-index: 10;
 }
+
+.modal-card.hidden {
+  opacity: 0;
+  transform: translateX(-120%) scale(1);
+  z-index: 0;
+}
+
+/* Added for card reveal animation */
+.card-enter {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.card-enter-active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition: opacity 0.4s ease-in-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.card-exit {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.card-exit-active {
+  opacity: 0;
+  transform: translateX(-120%) scale(1);
+  transition: opacity 0.4s ease-in-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 
 .modal-card img {
   max-width: 25vw; 
   max-height: 25vh;
-  margin-bottom: 40%;
   object-fit: contain;
   border-radius: 5px; 
-  margin-left: -25%;
+  margin-left: 0;
+  cursor: pointer;
 }
 
 .add-all-button {
-  /* Styles for the add all button */
   margin-top: 20px;
   padding: 10px 20px;
   background-color: #4CAF50;

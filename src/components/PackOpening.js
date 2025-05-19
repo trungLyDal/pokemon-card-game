@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
@@ -17,7 +17,7 @@ const PackOpening = ({ addToCollection }) => {
   const [packHalves, setPackHalves] = useState(null);
   const [isSplitting, setIsSplitting] = useState(false);
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
-  const [totalPackValue, setTotalPackValue] = useState(0); // New state for total value
+  const [totalPackValue, setTotalPackValue] = useState(0);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -28,14 +28,13 @@ const PackOpening = ({ addToCollection }) => {
   }, []);
 
   useEffect(() => {
-    // Calculate total value whenever openedCards changes and has data
     if (openedCards.length > 0) {
       const total = openedCards.reduce((sum, card) => {
         return sum + (card?.cardmarket?.prices?.averageSellPrice || 0);
       }, 0);
-      setTotalPackValue(total.toFixed(2)); // Store with 2 decimal places
+      setTotalPackValue(total.toFixed(2));
     } else {
-      setTotalPackValue(0); // Reset if no opened cards
+      setTotalPackValue(0);
     }
   }, [openedCards]);
 
@@ -126,8 +125,8 @@ const PackOpening = ({ addToCollection }) => {
             openPack();
             document.querySelector('.booster-pack-container').classList.remove('splitting');
             setPackHalves(null);
-          }, 800); // Duration of the split animation
-        }, 300); // Delay after initial click/zoom
+          }, 800);
+        }, 300);
       }
     }
   };
@@ -146,15 +145,15 @@ const PackOpening = ({ addToCollection }) => {
     });
     setOpenedCards([]);
     setIsModalOpen(false);
-    setPackClicked(false); // Reset for next open
-    setIsSplitting(false); // Reset for next open
+    setPackClicked(false);
+    setIsSplitting(false);
   };
 
   useEffect(() => {
     if (!isModalOpen && packClicked) {
       setPackClicked(false);
       setPackZoomed(false);
-      setIsSplitting(false); // Ensure splitting is also reset when modal closes without adding
+      setIsSplitting(false);
     }
   }, [isModalOpen, packClicked]);
 
@@ -215,22 +214,23 @@ const PackOpening = ({ addToCollection }) => {
       {isModalOpen ? (
         <div className="modal-overlay" onClick={handleModalClick}>
           <div className="modal-content">
-            {openedCards.map((card, index) => (
-              <div
-                key={card.id}
-                className={`modal-card card-${index}`}
-                style={{
-                  zIndex: index === revealedCardIndex ? openedCards.length : openedCards.length - 1 - index,
-                  top: `${index * 5}%`,
-                  left: `${index * 5}%`,
-                  opacity: index < revealedCardIndex ? 0 : 1,
-                  transform: index === revealedCardIndex ? 'translate(0, 0) scale(3)' : (index < revealedCardIndex ? 'translateX(-120%) scale(1)' : 'translate(10px, 10px) scale(1)'),
-                  transition: 'opacity 0.4s ease-in-out, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), z-index 0s 0.5s'
-                }}
-              >
-                <img src={card.images.large} alt={card.name} />
-              </div>
-            ))}
+            {openedCards.map((card, index) => {
+              let cardClass = 'modal-card';
+              if (index < revealedCardIndex) {
+                cardClass += ' hidden';
+              } else if (index === revealedCardIndex) {
+                cardClass += ' revealed';
+              }
+              return (
+                <div
+                  key={card.id}
+                  className={cardClass}
+
+                >
+                  <img src={card.images.large} alt={card.name} />
+                </div>
+              );
+            })}
             {revealedCardIndex === openedCards.length - 1 && (
               <button className="add-all-button" onClick={handleAddAllToCollection}>
                 Register to Pokedex
@@ -243,7 +243,7 @@ const PackOpening = ({ addToCollection }) => {
           <>
             <div className="opened-cards">
               {openedCards.map((card, index) => (
-                <div key={card.id} className={`opened-card card-${index}`} style={{ animationDelay: `${index * 0.5}s` }}
+                <div key={card.id} className={`opened-card card-${index}`}
                   onMouseEnter={() => handleCardMouseEnter(index)}
                   onMouseLeave={handleCardMouseLeave} >
                   <img src={card.images.large} alt={card.name} />
