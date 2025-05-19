@@ -15,7 +15,8 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
       cardObj.name.toLowerCase().includes(filter.toLowerCase()) ||
       (cardObj.types && cardObj.types.some(type => type.toLowerCase().includes(filter.toLowerCase()))) ||
       (cardObj.rarity && cardObj.rarity.toLowerCase().includes(filter.toLowerCase())) ||
-      (cardObj.set && cardObj.set.name.toLowerCase().includes(filter.toLowerCase()))
+      (cardObj.set && cardObj.set.name.toLowerCase().includes(filter.toLowerCase())) || 
+      (cardObj.cardmarket && cardObj.cardmarket.prices && cardObj.cardmarket.prices.averageSellPrice.toString().includes(filter))
     );
     setFilteredCollection(filtered);
   }, [collection, filter]);
@@ -80,16 +81,18 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
       <button className="remove-everything-button" onClick={openRemoveAllConfirmation}>
         Remove Entire Collection
       </button>
-      <p>{totalCardsText} </p>
-      <p style={{ textAlign: 'center', marginTop: '10px', fontSize: '1.1em' }}>
-        **Total Collection Value (Avg): ${totalCollectionValue}**
-      </p>
+      <div className="collection-info">
+         <p className="pokemon-type-box">{totalCardsText} </p> || 
+          <p className="pokemon-type-box">
+        Total Collection Value (Avg): ${totalCollectionValue}
+        </p>
+      </div>
       <div className="filter-section">
         <label htmlFor="filter">Filter Cards:</label>
         <input
           type="text"
           id="filter"
-          placeholder="Name, Type, Rarity, Set..."
+          placeholder="Name, Type, Rarity, Set, Prices..."
           value={filter}
           onChange={handleFilterChange}
           className="filter-input"
