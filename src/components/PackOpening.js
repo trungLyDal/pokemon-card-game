@@ -151,13 +151,26 @@ const PackOpening = ({ addToCollection }) => {
   };
 
   const handleAddAllToCollection = () => {
-    openedCards.forEach(card => {
-      addToCollection(card);
+    // Animate cards
+    const cards = document.querySelectorAll('.opened-card, .modal-card');
+    cards.forEach((card, idx) => {
+      setTimeout(() => {
+        card.classList.add('collecting');
+      }, idx * 80); // Stagger for effect
     });
-    setOpenedCards([]);
-    setIsModalOpen(false);
-    setPackClicked(false);
-    setIsSplitting(false);
+
+    // Animate button
+    const button = document.querySelector('.add-all-button');
+    if (button) button.classList.add('collecting');
+
+    // Wait for animation, then clear
+    setTimeout(() => {
+      openedCards.forEach(card => addToCollection(card));
+      setOpenedCards([]);
+      setIsModalOpen(false);
+      setPackClicked(false);
+      setIsSplitting(false);
+    }, (cards.length * 80) + 700); // Wait for all cards + animation duration
   };
 
   useEffect(() => {

@@ -62,7 +62,7 @@ function Layout({ children }) {
         <div className="main-app-layout-footer-contact-info">
           <h3>Contact Us</h3>
           <p>
-            Email: <a href="mailto:giatrung59@gmail.com">giatrung59@gmail.com</a>
+            <strong>Email:</strong> <a href="mailto:giatrung59@gmail.com">giatrung59@gmail.com</a>
           </p>
           <p>
             Halifax, Nova Scotia, Canada
