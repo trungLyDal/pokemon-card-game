@@ -30,6 +30,10 @@ html, body, #root {
   z-index: 100; /* Ensure header stays on top */
 }
 
+.main-app-layout-footer-contact-info a {
+  color: #cbd5e0; /* Light color for footer links */
+}
+
 .main-app-layout-header-content {
   display: flex;
   justify-content: space-between; /* Puts name left, menu right */

@@ -124,8 +124,8 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
         </p> ||
         {mostValuableCard && (
 <p className="pokemon-type-box clickable" // Added 'clickable' class for styling
-            onClick={() => openCardDetails(mostValuableCard)} // Added onClick handler
-          >            
+onClick={() => openCardDetails(mostValuableCard)} // Added onClick handler
+ >            
             <strong>Most Valuable Card:</strong> {mostValuableCard.name} (<span
               className="price-link-most clickable" // Style the price as clickable
               onClick={handleMostValuablePriceClick} // Click on the price opens the link

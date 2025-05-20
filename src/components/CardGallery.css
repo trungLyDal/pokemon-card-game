@@ -80,8 +80,8 @@
 }
 
 .card-item {
-  background-color: #fff; /* White card background */
-  border: 1px solid #eee; /* Very light border */
+  background-color: #a78b8b; /* White card background */
+  border: 2px solid #ede4e4; /* Very light border */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* More noticeable shadow */
   cursor: pointer;
