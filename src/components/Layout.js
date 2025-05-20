@@ -1,10 +1,24 @@
 // src/components/Layout.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import ScrollToTopButton from './ScrollToTopButton';
 import './Layout.css';
 import AppLogo from '../assets/images/Pokémon_TCG_logo.png'; // Adjust the path as necessary
 
 function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showScroll, setShowScroll] = useState(false);
+
+  useEffect(() => {
+    const checkScrollTop = () => {
+      const scrolled = window.scrollY;
+      setShowScroll(scrolled > 100); // Lower threshold for better UX
+    };
+
+    window.addEventListener('scroll', checkScrollTop);
+    checkScrollTop(); // Check initial position
+    
+    return () => window.removeEventListener('scroll', checkScrollTop);
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -17,10 +31,10 @@ function Layout({ children }) {
 
  const handleLogoClick = () => {
   window.history.pushState("", document.title, window.location.pathname + window.location.search);
-document.querySelector('.main-app-layout-container').scrollTo({
-  top: 0,
-  behavior: 'smooth'
-});
+  document.querySelector('.main-app-layout-container').scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
 };
 
 
@@ -66,14 +80,11 @@ document.querySelector('.main-app-layout-container').scrollTo({
         </div>
       </header>
 
-      {isMenuOpen && (
-        <div className="main-app-layout-menu-overlay" onClick={toggleMenu}></div>
-      )}
-
-      {/* Move .app-container here */}
       <main className="main-app-layout-main">
         {children}
       </main>
+
+      {showScroll && <ScrollToTopButton />}
 
       {/* Footer with integrated Contact Us information */}
       <footer className="main-app-layout-footer" id="footer">
