@@ -1,4 +1,12 @@
 /* src/components/PackOpening.css */
+
+@font-face {
+  font-family: 'Pokemon';
+  src: local('Pokemon'),
+       url('../assets/fonts/Heavitas.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 .pack-opening-container {
   /*background-image: url('../assets/images/21007.webp');*/
   background-size: cover;
@@ -34,17 +42,11 @@
 
 /* Update text colors for better contrast */
 .pack-opening-container h2 {
-  color: #a11c1c;
   text-shadow: 1px 1px 2px rgba(48, 44, 44, 0.939);
-  border-style: solid;
-  background-color: #f8f5f5;
   margin-top: 10vh;
+  font-family: Pokemon, sans-serif; /* Use the custom font */
 }
 
-.pack-value-text {
-  color: #333;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
-}
 
 /* Responsive styles for mobile screens */
 @media (max-width: 600px) {
@@ -66,10 +68,10 @@
 
 
 .pack-opening-container h2 {
-  font-family: 'Montserrat', sans-serif; /* Apply the Montserrat font */
+  font-family: 'Pokemon', sans-serif; /* Apply the Montserrat font */
   font-weight: 600; /* Use semibold for emphasis */
-  font-size: 2em; /* Adjust the size as needed */
-  color: #333; /* A dark gray color for readability */
+  font-size: 3vw; /* Adjust the size as needed */
+  color: #000000; /* A dark gray color for readability */
   text-align: center; /* Center the heading */
   margin-bottom: 1em; /* Add some space below the heading */
   letter-spacing: 0.05em; /* Add a little letter spacing for a modern feel */

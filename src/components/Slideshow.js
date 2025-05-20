@@ -5,27 +5,35 @@ import examplePhoto from '../assets/images/slideshow1.png';
 import examplePhoto2 from '../assets/images/booster-art-4-large-up.jpg';
 import examplePhoto3 from '../assets/images/backgroundPhotoPokemon.png';
 import examplePhoto4 from '../assets/images/cynthia_chomp.jpg';
+import frontalPhoto from '../assets/images/scarlet_logo.png';
+import frontalPhoto2 from '../assets/images/sun_logo.png';
+import frontalPhoto3 from '../assets/images/pokemon_logo.png';
+import frontalPhoto4 from '../assets/images/PokemonGay.webp';
 
 const slides = [
   {
     image: examplePhoto,
     title: "Welcome to Pokemon Card Collection",
-    description: "Build your dream collection today"
+    description: "Build your dream collection today",
+    logo: frontalPhoto3  // Pokemon main logo
   },
   {
     image: examplePhoto2,
     title: "Open Booster Packs",
-    description: "Discover rare and powerful cards"
+    description: "Discover rare and powerful cards",
+    logo: frontalPhoto  // Scarlet logo
   },
   {
     image: examplePhoto3,
     title: "Manage Your Collection",
-    description: "Track your cards and their value"
+    description: "Track your cards and their value",
+    logo: frontalPhoto2  // Sun logo
   },
   {
     image: examplePhoto4,
     title: "Trade and Share",
-    description: "Connect with other collectors"
+    description: "Connect with other collectors",
+    logo: frontalPhoto4  // Pokemon go logo
   }
 ];
 
@@ -38,7 +46,7 @@ function Slideshow() {
     if (intervalRef.current) clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
       setCurrent(prev => (prev + 1) % slides.length);
-    }, 5000);
+    }, 10000);
   };
 
   useEffect(() => {
@@ -76,13 +84,18 @@ function Slideshow() {
               className={`slide-text${current === idx ? ' active' : ''}`} 
               style={{ zIndex: 3 }}
             >
+              <img 
+                src={slide.logo} 
+                alt="Pokemon Logo" 
+                className="frontal-photo"
+              />
               <h2>{slide.title}</h2>
               <p>{slide.description}</p>
             </div>
           </div>
         ))}
-        <button className="slideshow-btn prev" onClick={goToPrev}>&#8592;</button>
-        <button className="slideshow-btn next" onClick={goToNext}>&#8594;</button>
+        <button className="slideshow-btn prev" onClick={goToPrev}>&#11164;</button>
+        <button className="slideshow-btn next" onClick={goToNext}>&#11166;</button>
       </div>
     </>
   );

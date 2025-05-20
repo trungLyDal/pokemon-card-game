@@ -1,8 +1,7 @@
-/* src/components/CardGallery.css */
 @font-face {
-  font-family: 'Pokemon-Hollow';
-  src: local('Pokemon-Hollow'),
-       url('../assets/fonts/Pokemon Hollow.ttf') format('truetype');
+  font-family: 'Pokemon';
+  src: local('Pokemon'),
+       url('../assets/fonts/Heavitas.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -20,10 +19,11 @@
   color: #0e0e0e; /* Darker, more professional blue */
   margin-bottom: 25px;
   text-align: center;
-  font-size: 3em; /* Slightly larger heading */
+  font-size: 3vw; /* Slightly larger heading */
   border-bottom: 2px solid #ddd; /* Light separator under the heading */
   padding-bottom: 10px;
-  font-family: 'Pokemon-Hollow', sans-serif; /* Apply the hollow Pokémon font */
+  font-family: 'Pokemon', sans-serif; /* Apply the hollow Pokémon font */
+  font-weight: 600;
 }
 
 .filter-section {
@@ -103,12 +103,12 @@
 .card-actions {
   display: flex;
   flex-direction: column; /* Stack buttons vertically */
+  align-items: center; /* Changed: center items horizontally */
   width: 80%;
   margin-top: 5px;
 }
 
 .remove-all-button {
-  background-color: #e74c3c; /* Red color */
   color: white;
   border: none;
   padding: 8px; /* Adjusted padding */
@@ -124,26 +124,27 @@
   transition: opacity 0.2s ease-in-out, background-color 0.2s ease-in-out;
   width: auto; /* Adjust width to fit icon */
   height: auto; /* Adjust height to fit icon */
-  margin-top: 5px;
+  margin: 5px auto; /* Changed: added auto for horizontal centering */
 }
 
 .remove-everything-button {
-  background-color: #c0392b; /* Darker red */
+  background-color: #c0392b;
   color: white;
   border: none;
   padding: 10px 15px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 1em;
   cursor: pointer;
   border-radius: 5px;
-  margin-bottom: 15px;
+  margin: 0 auto 15px auto; /* Center horizontally with auto margins */
+  display: block; /* Make it a block element */
+  width: fit-content; /* Width fits content */
   transition: background-color 0.3s ease;
 }
 
 .remove-everything-button:hover {
-  background-color: #a93226; /* Even darker red */
+  background-color: #a93226;
 }
 
 .remove-button:hover,

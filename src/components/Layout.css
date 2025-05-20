@@ -96,6 +96,8 @@ html, body, #root {
   padding: 0.5rem 0; /* Vertical padding for hover area */
   position: relative; /* For underline effect */
   transition: color 0.3s ease; /* Smooth color transition */
+  font-weight: 600; /* Medium weight for better readability */
+  
 
 }
 
@@ -179,7 +181,7 @@ html, body, #root {
   padding: 1rem 1.5rem;
   text-align: center;
   font-size: 0.9rem; /* Smaller font size for footer text */
-  margin-top: auto; /* Pushes the footer to the bottom if content is short */
+  margin-top: 20px; /* Pushes the footer to the bottom if content is short */
 }
 
 /* Overlay for Mobile Menu */
@@ -250,6 +252,7 @@ html, body, #root {
 
   .main-app-layout-footer {
     font-size: 0.85rem; /* Slightly smaller footer text */
+    
   }
 }
 
