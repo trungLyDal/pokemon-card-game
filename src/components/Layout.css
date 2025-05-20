@@ -277,6 +277,10 @@ html, body, #root {
     width: 200px; /* Adjust width for very small screens */
     right: -200px;
   }
+
+  .main-app-layout-nav-links a {
+    font-size: 15px;
+  }
 }
 
 @media (max-width: 900px) {

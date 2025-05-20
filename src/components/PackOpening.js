@@ -3,6 +3,7 @@ import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
+import backgroundImage from '../assets/images/21007.webp';
 
 const PackOpening = ({ addToCollection }) => {
   const [openedCards, setOpenedCards] = useState([]);
@@ -228,7 +229,7 @@ const PackOpening = ({ addToCollection }) => {
       )}
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
       {openedCards.length > 0 && (
-        <p className="pack-value-text">
+        <p className="pokemon-type-box">
           Estimated Pack Value (Avg): ${totalPackValue}
         </p>
       )}
