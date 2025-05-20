@@ -69,7 +69,7 @@ html, body, #root {
   list-style: none; /* Remove bullet points if using ul/li */
   margin: 0;
   padding: 0;
-  gap: 1vw; /* Space between links */
+  gap: 1.5vw; /* Space between links */
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* For mobile menu transition */
   margin-right: 5vw;
 }
@@ -80,6 +80,7 @@ html, body, #root {
   font-size: 1vw; /* Font size for links */
   padding: 0.5rem 0; /* Vertical padding for hover area */
   position: relative; /* For underline effect */
+  transition: color 0.3s ease; /* Smooth color transition */
 
 }
 
