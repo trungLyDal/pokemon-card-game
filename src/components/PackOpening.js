@@ -195,27 +195,11 @@ const PackOpening = ({ addToCollection }) => {
         <div
           className="booster-pack-container"
           onClick={handlePackClick}
-          style={{
-            cursor: 'pointer',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: '3vh auto',
-            width: '15vw',
-            height: 'auto',
-          }}
         >
           <img
             src={boosterPackImage}
             alt="Booster Pack"
-            className={isTearing ? 'tearing' : ''}
-            style={{
-              width: '25vw',
-              height: 'auto',
-              transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
-              transform: packZoomed ? 'scale(1.5)' : 'scale(1)',
-              opacity: packClicked ? 0 : 1,
-            }}
+            className={`booster-pack-img${isTearing ? ' tearing' : ''}${packZoomed ? ' zoomed' : ''}${packClicked ? ' clicked' : ''}`}
           />
           {packClicked && packHalves && (
             <div className="booster-pack-split-container">
@@ -225,8 +209,8 @@ const PackOpening = ({ addToCollection }) => {
           )}
         </div>
       ) : (
-        <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center', opacity: packClicked ? 0 : 1, transition: 'opacity 0.3s ease-in-out' }}>
-          {isOpening ? <LoadingSpinner /> : <div style={{ color: '#555', fontSize: '1.2em' }}>Opening Pack...</div>}
+        <div className="booster-pack-loading">
+          {isOpening ? <LoadingSpinner /> : <div className="booster-pack-loading-text">Opening Pack...</div>}
         </div>
       )}
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />

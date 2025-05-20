@@ -132,8 +132,6 @@ html, body, #root {
 /* Main Content Area */
 .main-app-layout-main {
   flex-grow: 1; /* Allows the main content to take up all available vertical space */
-  padding: 2rem 1.5rem; /* Padding around the main content */
-  max-width: 1200px; /* Max width for content to keep it readable on large screens */
   margin: 0 auto; /* Center the content within the max-width */
   width: 100%; /* Ensure it takes full width up to max-width */
   box-sizing: border-box; /* Important for padding not to cause overflow */
