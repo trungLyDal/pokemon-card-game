@@ -3,7 +3,7 @@ import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
-import backgroundImage from '../assets/images/21007.webp';
+//import backgroundImage from '../assets/images/21007.webp';
 
 const PackOpening = ({ addToCollection }) => {
   const [openedCards, setOpenedCards] = useState([]);
