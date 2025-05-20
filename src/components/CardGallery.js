@@ -11,6 +11,9 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
   const [totalCollectionValue, setTotalCollectionValue] = useState(0); // New state for total collection value
   const [mostValuableCard, setMostValuableCard] = useState(null); // State for most valuable card
   const [leastValuableCard, setLeastValuableCard] = useState(null); // State for least valuable card
+  const [currentPage, setCurrentPage] = useState(1);
+  const [cardsPerPage] = useState(12); // Adjust this number as needed
+
   useEffect(() => {
     const filtered = collection.filter(cardObj =>
       cardObj.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -114,6 +117,21 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
     }
   };
 
+  // Calculate current cards to display
+  const indexOfLastCard = currentPage * cardsPerPage;
+  const indexOfFirstCard = indexOfLastCard - cardsPerPage;
+  const currentCards = filteredCollection.slice(indexOfFirstCard, indexOfLastCard);
+  const totalPages = Math.ceil(filteredCollection.length / cardsPerPage);
+
+  // Change page
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    window.scrollTo({
+      top: document.querySelector('.card-grid').offsetTop - 100,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <div className="card-gallery-container">
       <h2>My Collection</h2>
@@ -191,7 +209,7 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
         )}
       </div>
       <div className="card-grid">
-        {filteredCollection.map(cardObj => {
+        {currentCards.map(cardObj => {
           const glowClass = cardObj.types && cardObj.types[0] ? `glow-${cardObj.types[0].toLowerCase()}` : '';
           return (
             <div
@@ -247,6 +265,39 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
               <button className="cancel-button" onClick={closeRemoveAllModal}>Cancel</button>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* Add pagination controls */}
+      {filteredCollection.length > cardsPerPage && (
+        <div className="pagination">
+          <button 
+            onClick={() => paginate(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="pagination-button"
+          >
+            Previous
+          </button>
+          
+          <div className="page-numbers">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => paginate(index + 1)}
+                className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="pagination-button"
+          >
+            Next
+          </button>
         </div>
       )}
     </div>
