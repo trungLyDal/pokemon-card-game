@@ -1,5 +1,12 @@
 /* src/components/Layout.css */
 
+/* Prevent horizontal overflow on all screens */
+html, body, #root, .main-app-layout-container {
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 /* Overall Layout Container */
 .main-app-layout-container {
   display: flex;
@@ -40,17 +47,19 @@ html, body, #root {
   width: 100%;
   min-height: 64px;
   flex-wrap: wrap;
-  /* Remove or reduce gap here if using spacer */
+  gap: 2vw; /* Add gap for spacing */
+  justify-content: space-between; /* Space between items */
 }
 
 .main-app-layout-header-spacer {
   flex: 1 1 auto;
-  min-width: 32px; /* Ensures some space even when zoomed out */
+  min-width: 24px;
 }
 
 .main-app-layout-logo {
   height: 8vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
-  min-width: 80px; /* Prevent logo from shrinking too much */
+  min-width: 60px; /* Prevent logo from shrinking too much */
+  max-width: 180px;
   width: auto; /* This is crucial: maintains the logo's original aspect ratio */
   margin-right: 0; /* Remove margin if using spacer */
   transition: transform 0.2s cubic-bezier(.68,-0.55,.27,1.55);
@@ -66,12 +75,15 @@ html, body, #root {
 /* Navigation Links (Desktop Styles) */
 .main-app-layout-nav-links {
   display: flex; /* Always flex for desktop */
-  list-style: none; /* Remove bullet points if using ul/li */
+  align-items: center;
+  gap: 1.5vw; /* Space between links */
+  margin-right: 5vw;
   margin: 0;
   padding: 0;
-  gap: 1.5vw; /* Space between links */
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* For mobile menu transition */
-  margin-right: 5vw;
+  list-style: none; /* Remove bullet points if using ul/li */
+  flex-shrink: 1;
+  min-width: 0;
+  overflow-x: auto;
 }
 
 .main-app-layout-nav-links a {
@@ -151,7 +163,9 @@ html, body, #root {
   flex-grow: 1; /* Allows the main content to take up all available vertical space */
   margin: 0 auto; /* Center the content within the max-width */
   width: 100%; /* Ensure it takes full width up to max-width */
+  max-width: 100vw;
   box-sizing: border-box; /* Important for padding not to cause overflow */
+  padding: 0; /* Remove horizontal padding to prevent overflow */
 }
 
 /* Footer Styles */
@@ -267,10 +281,10 @@ html, body, #root {
     padding: 0 0.5rem;
   }
   .main-app-layout-logo {
-    margin-right: 1rem;
+    margin-left: 0.5rem;
     height: 6vh;
-    min-width: 60px;
-    max-width: 120px;
+    min-width: 40px;
+    max-width: 100px;
   }
 }
 
@@ -281,9 +295,40 @@ html, body, #root {
     padding: 0 0.25rem;
   }
   .main-app-layout-logo {
-    margin-right: 0.5rem;
+    margin-left: 0.25rem;
     height: 40px;
-    min-width: 40px;
-    max-width: 80px;
+    min-width: 32px;
+    max-width: 60px;
   }
+  .main-app-layout-nav-links {
+    font-size: 1rem;
+    gap: 0.5rem;
+  }
+
+  .main-app-layout-main {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+}
+
+/* Ensure nav links don't overlap logo or hamburger */
+.main-app-layout-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  margin-right: 5vw;
+  margin: 0;
+  padding: 0;
+  list-style: none; /* Remove bullet points if using ul/li */
+  flex-shrink: 1;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+/* Hamburger menu always on the right */
+.main-app-layout-hamburger-menu {
+  margin-left: auto;
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Slideshow.css';
 
 import examplePhoto from '../assets/images/slideshow1.png';
@@ -15,22 +15,31 @@ const images = [
 
 function Slideshow() {
   const [current, setCurrent] = useState(0);
+  const intervalRef = useRef(null);
 
-  // Auto-advance slides every 10 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
+  // Function to start or restart the interval
+  const startInterval = () => {
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length);
     }, 10000);
-    return () => clearInterval(interval);
+  };
+
+  useEffect(() => {
+    startInterval();
+    return () => clearInterval(intervalRef.current);
+    // eslint-disable-next-line
   }, []);
 
   // Handlers for manual navigation
   const goToPrev = () => {
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
+    setCurrent(prev => (prev - 1 + images.length) % images.length);
+    startInterval(); // Reset timer
   };
 
   const goToNext = () => {
-    setCurrent((prev) => (prev + 1) % images.length);
+    setCurrent(prev => (prev + 1) % images.length);
+    startInterval(); // Reset timer
   };
 
   return (

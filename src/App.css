@@ -15,26 +15,54 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif; /* A more modern and readable font */
+  font-family: 'Roboto', sans-serif;
   margin: 0;
-  background-color: #31568d; /* Fallback color if the image doesn't load */
-  background-image: url('./assets/images/backgroundPhotoPokemon.png'); /* Set the background image */
-  background-size: cover; /* Scale the image to cover the entire background */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  background-attachment: fixed; /* Keep the background fixed while scrolling (optional) */
+  background-color: #31568d;
+  background-image: url('./assets/images/backgroundPhotoPokemon.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #333;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
+  width: 100%; /* Changed from 100vw */
+  height: 100vh;
+  box-sizing: border-box; /* Add this */
+  overflow-x: hidden;     /* Add this */
+}
+
+*, *::before, *::after {
+  box-sizing: inherit; /* Ensure all elements use border-box */
 }
 
 .app-container {
-  max-width: 100vw; /* A slightly more focused width for content */
+  width: 100%; /* Changed from max-width: 100vw and width: 100vw */
+  overflow: hidden;
   background-color: #f4f4f4;
-  border-radius: 12px; /* More pronounced rounded corners */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* A more noticeable but still subtle shadow */
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* Responsive fix for small screens */
+@media (max-width: 500px) {
+  .app-container {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
+    min-width: 0;
+    width: 100vw;
+    max-width: 100vw;
+  }
+  body {
+    padding: 0;
+    margin: 0;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
 }
 
 h1 {
