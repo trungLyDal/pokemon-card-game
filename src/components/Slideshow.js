@@ -57,7 +57,6 @@ function Slideshow() {
         <button className="slideshow-btn prev" onClick={goToPrev} aria-label="Previous Slide">&#8592;</button>
         <button className="slideshow-btn next" onClick={goToNext} aria-label="Next Slide">&#8594;</button>
       </div>
-      <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
     </>
   );
 }
