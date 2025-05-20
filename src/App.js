@@ -35,7 +35,6 @@ function App() {
         />
       </div>
       {selectedCard && <CardDetails card={selectedCard} onClose={closeCardDetails} />}
-      <ScrollToTopButton />
     </Layout>
   );
 }
