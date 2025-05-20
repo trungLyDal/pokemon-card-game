@@ -95,21 +95,24 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
     setIsRemoveAllModalOpen(false);
   };
 
+  // Update these handlers
   const handleLeastValuablePriceClick = (event) => {
-    event.stopPropagation();
-    if (leastValuableCard){
-      const pokemonName = leastValuableCard.name;
-      const url = `https://pokemoncardprices.io/card-info/${pokemonName}`;
-      window.open(url, '_blank'); // Open in a new tab
-    }};
+    event.preventDefault(); // Prevent default behavior
+    event.stopPropagation(); // Stop event from bubbling up
+    if (leastValuableCard) {
+      const pokemonName = encodeURIComponent(leastValuableCard.name);
+      window.open(`https://pokemoncardprices.io/card-info/${pokemonName}`, '_blank');
+    }
+  };
 
   const handleMostValuablePriceClick = (event) => {
+    event.preventDefault();
     event.stopPropagation();
-    if (mostValuableCard){
-      const pokemonName = mostValuableCard.name;
-      const url = `https://pokemoncardprices.io/card-info/${pokemonName}`;
-      window.open(url, '_blank'); // Open in a new tab
-    }}
+    if (mostValuableCard) {
+      const pokemonName = encodeURIComponent(mostValuableCard.name);
+      window.open(`https://pokemoncardprices.io/card-info/${pokemonName}`, '_blank');
+    }
+  };
 
   return (
     <div className="card-gallery-container">
@@ -118,31 +121,58 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
         Remove Entire Collection
       </button>
       <div className="collection-info">
-        <p className="pokemon-type-box"> <strong>Total:</strong>{totalCardsText} </p> ||
+        <p className="pokemon-type-box">
+          <strong>Total:</strong>{totalCardsText}
+        </p> ||
         <p className="pokemon-type-box">
           <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
         </p> ||
-        {mostValuableCard && (
-<p className="pokemon-type-box clickable" // Added 'clickable' class for styling
-onClick={() => openCardDetails(mostValuableCard)} // Added onClick handler
- >            
-            <strong>Most Valuable Card:</strong> {mostValuableCard.name} (<span
-              className="price-link-most clickable" // Style the price as clickable
-              onClick={handleMostValuablePriceClick} // Click on the price opens the link
-            >${mostValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}</span>) 
-          </p>
-        )} ||
-        {leastValuableCard && (
-          <p
-            className="pokemon-type-box clickable"
-            onClick={() => openCardDetails(leastValuableCard)} // Click on the whole paragraph opens details
-          >
-            <strong>Least Valuable Card:</strong> {leastValuableCard.name} (<span
-              className="price-link-least clickable" // Style the price as clickable
-              onClick={handleLeastValuablePriceClick} // Click on the price opens the link
-            >${leastValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}</span>)
-          </p>
-        )}
+        <p className="pokemon-type-box">
+           {
+            mostValuableCard ? (
+              <span>
+                <span 
+                  className="clickable" 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openCardDetails(mostValuableCard);
+                  }}
+                >
+                  <strong>Most Valuable Card: </strong>{mostValuableCard.name}
+                </span>
+                {" "}({" "}
+                <span
+                  className="price-link-most clickable"
+                  onClick={handleMostValuablePriceClick}
+                >
+                  ${mostValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}
+                </span>
+                {" "})
+              </span>
+            ) : (
+              <span className="placeholder-text">No cards yet</span>
+            )
+          }
+        </p> ||
+        <p className="pokemon-type-box">
+           {
+            leastValuableCard ? (
+              <span>
+                <span className="clickable" onClick={() => openCardDetails(leastValuableCard)}>
+                  <strong>Least Valuable Card: </strong>{leastValuableCard.name}
+                </span> (
+                <span
+                  className="price-link-least clickable"
+                  onClick={handleLeastValuablePriceClick}
+                >
+                  ${leastValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}
+                </span>)
+              </span>
+            ) : (
+              <span className="placeholder-text">No cards yet</span>
+            )
+          }
+        </p>
       </div>
       <div className="filter-section">
         <label htmlFor="filter">Filter Cards:</label>

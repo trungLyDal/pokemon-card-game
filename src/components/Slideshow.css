@@ -13,6 +13,16 @@
   border-radius: 0;
   margin: 0;
   padding: 0;
+  margin-top: 5.5vh;
+}
+
+@keyframes slowZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }
 
 .slideshow-image {
@@ -31,6 +41,7 @@
   opacity: 1;
   pointer-events: auto;
   z-index: 2;
+  animation: slowZoom 10s linear forwards;
 }
 
 .slideshow-btn {
@@ -92,26 +103,54 @@
 @media (max-width: 600px) {
   .slideshow-container {
     width: 100vw;
-    height: 32vh;
+    height: 100dvh; /* Use dynamic viewport height */
+    min-height: 100vh; /* Fallback */
     min-width: 0;
-    min-height: 120px;
-    max-height: 180px;
     border-radius: 0;
+    margin: 0; /* Remove margin-top */
+    padding-top: 64px; /* Add padding for fixed header height */
+    position: relative;
+    overflow: hidden;
   }
+  
+
   .slideshow-image,
   .slideshow-image.active {
     border-radius: 0;
+    position: absolute;
+    top: 64px; /* Match header height */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 64px); /* Subtract header height */
+    object-fit: cover;
   }
+
+  .slideshow-image.active {
+    animation: slowZoom 10s linear forwards;
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 2;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    width: 100%;
+    height: calc(100% - 64px);
+    object-fit: cover;
+  }
+
   .slideshow-btn {
     font-size: 1.1rem;
     padding: 0.3em 0.5em;
     min-width: 32px;
     min-height: 32px;
+    z-index: 20; /* Ensure buttons are above images */
   }
+
   .slideshow-btn.prev {
     left: 8px;
     right: auto;
   }
+
   .slideshow-btn.next {
     right: 8px;
     left: auto;

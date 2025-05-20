@@ -8,9 +8,9 @@
 }
 
 .card-gallery-container {
-  margin: 20px auto; /* Center the gallery with some top/bottom margin */
-  max-width: 1200px; /* Limit the maximum width for better readability */
+  margin: auto; /* Center the gallery with some top/bottom margin */
   padding: 20px;
+  width: 100vw;
   background-color: #f8f8f8; /* Light gray background */
   border-radius: 8px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle box shadow for depth */
@@ -332,20 +332,31 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  font-size: 1.1em;
-  text-align: center;
 }
 
-@media (max-width: 700px) {
+/* Update your mobile media query */
+@media (max-width: 600px) {
   .collection-info {
     flex-direction: column;
-    align-items: stretch;
-    gap: 6px;
-    font-size: 1em;
-  }
-  .collection-info .pokemon-type-box {
-    justify-content: center;
+    gap: 8px;
+    text-align: center;
     width: 100%;
+  }
+
+  .collection-info p {
+    width: 100%;
+    margin: 0;
+    padding: 8px;
+  }
+
+  /* Remove the separator for mobile view */
+  .collection-info p:after {
+    content: none;
+  }
+
+  /* Hide the "||" separator on mobile */
+  .collection-info > *:not(:last-child)::after {
+    display: none;
   }
 }
 

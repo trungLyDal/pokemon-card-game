@@ -15,11 +15,26 @@ function Layout({ children }) {
     window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
   };
 
+ const handleLogoClick = () => {
+  window.history.pushState("", document.title, window.location.pathname + window.location.search);
+document.querySelector('.main-app-layout-container').scrollTo({
+  top: 0,
+  behavior: 'smooth'
+});
+};
+
+
   return (
-    <div className="main-app-layout-container" id = "slideshow">
+    <div className="main-app-layout-container" id="slideshow">
       <header className="main-app-layout-header">
         <div className="main-app-layout-header-content">
-<img src={AppLogo} alt="Booster Pack Simulator Logo" className="main-app-layout-logo" onClick={handleLinkClick} />
+          <img 
+            src={AppLogo} 
+            alt="Booster Pack Simulator Logo" 
+            className="main-app-layout-logo" 
+            onClick={handleLogoClick}
+            style={{ cursor: 'pointer' }} 
+          />
           <button
             className={`main-app-layout-hamburger-menu ${
               isMenuOpen ? 'open' : ''
@@ -55,7 +70,10 @@ function Layout({ children }) {
         <div className="main-app-layout-menu-overlay" onClick={toggleMenu}></div>
       )}
 
-      <main className="main-app-layout-main">{children}</main>
+      {/* Move .app-container here */}
+      <main className="main-app-layout-main">
+        {children}
+      </main>
 
       {/* Footer with integrated Contact Us information */}
       <footer className="main-app-layout-footer" id="footer">

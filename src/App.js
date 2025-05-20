@@ -21,24 +21,21 @@ function App() {
   };
 
   return (
-    <Layout> 
-      <div className="app-container">
-        <Slideshow />
-
-        <div id="pack-opening-section">
-          <PackOpening addToCollection={addToCollection} />
-        </div>        
- <div id="card-gallery-section">
-          <CardGallery
-            collection={collection}
-            openCardDetails={openCardDetails}
-            removeFromCollection={removeFromCollection}
-            removeAllFromCollection={removeAllFromCollection}
-          />
-        </div>
-        {selectedCard && <CardDetails card={selectedCard} onClose={closeCardDetails} />}
-        <ScrollToTopButton />
+    <Layout>
+      <Slideshow />
+      <div id="pack-opening-section">
+        <PackOpening addToCollection={addToCollection} />
+      </div>        
+      <div id="card-gallery-section">
+        <CardGallery
+          collection={collection}
+          openCardDetails={openCardDetails}
+          removeFromCollection={removeFromCollection}
+          removeAllFromCollection={removeAllFromCollection}
+        />
       </div>
+      {selectedCard && <CardDetails card={selectedCard} onClose={closeCardDetails} />}
+      <ScrollToTopButton />
     </Layout>
   );
 }
