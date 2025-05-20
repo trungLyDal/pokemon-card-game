@@ -70,15 +70,18 @@
   border-radius: 30px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
   border: 3px solid black; /* Light border around the grid */
-  background-image: url('../assets/images/binderBackground.jpg'); /* Background image */
+  background-image: 
+    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), /* darker overlay */
+    url('../assets/images/binderBackground.jpg'); /* Background image */
   background-repeat: no-repeat;
    background-size: cover;
    background-position: center;
+
 }
 
 .card-item {
-  background-color: #fff; /* White card background */
-  border: 1px solid #eee; /* Very light border */
+  background-color: #a78b8b; /* White card background */
+  border: 2px solid #ede4e4; /* Very light border */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* More noticeable shadow */
   cursor: pointer;

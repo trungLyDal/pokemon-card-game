@@ -118,14 +118,14 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
         Remove Entire Collection
       </button>
       <div className="collection-info">
-        <p className="pokemon-type-box"> <strong>Total Cards:</strong>{totalCardsText} </p> ||
+        <p className="pokemon-type-box"> <strong>Total:</strong>{totalCardsText} </p> ||
         <p className="pokemon-type-box">
           <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
         </p> ||
         {mostValuableCard && (
 <p className="pokemon-type-box clickable" // Added 'clickable' class for styling
-            onClick={() => openCardDetails(mostValuableCard)} // Added onClick handler
-          >            
+onClick={() => openCardDetails(mostValuableCard)} // Added onClick handler
+ >            
             <strong>Most Valuable Card:</strong> {mostValuableCard.name} (<span
               className="price-link-most clickable" // Style the price as clickable
               onClick={handleMostValuablePriceClick} // Click on the price opens the link

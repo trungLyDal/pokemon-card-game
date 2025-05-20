@@ -39,14 +39,14 @@ function Layout({ children }) {
           >
             {/* Updated hrefs to match the section IDs */}
             <a href="#pack-opening-section" onClick={handleLinkClick}>
-              Pack Opening
+              PACK OPENING
             </a>
             <a href="#card-gallery-section" onClick={handleLinkClick}>
-              Card Gallery
+              GALLERY
             </a>
             {/* Assuming My Collection refers to the Card Gallery section */}
             <a href="#footer" onClick={handleLinkClick}>
-              Contact Us
+              CONTACT
             </a>
             {/* Add more links here, matching new section IDs */}
           </nav>
@@ -67,12 +67,11 @@ function Layout({ children }) {
             Email: <a href="mailto:giatrung59@gmail.com">giatrung59@gmail.com</a>
           </p>
           <p>
-            
-            <br />Halifax, Nova Scotia, Canada
+            Halifax, Nova Scotia, Canada
           </p>
         </div>
         <p className="main-app-layout-copyright">
-          &copy; {new Date().getFullYear()} My Card App. All rights reserved.
+          &copy; {new Date().getFullYear()} Pokemon Booster Card Simulator. All rights reserved.
         </p>
       </footer>
     </div>

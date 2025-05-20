@@ -316,18 +316,33 @@
 }
 
 .booster-pack-container img.tearing {
-  animation: tear-pack 0.3s ease-in-out forwards; /* Shorter tear */
+  animation: tear-pack 1.2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 }
 
 @keyframes tear-pack {
   0% {
-    transform: scale(1.5) rotate(0deg);
+    transform: scale(1.0) rotate(0deg);
+    opacity: 1;
   }
-  50% {
-    transform: scale(1.53) rotate(2deg);
+  20% {
+    transform: scale(1.08) rotate(2deg);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.15) rotate(-2deg);
+    opacity: 0.95;
+  }
+  60% {
+    transform: scale(1.22) rotate(1deg);
+    opacity: 0.85;
+  }
+  80% {
+    transform: scale(1.28) rotate(-1deg);
+    opacity: 0.7;
   }
   100% {
-    transform: scale(1.5) rotate(0deg);
+    transform: scale(1.35) rotate(0deg);
+    opacity: 0;
   }
 }
 
@@ -384,4 +399,89 @@
 
 .booster-pack-container.clicked img {
   opacity: 0;
+}
+
+/* Add or update these styles */
+
+.booster-pack-container {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 3vh auto;
+  width: 15vw;
+  height: auto;
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.booster-pack-img {
+  width: 25vw;
+  height: auto;
+  transition: 
+    transform 0.6s cubic-bezier(0.77, 0, 0.175, 1),
+    opacity 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.booster-pack-img.zoomed {
+  transform: scale(1.5);
+}
+
+.booster-pack-img.clicked {
+  animation: booster-pack-clicked 0.9s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
+
+@keyframes booster-pack-clicked {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1.1) rotate(2deg);
+    opacity: 1;
+  }
+  40% {
+    transform: scale(1.18) rotate(-3deg);
+    opacity: 0.95;
+  }
+  60% {
+    transform: scale(1.35) rotate(6deg);
+    opacity: 0.7;
+  }
+  80% {
+    transform: scale(1.55) rotate(-8deg);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.7) rotate(-8deg);
+    opacity: 0;
+  }
+}
+
+.booster-pack-img.clicked {
+  opacity: 0;
+  transform: scale(1.7) rotate(-8deg);
+}
+
+.booster-pack-container:hover {
+  transform: translateY(-10px);
+}
+
+.booster-pack-loading {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  transition: opacity 0.3s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.booster-pack-loading-text {
+  color: #555;
+  font-size: 1.2em;
+  margin-left: 10px;
 }
