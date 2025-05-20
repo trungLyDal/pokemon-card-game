@@ -1,0 +1,32 @@
+.slideshow-container {
+  width: 75vw;
+  height: 75vh;
+  max-width: 1200px;
+  max-height: 700px;
+  margin: 0 auto 2rem auto;
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 2px 32px rgba(0,0,0,0.25);
+  background: #222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.slideshow-image {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 1s;
+  pointer-events: none;
+}
+
+.slideshow-image.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 2;
+}

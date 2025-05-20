@@ -6,6 +6,7 @@ import ScrollToTopButton from './components/ScrollToTopButton';
 import Layout from './components/Layout'; // Import the Layout component
 import './App.css';
 import useCollection from './hooks/useCollection';
+import Slideshow from './components/Slideshow'; // Add this import
 
 function App() {
   const { collection, addToCollection, removeFromCollection, removeAllFromCollection } = useCollection();
@@ -23,6 +24,8 @@ function App() {
     <Layout> {/* Wrap your application within the Layout component */}
       <div className="app-container">
         <h1 className="text-3xl font-bold text-center text-white mb-8">Digital Pokémon Card Collection</h1>
+
+        <Slideshow /> {/* <-- Add this line before PackOpening */}
 
         <div id="pack-opening-section">
           <PackOpening addToCollection={addToCollection} />
