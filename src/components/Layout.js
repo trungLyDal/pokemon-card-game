@@ -67,12 +67,11 @@ function Layout({ children }) {
             Email: <a href="mailto:giatrung59@gmail.com">giatrung59@gmail.com</a>
           </p>
           <p>
-            
-            <br />Halifax, Nova Scotia, Canada
+            Halifax, Nova Scotia, Canada
           </p>
         </div>
         <p className="main-app-layout-copyright">
-          &copy; {new Date().getFullYear()} My Card App. All rights reserved.
+          &copy; {new Date().getFullYear()} Pokemon Booster Card Simulator. All rights reserved.
         </p>
       </footer>
     </div>

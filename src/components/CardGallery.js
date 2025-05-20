@@ -118,7 +118,7 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
         Remove Entire Collection
       </button>
       <div className="collection-info">
-        <p className="pokemon-type-box"> <strong>Total Cards:</strong>{totalCardsText} </p> ||
+        <p className="pokemon-type-box"> <strong>Total:</strong>{totalCardsText} </p> ||
         <p className="pokemon-type-box">
           <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
         </p> ||
