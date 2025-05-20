@@ -21,7 +21,7 @@ html, body, #root {
 
 /* Header Styles */
 .main-app-layout-header {
-  background-color: #0e0e0f47; /* Darker shade for header */
+  background-color: #0e0e0f; /* Darker shade for header */
   color: white;
   padding: 1rem 1.5rem; /* Padding top/bottom, left/right */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Subtle shadow */
@@ -149,10 +149,15 @@ html, body, #root {
   margin-top: auto; /* Pushes the footer to the bottom if content is short */
 }
 .main-app-layout-logo {
-  height: 9vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
+  height: 8vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
   width: auto; /* This is crucial: maintains the logo's original aspect ratio */
   display: block; /* Ensures proper rendering and alignment of the image */
   margin-right: 1.5rem;
+  transition: transform 0.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+.main-app-layout-logo:hover {
+  transform: translateY(-3px);
 }
 /* Overlay for Mobile Menu */
 .main-app-layout-menu-overlay {

@@ -39,14 +39,14 @@ function Layout({ children }) {
           >
             {/* Updated hrefs to match the section IDs */}
             <a href="#pack-opening-section" onClick={handleLinkClick}>
-              Pack Opening
+              PACK OPENING
             </a>
             <a href="#card-gallery-section" onClick={handleLinkClick}>
-              Card Gallery
+              GALLERY
             </a>
             {/* Assuming My Collection refers to the Card Gallery section */}
             <a href="#footer" onClick={handleLinkClick}>
-              Contact Us
+              CONTACT
             </a>
             {/* Add more links here, matching new section IDs */}
           </nav>
