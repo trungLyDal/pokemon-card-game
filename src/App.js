@@ -21,11 +21,9 @@ function App() {
   };
 
   return (
-    <Layout> {/* Wrap your application within the Layout component */}
+    <Layout> 
       <div className="app-container">
-        <h1 className="text-3xl font-bold text-center text-white mb-8">Digital Pokémon Card Collection</h1>
-
-        <Slideshow /> {/* <-- Add this line before PackOpening */}
+        <Slideshow />
 
         <div id="pack-opening-section">
           <PackOpening addToCollection={addToCollection} />

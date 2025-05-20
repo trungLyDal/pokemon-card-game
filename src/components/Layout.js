@@ -1,5 +1,4 @@
 // src/components/Layout.js
-
 import React, { useState } from 'react';
 import './Layout.css';
 import AppLogo from '../assets/images/Pokémon_TCG_logo.png'; // Adjust the path as necessary
@@ -13,13 +12,14 @@ function Layout({ children }) {
 
   const handleLinkClick = () => {
     setIsMenuOpen(false); // Close menu when a link is clicked
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
   };
 
   return (
-    <div className="main-app-layout-container">
+    <div className="main-app-layout-container" id = "slideshow">
       <header className="main-app-layout-header">
         <div className="main-app-layout-header-content">
-<img src={AppLogo} alt="Booster Pack Simulator Logo" className="main-app-layout-logo" />
+<img src={AppLogo} alt="Booster Pack Simulator Logo" className="main-app-layout-logo" onClick={handleLinkClick} />
           <button
             className={`main-app-layout-hamburger-menu ${
               isMenuOpen ? 'open' : ''
@@ -44,11 +44,9 @@ function Layout({ children }) {
             <a href="#card-gallery-section" onClick={handleLinkClick}>
               GALLERY
             </a>
-            {/* Assuming My Collection refers to the Card Gallery section */}
             <a href="#footer" onClick={handleLinkClick}>
               CONTACT
             </a>
-            {/* Add more links here, matching new section IDs */}
           </nav>
         </div>
       </header>

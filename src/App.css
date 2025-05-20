@@ -32,7 +32,6 @@ body {
 
 .app-container {
   max-width: 100vw; /* A slightly more focused width for content */
-  padding: 30px;
   background-color: #f4f4f4;
   border-radius: 12px; /* More pronounced rounded corners */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* A more noticeable but still subtle shadow */

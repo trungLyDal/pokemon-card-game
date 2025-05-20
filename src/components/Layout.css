@@ -8,7 +8,6 @@
   background-color: #1112123c; /* Dark background, matches your App.js assuming Tailwind-like colors */
   color: #141515; /* Light text for contrast */
 }
-/* src/components/Layout.css */
 
 html, body, #root {
   height: 100%; /* This is crucial! It makes sure your app container can actually take up the full viewport height. */
@@ -147,11 +146,12 @@ html, body, #root {
   margin-top: auto; /* Pushes the footer to the bottom if content is short */
 }
 .main-app-layout-logo {
-  height: 8vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
+  height: 10vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
   width: auto; /* This is crucial: maintains the logo's original aspect ratio */
   display: block; /* Ensures proper rendering and alignment of the image */
   margin-right: 1.5rem;
   transition: transform 0.2s cubic-bezier(.68,-0.55,.27,1.55);
+  cursor: pointer;
 }
 
 .main-app-layout-logo:hover {
