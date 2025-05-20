@@ -35,17 +35,32 @@ html, body, #root {
 
 .main-app-layout-header-content {
   display: flex;
-  justify-content: space-between; /* Puts name left, menu right */
-  align-items: center; /* Vertically align items */
-  max-width: 1200px; /* Max width for content to keep it readable on large screens */
-  margin: 0 auto; /* Center the content within the max-width */
-  width: 100%; /* Ensure it takes full width up to max-width */
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
+  min-height: 64px;
+  flex-wrap: wrap;
+  /* Remove or reduce gap here if using spacer */
 }
 
-.main-app-layout-app-name {
-  font-size: 2rem; /* Larger font size for the app name */
-  font-weight: bold;
-  margin: 0; /* Remove default margin */
+.main-app-layout-header-spacer {
+  flex: 1 1 auto;
+  min-width: 32px; /* Ensures some space even when zoomed out */
+}
+
+.main-app-layout-logo {
+  height: 8vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
+  min-width: 80px; /* Prevent logo from shrinking too much */
+  width: auto; /* This is crucial: maintains the logo's original aspect ratio */
+  margin-right: 0; /* Remove margin if using spacer */
+  transition: transform 0.2s cubic-bezier(.68,-0.55,.27,1.55);
+  cursor: pointer;
+  flex-shrink: 0; /* Prevent logo from shrinking */
+  margin-left: 1rem; /* Add some space on the left */
+}
+
+.main-app-layout-logo:hover {
+  transform: translateY(-3px);
 }
 
 /* Navigation Links (Desktop Styles) */
@@ -54,16 +69,18 @@ html, body, #root {
   list-style: none; /* Remove bullet points if using ul/li */
   margin: 0;
   padding: 0;
-  gap: 1.5rem; /* Space between links */
+  gap: 1vw; /* Space between links */
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* For mobile menu transition */
+  margin-right: 5vw;
 }
 
 .main-app-layout-nav-links a {
   color: white;
   text-decoration: none;
-  font-size: 1.1rem;
+  font-size: 1vw; /* Font size for links */
   padding: 0.5rem 0; /* Vertical padding for hover area */
   position: relative; /* For underline effect */
+
 }
 
 .main-app-layout-nav-links a:hover {
@@ -145,18 +162,7 @@ html, body, #root {
   font-size: 0.9rem; /* Smaller font size for footer text */
   margin-top: auto; /* Pushes the footer to the bottom if content is short */
 }
-.main-app-layout-logo {
-  height: 10vh; /* **Adjust this value to make your logo look good.** Common values: 40px, 50px, 60px. */
-  width: auto; /* This is crucial: maintains the logo's original aspect ratio */
-  display: block; /* Ensures proper rendering and alignment of the image */
-  margin-right: 1.5rem;
-  transition: transform 0.2s cubic-bezier(.68,-0.55,.27,1.55);
-  cursor: pointer;
-}
 
-.main-app-layout-logo:hover {
-  transform: translateY(-3px);
-}
 /* Overlay for Mobile Menu */
 .main-app-layout-menu-overlay {
   position: fixed;
@@ -251,5 +257,32 @@ html, body, #root {
   .main-app-layout-nav-links {
     width: 200px; /* Adjust width for very small screens */
     right: -200px;
+  }
+}
+
+@media (max-width: 900px) {
+  .main-app-layout-header-content {
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+  .main-app-layout-logo {
+    margin-right: 1rem;
+    height: 6vh;
+    min-width: 60px;
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-app-layout-header-content {
+    flex-direction: row;
+    gap: 0.5rem;
+    padding: 0 0.25rem;
+  }
+  .main-app-layout-logo {
+    margin-right: 0.5rem;
+    height: 40px;
+    min-width: 40px;
+    max-width: 80px;
   }
 }

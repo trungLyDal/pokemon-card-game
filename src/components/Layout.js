@@ -19,7 +19,8 @@ function Layout({ children }) {
     <div className="main-app-layout-container" id = "slideshow">
       <header className="main-app-layout-header">
         <div className="main-app-layout-header-content">
-<img src={AppLogo} alt="Booster Pack Simulator Logo" className="main-app-layout-logo" onClick={handleLinkClick} />
+          <img src={AppLogo} alt="Booster Pack Simulator Logo" className="main-app-layout-logo" onClick={handleLinkClick} />
+          <div className="main-app-layout-header-spacer" />
           <button
             className={`main-app-layout-hamburger-menu ${
               isMenuOpen ? 'open' : ''
