@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import PackOpening from './components/PackOpening';
 import CardGallery from './components/CardGallery';
 import CardDetails from './components/CardDetails';
-import ScrollToTopButton from './components/ScrollToTopButton';
 import Layout from './components/Layout'; // Import the Layout component
 import './App.css';
 import useCollection from './hooks/useCollection';
