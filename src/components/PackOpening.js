@@ -20,6 +20,8 @@ const PackOpening = ({ addToCollection }) => {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false); // State for remove confirmation
   const [cardToRemove, setCardToRemove] = useState(null); // State to store the card to remove
   const [error, setError] = useState(null);
+  const [packsToOpen, setPacksToOpen] = useState(1);
+const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -59,46 +61,53 @@ const PackOpening = ({ addToCollection }) => {
     }
   };
 
-  const openPack = async () => {
-    if (openedCards.length > 0 && !isModalOpen) {
-      setError("You must add the current cards to your collection before opening another pack!");
-      // setError("You must add the current cards to your collection before opening another pack!");
-      return;
-    }
+ const openPack = async () => {
+  if (openedCards.length > 0 && !isModalOpen) {
+    setError("You must add the current cards to your collection before opening another pack!");
+    return;
+  }
 
-    setIsOpening(true);
-    setOpenedCards([]);
-    setError(null);
-    // setError(null);
-    const drawnCardIds = new Set();
-    const newOpenedCards = [];
-    const numberOfCardsInPack = 5; // Set your desired pack size here
+  setIsOpening(true);
+  setShowLoadingScreen(true);
+  setOpenedCards([]);
+  setError(null);
 
-    for (let i = 0; i < numberOfCardsInPack; i++) {
-      let randomCard = fetchRandomCard();
+  const drawnCardIds = new Set();
+  const newOpenedCards = [];
+  const numberOfPacks = packsToOpen;
+  const numberOfCardsInPack = 5;
+
+  for (let i = 0; i < numberOfPacks * numberOfCardsInPack; i++) {
+    let randomCard = fetchRandomCard();
+    if (randomCard) {
+      while (drawnCardIds.has(randomCard.id)) {
+        randomCard = fetchRandomCard();
+        if (!randomCard) break;
+      }
       if (randomCard) {
-        while (drawnCardIds.has(randomCard.id)) {
-          randomCard = fetchRandomCard();
-          if (!randomCard) break;
-        }
-        if (randomCard) {
-          drawnCardIds.add(randomCard.id);
-          newOpenedCards.push(randomCard);
-        } else {
-          setIsOpening(false);
-          return;
-        }
+        drawnCardIds.add(randomCard.id);
+        newOpenedCards.push(randomCard);
       } else {
         setIsOpening(false);
+        setShowLoadingScreen(false);
         return;
       }
+    } else {
+      setIsOpening(false);
+      setShowLoadingScreen(false);
+      return;
     }
+  }
+
+  // Simulate loading delay for user feedback
+  setTimeout(() => {
     setOpenedCards(newOpenedCards);
     setIsOpening(false);
+    setShowLoadingScreen(false);
     setIsModalOpen(true);
     setRevealedCardIndex(0);
-  };
-
+  }, 1000); // 1 second loading screen
+};
   const handlePackClick = () => {
     if (openedCards.length > 0 && !isModalOpen) {
       setError("You must add the current cards to your collection before opening another pack!");
@@ -184,6 +193,9 @@ const PackOpening = ({ addToCollection }) => {
     }, (cards.length * 80) + 700);
   };
 
+  const handleBacktoOpening = () => {
+    document.getElementById('pack-opening-container-header').scrollIntoView({ behavior: 'smooth' });
+  }
   useEffect(() => {
     if (!isModalOpen && packClicked) {
       setPackClicked(false);
@@ -208,19 +220,18 @@ const PackOpening = ({ addToCollection }) => {
   };
 
   return (
-    <div className="pack-opening-container">
+    <div className="pack-opening-container" id = "pack-opening-container-header">
       <h2>Open a Booster Pack</h2>
       {error && (
         <div className="error-message">
           {error}
         </div>
       )}
-      {isInitialLoading ? (
-        <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <LoadingSpinner />
-          <div style={{ color: '#555', marginLeft: '10px' }}>Loading...</div>
-        </div>
-      ) : !packClicked ? (
+     {(isInitialLoading || showLoadingScreen) ? (
+  <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <LoadingSpinner />
+  </div>
+) : !packClicked ? (
         <div
           className="booster-pack-container"
           onClick={handlePackClick}
@@ -242,6 +253,22 @@ const PackOpening = ({ addToCollection }) => {
           {isOpening ? <LoadingSpinner /> : <div className="booster-pack-loading-text">Opening Pack...</div>}
         </div>
       )}
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: 16 }}>
+  <button
+    className={packsToOpen === 1 ? 'active' : ''}
+    onClick={() => setPacksToOpen(1)}
+    disabled={isOpening || isInitialLoading}
+  >
+    Open 1 Pack
+  </button>
+  <button
+    className={packsToOpen === 10 ? 'active' : ''}
+    onClick={() => setPacksToOpen(10)}
+    disabled={isOpening || isInitialLoading}
+  >
+    Open 10 Packs
+  </button>
+</div>
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
 
       {isModalOpen ? (
@@ -289,9 +316,15 @@ const PackOpening = ({ addToCollection }) => {
              <div className="pokemon-type-box">
             Estimated Pack Value: ${totalPackValue}
           </div>
-            <button className="add-all-button" onClick={handleAddAllToCollection}>
-                Register to Pokedex
-              </button>
+            <button
+              className="add-all-button"
+              onClick={() => {
+                handleAddAllToCollection();
+                handleBacktoOpening();
+              }}
+            >
+              Register to Pokedex
+            </button>
             
           </>
         )

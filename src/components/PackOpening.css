@@ -56,7 +56,7 @@
   .pack-opening-container {
     padding: 30px !important; /* Increased padding significantly */
     margin-bottom: 40px !important; /* Increased margin-bottom */
-    min-height: auto;
+    min-height: 0;
     height: auto;
   }
   .booster-pack-container {
