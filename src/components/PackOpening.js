@@ -52,12 +52,7 @@ const PackOpening = ({ addToCollection }) => {
     setHoveredCardIndex(null);
   };
 
-  const handleLogoClickRegister = () => {
-    const slideshow = document.getElementById('pack-opening-container-header');
-    if (slideshow) {
-      slideshow.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+
 
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
