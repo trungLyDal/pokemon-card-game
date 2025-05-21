@@ -53,6 +53,8 @@
   flex-grow: 1;
   font-size: 1em;
   color: #333;
+  width: 100%;
+  padding-right: 2em; /* Make space for the X button */
 }
 
 .filter-input:focus {
@@ -915,4 +917,40 @@
   .page-number {
     padding: 0.3rem 0.6rem;
   }
+}
+
+.filter-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.clear-filter-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+  z-index: 2;
+}
+
+.xicon-img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  pointer-events: none; 
+}
+
+.clear-filter-btn:hover .xicon-img:hover {
+  opacity: 1;
+  color: red;
 }
