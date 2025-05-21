@@ -175,11 +175,13 @@
   position: absolute;
   top: 8px;
   right: 8px;
-  background-color: rgba(0, 0, 0, 0.8); /* Darker background for count */
+  background-color: rgb(42, 38, 38);
   color: white;
   padding: 5px 8px;
   border-radius: 5px;
   font-size: 0.9em;
+  z-index: 1;            /* Lower z-index */
+  pointer-events: none;  /* Allow clicks to pass through */
 }
 
 /* More pronounced glow for rare holos */
@@ -743,17 +745,6 @@
 }
 
 /* Ensure other elements like card-count and card-actions are also positioned correctly with z-index if needed */
-.card-count {
-  position: absolute;
-  bottom: 5px;
-  left: 5px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  padding: 2px 5px;
-  border-radius: 5px;
-  font-size: 0.7em;
-  z-index: 25; /* Ensure it's below or above the price box as desired */
-}
 
 .modal-overlay-confirmation {
   position: fixed;
@@ -867,6 +858,22 @@
   gap: 1rem;
   margin: 2rem 0;
   padding: 1rem;
+  flex-wrap: wrap;
+  max-width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* Ellipsis for pagination (e.g., ... between page numbers) */
+.page-ellipsis {
+  padding: 0.5rem 0.8rem;
+  color: #888;
+  font-size: 1.1em;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+  background: none;
+  border: none;
 }
 
 .page-numbers {

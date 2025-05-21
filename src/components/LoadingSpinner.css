@@ -19,7 +19,7 @@
     position: absolute;
     inset: 0px;
     margin: auto;
-    background: #de3500;
+    background: #ffcb05;
     animation: crlMugLoader 2s linear infinite alternate;
   }
   @keyframes crlMugLoader {
