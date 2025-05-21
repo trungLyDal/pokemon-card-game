@@ -29,14 +29,15 @@ function Layout({ children }) {
     window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top
   };
 
- const handleLogoClick = () => {
-  window.history.pushState("", document.title, window.location.pathname + window.location.search);
-  document.querySelector('.main-app-layout-container').scrollTo({
-    top: 0,
-    behavior: 'smooth'
-  });
-};
-
+  const handleLogoClick = () => {
+    const slideshow = document.getElementById('slideshow');
+    if (slideshow) {
+      slideshow.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <div className="main-app-layout-container" id="slideshow">
