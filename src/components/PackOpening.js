@@ -196,29 +196,6 @@ const PackOpening = ({ addToCollection }) => {
     setCardToRemove(null); // Reset the card to remove
   };
 
-  const handleRegisterToPokedex = () => {
-    // Animate cards
-    const cards = document.querySelectorAll('.opened-card');
-    cards.forEach((card, idx) => {
-      setTimeout(() => {
-        card.classList.add('collecting');
-      }, idx * 80); // Stagger for effect
-    });
-
-    // Animate button
-    const button = document.querySelector('.add-all-button');
-    if (button) button.classList.add('collecting');
-
-    // Wait for animation, then clear
-    setTimeout(() => {
-      openedCards.forEach(card => addToCollection(card));
-      setOpenedCards([]);
-      setIsModalOpen(false);
-      setPackClicked(false);
-      setIsSplitting(false);
-    }, (cards.length * 80) + 700); // Wait for all cards + animation duration
-  };
-
   return (
     <div className="pack-opening-container">
       <h2>Open a Booster Pack</h2>
@@ -250,17 +227,6 @@ const PackOpening = ({ addToCollection }) => {
         </div>
       )}
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
-      {openedCards.length > 0 && (
-        <>
-          <button className="add-all-button" onClick={handleRegisterToPokedex}>
-            Register to Pokédex
-          </button>
-          <div className="pack-value-text">
-            Estimated Pack Value: ${totalPackValue}
-          </div>
-        </>
-      )}
-      {error && <p className="error-message">{error}</p>}
 
       {isModalOpen ? (
         <div className="modal-overlay" onClick={handleModalClick}>
@@ -282,11 +248,6 @@ const PackOpening = ({ addToCollection }) => {
                 </div>
               );
             })}
-            {revealedCardIndex === openedCards.length - 1 && (
-              <button className="add-all-button" onClick={handleAddAllToCollection}>
-                Register to Pokedex
-              </button>
-            )}
           </div>
         </div>
       ) : (
@@ -309,11 +270,13 @@ const PackOpening = ({ addToCollection }) => {
                 </div>
               ))}
             </div>
-            <div>
-              <button className="add-all-button" onClick={handleAddAllToCollection}>
+             <div className="pokemon-type-box">
+            Estimated Pack Value: ${totalPackValue}
+          </div>
+            <button className="add-all-button" onClick={handleAddAllToCollection}>
                 Register to Pokedex
               </button>
-            </div>
+            
           </>
         )
       )}
