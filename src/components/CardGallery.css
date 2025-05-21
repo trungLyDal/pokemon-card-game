@@ -80,7 +80,7 @@
 }
 
 .card-item {
-  background-color: #a78b8b; /* White card background */
+  background-color: #f8efef16; /* White card background */
   border: 2px solid #ede4e4; /* Very light border */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* More noticeable shadow */
@@ -318,7 +318,7 @@
 .remove-button > svg {
   width: 1.5em; /* Adjust the size */
   height: 1.5em; /* Adjust the size */
-  stroke: #050505; /* Set the stroke color */
+  stroke: #f8f8f8; /* Set the stroke color */
   fill: none; /* Ensure it's not filled */
 }
 

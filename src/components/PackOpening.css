@@ -20,6 +20,7 @@
   text-align: center;
   position: relative;
   background-color: #ffffff; /* Fallback color */
+  background-image: url('../assets/images/PackOpeningBackground.jpg');
 }
 
 /* Add an overlay to ensure text readability */
@@ -112,6 +113,12 @@
   margin-top: 20px; /* Add some space above the cards */
   margin-bottom: 20px; /* Add some space below the cards */
   max-width: 90%; /* Adjust as needed */
+  background: rgba(9, 9, 9, 0.18); /* Semi-transparent white */
+  backdrop-filter: blur(12px); /* Glass effect */
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  padding: 24px 12px;
 }
 
 .opened-card {
@@ -122,7 +129,6 @@
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -154,21 +160,7 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px; /* Space above the button */
-}
-
-.add-all-button:hover {
-  background-color: #45a049;
-}
-
-
-.error-message {
-  color: red;
-  margin-top: 12px;
-  font-size: 1.1em;
-}
-
-.add-all-button {
+  margin-top: 20px;
   padding: 15px 30px;
   font-size: 20px;
   cursor: pointer;
@@ -181,7 +173,13 @@
 }
 
 .add-all-button:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
+}
+
+.error-message {
+  color: red;
+  margin-top: 12px;
+  font-size: 1.1em;
 }
 
 .pack-opening-container {

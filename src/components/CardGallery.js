@@ -141,10 +141,10 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
       <div className="collection-info">
         <p className="pokemon-type-box">
           <strong>Total:</strong>{totalCardsText}
-        </p> ||
+        </p>
         <p className="pokemon-type-box">
           <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
-        </p> ||
+        </p>
         <p className="pokemon-type-box">
            {
             mostValuableCard ? (
@@ -171,7 +171,7 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
               <span className="placeholder-text">No cards yet</span>
             )
           }
-        </p> ||
+        </p> 
         <p className="pokemon-type-box">
            {
             leastValuableCard ? (
