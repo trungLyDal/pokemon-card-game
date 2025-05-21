@@ -109,7 +109,7 @@
   letter-spacing: 0.05em; /* Add a little letter spacing for a modern feel */
 }
 
-.pack-opening-container button {
+.pack-opening-container .add-all-button {
   padding: 12px 24px;
   font-size: 18px;
   cursor: pointer;
@@ -123,16 +123,16 @@
   outline-offset: 2px;
 }
 
-.pack-opening-container button:focus {
+.pack-opening-container .add-all-button:focus {
   outline: 3px solid #eeca03; /* Slightly stronger outline on focus for accessibility */
   outline-offset: 2px;
 }
 
-.pack-opening-container button:hover:enabled {
+.pack-opening-container .add-all-button:hover:enabled {
   background-color: #eeca03;
 }
 
-.pack-opening-container button:disabled {
+.pack-opening-container .add-all-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
@@ -620,4 +620,74 @@
 .add-all-button.collecting {
   transition: opacity 0.3s;
   opacity: 0;
+}
+
+.switch-button {
+  width: 400px;
+  height: 40px;
+  text-align: center;
+  position: relative;
+  margin: 0 auto 1.5rem auto;
+  cursor: pointer;
+  transition: .3s ease all;
+  border: 1px solid white;
+  border-radius: 999px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.switch-button-case {
+  display: inline-block;
+  background: none;
+  width: 50%;
+  height: 100%;
+  color: white;
+  position: relative;
+  border: none;
+  transition: .3s ease all;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 1rem;
+  z-index: 2;
+  font-weight: 500;
+  border-radius: 999px;
+}
+
+.switch-button-case:hover:not(:disabled) {
+  color: #888;
+  cursor: pointer;
+}
+
+.switch-button-case:focus {
+  outline: none;
+}
+
+.switch-button-case.active-case {
+  color: #151515;
+  font-weight: 700;
+}
+
+.switch-button .active {
+  color: #151515;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 1;
+  border-radius: 999px;
+  transition: .3s ease-out all;
+}
+
+.switch-button .active.right {
+  left: 50%;
+}
+
+.switch-button-case:disabled {
+  color: #bbb;
+  cursor: not-allowed;
 }

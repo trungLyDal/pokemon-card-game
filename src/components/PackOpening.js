@@ -3,6 +3,8 @@ import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
+import PackToggle from "./PackToggle";
+
 
 const PackOpening = ({ addToCollection }) => {
   const [openedCards, setOpenedCards] = useState([]);
@@ -253,21 +255,12 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
           {isOpening ? <LoadingSpinner /> : <div className="booster-pack-loading-text">Opening Pack...</div>}
         </div>
       )}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginBottom: 16 }}>
-  <button
-    className={packsToOpen === 1 ? 'active' : ''}
-    onClick={() => setPacksToOpen(1)}
-    disabled={isOpening || isInitialLoading}
-  >
-    Open 1 Pack
-  </button>
-  <button
-    className={packsToOpen === 10 ? 'active' : ''}
-    onClick={() => setPacksToOpen(10)}
-    disabled={isOpening || isInitialLoading}
-  >
-    Open 10 Packs
-  </button>
+      <div className="pack-toggle-group">
+  <PackToggle
+  packsToOpen={packsToOpen}
+  setPacksToOpen={setPacksToOpen}
+  disabled={isOpening || isInitialLoading}
+/>
 </div>
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
 
