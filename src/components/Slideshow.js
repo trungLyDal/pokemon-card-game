@@ -68,7 +68,7 @@ function Slideshow() {
 
   return (
     <>
-      <div className="slideshow-container">
+      <div className="slideshow-container" id ="slideshow">
         {slides.map((slide, idx) => (
           <div 
             key={idx} 
