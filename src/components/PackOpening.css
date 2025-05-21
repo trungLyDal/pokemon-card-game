@@ -691,3 +691,42 @@
   color: #bbb;
   cursor: not-allowed;
 }
+
+.skip-all-btn {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 2000;
+  background: #ffcb05;
+  color: #222;
+  border: none;
+  border-radius: 999px;
+  padding: 0.7em 1.6em;
+  font-size: 1.1em;
+  font-weight: 700;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  opacity: 0.97;
+}
+
+.skip-all-btn:hover,
+.skip-all-btn:focus {
+  background: #ffe066;
+  color: #111;
+  outline: none;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+}
+
+/* Mobile view */
+@media (max-width: 600px) {
+  .skip-all-btn {
+    bottom: 16px;
+    right: 8px;
+    left: auto;
+    width: auto;
+    min-width: 120px;
+    font-size: 1em;
+    padding: 0.7em 1.2em;
+  }
+}

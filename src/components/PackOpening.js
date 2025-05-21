@@ -4,6 +4,7 @@ import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
 import PackToggle from "./PackToggle";
+import skipIcon from '../assets/images/skip-track.png'; 
 
 
 const PackOpening = ({ addToCollection }) => {
@@ -62,7 +63,12 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
       // setError('Failed to fetch random cards (local data empty).');
     }
   };
-
+    const handleSkipAll = () => {
+  setRevealedCardIndex(openedCards.length - 1);
+  setTimeout(() => {
+    setIsModalOpen(false);
+  }, 100); // Small delay to allow the last card animation if needed
+};
  const openPack = async () => {
   if (openedCards.length > 0 && !isModalOpen) {
     setError("You must add the current cards to your collection before opening another pack!");
@@ -262,31 +268,43 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
   disabled={isOpening || isInitialLoading}
 />
 </div>
-      <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
+      <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '3px solid #ccc' }} />
 
       {isModalOpen ? (
-        <div className="modal-overlay" onClick={handleModalClick}>
-          <div className="modal-content">
-            {openedCards.map((card, index) => {
-              let cardClass = 'modal-card';
-              if (index < revealedCardIndex) {
-                cardClass += ' hidden';
-              } else if (index === revealedCardIndex) {
-                cardClass += ' revealed';
-              }
-              return (
-                <div
-                  key={card.id}
-                  className={cardClass}
-
-                >
-                  <img src={card.images.large} alt={card.name} />
-                </div>
-              );
-            })}
+  <div className="modal-overlay" onClick={handleModalClick}>
+    <div className="modal-content">
+      {/* Skip All Button for 50 cards */}
+      {openedCards.length >= 50 && revealedCardIndex < openedCards.length - 1 && (
+  <button
+    className="skip-all-btn"
+    onClick={e => {
+      e.stopPropagation();
+      handleSkipAll();
+    }}
+    aria-label="Skip All Animations"
+  >
+    <img src={skipIcon} alt="Skip All Animations" style={{ width: 32, height: 32 }} />
+  </button>
+)}
+      {openedCards.map((card, index) => {
+        let cardClass = 'modal-card';
+        if (index < revealedCardIndex) {
+          cardClass += ' hidden';
+        } else if (index === revealedCardIndex) {
+          cardClass += ' revealed';
+        }
+        return (
+          <div
+            key={card.id}
+            className={cardClass}
+          >
+            <img src={card.images.large} alt={card.name} />
           </div>
-        </div>
-      ) : (
+        );
+      })}
+    </div>
+  </div>
+) : (
         openedCards.length > 0 && (
           <>
             <div className="opened-cards">
