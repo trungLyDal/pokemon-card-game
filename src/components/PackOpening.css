@@ -20,8 +20,7 @@
   margin-bottom: 30px;
   text-align: center;
   position: relative;
-  background-color: #ffffff; /* Fallback color */
-  background-image: url('../assets/images/PackOpeningBackground.jpg');
+  background-color: #000000; /* Fallback color */
   transition: min-height 0.3s ease-out;
 }
 
@@ -33,7 +32,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0.309); /* Semi-transparent white */
+  background: rgba(255, 255, 255, 0); /* Semi-transparent white */
   z-index: 1;
 }
 
@@ -45,8 +44,9 @@
 
 /* Update text colors for better contrast */
 .pack-opening-container h2 {
-  text-shadow: 1px 1px 2px rgba(48, 44, 44, 0.939);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.939);
   margin-top: 10vh;
+  color: #ffffff; /* A dark gray color for readability */
   font-family: Pokemon, sans-serif; /* Use the custom font */
 }
 
@@ -103,7 +103,7 @@
   font-family: 'Pokemon', sans-serif; /* Apply the Montserrat font */
   font-weight: 600; /* Use semibold for emphasis */
   font-size: 3vw; /* Adjust the size as needed */
-  color: #000000; /* A dark gray color for readability */
+  color: #ffffff; /* A dark gray color for readability */
   text-align: center; /* Center the heading */
   margin-bottom: 1em; /* Add some space below the heading */
   letter-spacing: 0.05em; /* Add a little letter spacing for a modern feel */
