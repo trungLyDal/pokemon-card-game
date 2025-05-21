@@ -48,6 +48,12 @@ const PackOpening = ({ addToCollection }) => {
     setHoveredCardIndex(null);
   };
 
+   const handleLogoClickRegister = () => {
+    const slideshow = document.getElementById('pack-opening-container-header');
+    if (slideshow) {
+      slideshow.scrollIntoView({ behavior: 'smooth' });
+    }};
+
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
       const randomIndex = Math.floor(Math.random() * cardData.length);
@@ -208,7 +214,7 @@ const PackOpening = ({ addToCollection }) => {
   };
 
   return (
-    <div className="pack-opening-container">
+    <div className="pack-opening-container" id = "pack-opening-container-header">
       <h2>Open a Booster Pack</h2>
       {error && (
         <div className="error-message">
@@ -258,7 +264,6 @@ const PackOpening = ({ addToCollection }) => {
                 <div
                   key={card.id}
                   className={cardClass}
-
                 >
                   <img src={card.images.large} alt={card.name} />
                 </div>
@@ -289,7 +294,13 @@ const PackOpening = ({ addToCollection }) => {
              <div className="pokemon-type-box">
             Estimated Pack Value: ${totalPackValue}
           </div>
-            <button className="add-all-button" onClick={handleAddAllToCollection}>
+            <button
+              className="add-all-button"
+              onClick={() => {
+                handleAddAllToCollection();
+                handleLogoClickRegister();
+              }}
+            >
                 Register to Pokedex
               </button>
             

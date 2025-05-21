@@ -144,8 +144,8 @@
   margin-top: 20px; /* Add some space above the cards */
   margin-bottom: 20px; /* Add some space below the cards */
   background: rgba(9, 9, 9, 0.18); /* Semi-transparent white */
-  backdrop-filter: blur(12px); /* Glass effect */
-  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  -webkit-backdrop-filter: blur(12px); /* Glass effect */
+  backdrop-filter: blur(12px); /* Safari support */
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   padding: 24px 12px;
