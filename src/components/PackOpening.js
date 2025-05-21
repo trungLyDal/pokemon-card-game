@@ -4,8 +4,7 @@ import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
 import PackToggle from "./PackToggle";
-import skipIcon from '../assets/images/skip-track.png'; 
-
+import skipIcon from '../assets/images/skip-track.png';
 
 const PackOpening = ({ addToCollection }) => {
   const [openedCards, setOpenedCards] = useState([]);
@@ -24,7 +23,7 @@ const PackOpening = ({ addToCollection }) => {
   const [cardToRemove, setCardToRemove] = useState(null); // State to store the card to remove
   const [error, setError] = useState(null);
   const [packsToOpen, setPacksToOpen] = useState(1);
-const [showLoadingScreen, setShowLoadingScreen] = useState(false);
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -53,6 +52,13 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
     setHoveredCardIndex(null);
   };
 
+  const handleLogoClickRegister = () => {
+    const slideshow = document.getElementById('pack-opening-container-header');
+    if (slideshow) {
+      slideshow.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
       const randomIndex = Math.floor(Math.random() * cardData.length);
@@ -60,62 +66,64 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
     } else {
       console.warn('No card data found in local JSON file (all_pokemon_cards.json).');
       setError('Failed to fetch random cards (local data empty).');
-      // setError('Failed to fetch random cards (local data empty).');
     }
   };
-    const handleSkipAll = () => {
-  setRevealedCardIndex(openedCards.length - 1);
-  setTimeout(() => {
-    setIsModalOpen(false);
-  }, 100); // Small delay to allow the last card animation if needed
-};
- const openPack = async () => {
-  if (openedCards.length > 0 && !isModalOpen) {
-    setError("You must add the current cards to your collection before opening another pack!");
-    return;
-  }
 
-  setIsOpening(true);
-  setShowLoadingScreen(true);
-  setOpenedCards([]);
-  setError(null);
+  const handleSkipAll = () => {
+    setRevealedCardIndex(openedCards.length - 1);
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 100); // Small delay to allow the last card animation if needed
+  };
 
-  const drawnCardIds = new Set();
-  const newOpenedCards = [];
-  const numberOfPacks = packsToOpen;
-  const numberOfCardsInPack = 5;
+  const openPack = async () => {
+    if (openedCards.length > 0 && !isModalOpen) {
+      setError("You must add the current cards to your collection before opening another pack!");
+      return;
+    }
 
-  for (let i = 0; i < numberOfPacks * numberOfCardsInPack; i++) {
-    let randomCard = fetchRandomCard();
-    if (randomCard) {
-      while (drawnCardIds.has(randomCard.id)) {
-        randomCard = fetchRandomCard();
-        if (!randomCard) break;
-      }
+    setIsOpening(true);
+    setShowLoadingScreen(true);
+    setOpenedCards([]);
+    setError(null);
+
+    const drawnCardIds = new Set();
+    const newOpenedCards = [];
+    const numberOfPacks = packsToOpen;
+    const numberOfCardsInPack = 5;
+
+    for (let i = 0; i < numberOfPacks * numberOfCardsInPack; i++) {
+      let randomCard = fetchRandomCard();
       if (randomCard) {
-        drawnCardIds.add(randomCard.id);
-        newOpenedCards.push(randomCard);
+        while (drawnCardIds.has(randomCard.id)) {
+          randomCard = fetchRandomCard();
+          if (!randomCard) break;
+        }
+        if (randomCard) {
+          drawnCardIds.add(randomCard.id);
+          newOpenedCards.push(randomCard);
+        } else {
+          setIsOpening(false);
+          setShowLoadingScreen(false);
+          return;
+        }
       } else {
         setIsOpening(false);
         setShowLoadingScreen(false);
         return;
       }
-    } else {
+    }
+
+    // Simulate loading delay for user feedback
+    setTimeout(() => {
+      setOpenedCards(newOpenedCards);
       setIsOpening(false);
       setShowLoadingScreen(false);
-      return;
-    }
-  }
+      setIsModalOpen(true);
+      setRevealedCardIndex(0);
+    }, 1000); // 1 second loading screen
+  };
 
-  // Simulate loading delay for user feedback
-  setTimeout(() => {
-    setOpenedCards(newOpenedCards);
-    setIsOpening(false);
-    setShowLoadingScreen(false);
-    setIsModalOpen(true);
-    setRevealedCardIndex(0);
-  }, 1000); // 1 second loading screen
-};
   const handlePackClick = () => {
     if (openedCards.length > 0 && !isModalOpen) {
       setError("You must add the current cards to your collection before opening another pack!");
@@ -173,7 +181,7 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
     // Animate cards
     const cards = document.querySelectorAll('.opened-card, .modal-card');
     const container = document.querySelector('.opened-cards');
-    
+
     cards.forEach((card, idx) => {
       setTimeout(() => {
         card.classList.add('collecting');
@@ -191,7 +199,7 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
       setIsModalOpen(false);
       setPackClicked(false);
       setIsSplitting(false);
-      
+
       // Reset container height
       if (container) {
         container.style.height = '0';
@@ -204,6 +212,7 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
   const handleBacktoOpening = () => {
     document.getElementById('pack-opening-container-header').scrollIntoView({ behavior: 'smooth' });
   }
+
   useEffect(() => {
     if (!isModalOpen && packClicked) {
       setPackClicked(false);
@@ -211,7 +220,6 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
       setIsSplitting(false);
     }
   }, [isModalOpen, packClicked]);
-
 
   const closeRemoveModal = () => {
     setIsRemoveModalOpen(false);
@@ -228,18 +236,18 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
   };
 
   return (
-    <div className="pack-opening-container" id = "pack-opening-container-header">
+    <div className="pack-opening-container" id="pack-opening-container-header">
       <h2>Open a Booster Pack</h2>
       {error && (
         <div className="error-message">
           {error}
         </div>
       )}
-     {(isInitialLoading || showLoadingScreen) ? (
-  <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-    <LoadingSpinner />
-  </div>
-) : !packClicked ? (
+      {(isInitialLoading || showLoadingScreen) ? (
+        <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <LoadingSpinner />
+        </div>
+      ) : !packClicked ? (
         <div
           className="booster-pack-container"
           onClick={handlePackClick}
@@ -262,49 +270,49 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
         </div>
       )}
       <div className="pack-toggle-group">
-  <PackToggle
-  packsToOpen={packsToOpen}
-  setPacksToOpen={setPacksToOpen}
-  disabled={isOpening || isInitialLoading}
-/>
-</div>
+        <PackToggle
+          packsToOpen={packsToOpen}
+          setPacksToOpen={setPacksToOpen}
+          disabled={isOpening || isInitialLoading}
+        />
+      </div>
       <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '3px solid #ccc' }} />
 
       {isModalOpen ? (
-  <div className="modal-overlay" onClick={handleModalClick}>
-    <div className="modal-content">
-      {/* Skip All Button for 50 cards */}
-      {openedCards.length >= 50 && revealedCardIndex < openedCards.length - 1 && (
-  <button
-    className="skip-all-btn"
-    onClick={e => {
-      e.stopPropagation();
-      handleSkipAll();
-    }}
-    aria-label="Skip All Animations"
-  >
-    <img src={skipIcon} alt="Skip All Animations" style={{ width: 32, height: 32 }} />
-  </button>
-)}
-      {openedCards.map((card, index) => {
-        let cardClass = 'modal-card';
-        if (index < revealedCardIndex) {
-          cardClass += ' hidden';
-        } else if (index === revealedCardIndex) {
-          cardClass += ' revealed';
-        }
-        return (
-          <div
-            key={card.id}
-            className={cardClass}
-          >
-            <img src={card.images.large} alt={card.name} />
+        <div className="modal-overlay" onClick={handleModalClick}>
+          <div className="modal-content">
+            {/* Skip All Button for 50 cards */}
+            {openedCards.length >= 50 && revealedCardIndex < openedCards.length - 1 && (
+              <button
+                className="skip-all-btn"
+                onClick={e => {
+                  e.stopPropagation();
+                  handleSkipAll();
+                }}
+                aria-label="Skip All Animations"
+              >
+                <img src={skipIcon} alt="Skip All Animations" style={{ width: 32, height: 32 }} />
+              </button>
+            )}
+            {openedCards.map((card, index) => {
+              let cardClass = 'modal-card';
+              if (index < revealedCardIndex) {
+                cardClass += ' hidden';
+              } else if (index === revealedCardIndex) {
+                cardClass += ' revealed';
+              }
+              return (
+                <div
+                  key={card.id}
+                  className={cardClass}
+                >
+                  <img src={card.images.large} alt={card.name} />
+                </div>
+              );
+            })}
           </div>
-        );
-      })}
-    </div>
-  </div>
-) : (
+        </div>
+      ) : (
         openedCards.length > 0 && (
           <>
             <div className="opened-cards">
@@ -312,7 +320,7 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
                 <div key={card.id} className={`opened-card card-${index}`}
                   onMouseEnter={() => handleCardMouseEnter(index)}
                   onMouseLeave={handleCardMouseLeave}
-                  >
+                >
                   <img src={card.images.large} alt={card.name} />
                   {hoveredCardIndex === index && card?.cardmarket?.prices && (
                     <div className="card-info">
@@ -324,19 +332,18 @@ const [showLoadingScreen, setShowLoadingScreen] = useState(false);
                 </div>
               ))}
             </div>
-             <div className="pokemon-type-box">
-            Estimated Pack Value: ${totalPackValue}
-          </div>
+            <div className="pokemon-type-box">
+              Estimated Pack Value: ${totalPackValue}
+            </div>
             <button
               className="add-all-button"
               onClick={() => {
                 handleAddAllToCollection();
-                handleBacktoOpening();
+                handleBacktoOpening(); // Using handleBacktoOpening here
               }}
             >
               Register to Pokedex
             </button>
-            
           </>
         )
       )}
