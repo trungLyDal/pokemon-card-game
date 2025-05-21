@@ -68,7 +68,6 @@ const PackOpening = ({ addToCollection }) => {
   const openPack = async () => {
     if (openedCards.length > 0 && !isModalOpen) {
       setError("You must add the current cards to your collection before opening another pack!");
-      // setError("You must add the current cards to your collection before opening another pack!");
       return;
     }
 
