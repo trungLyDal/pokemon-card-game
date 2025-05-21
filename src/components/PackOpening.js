@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
@@ -7,7 +7,6 @@ import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp'
 const PackOpening = ({ addToCollection }) => {
   const [openedCards, setOpenedCards] = useState([]);
   const [isOpening, setIsOpening] = useState(false);
-  const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [packClicked, setPackClicked] = useState(false);
   const [revealedCardIndex, setRevealedCardIndex] = useState(-1);
@@ -20,6 +19,7 @@ const PackOpening = ({ addToCollection }) => {
   const [totalPackValue, setTotalPackValue] = useState(0);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false); // State for remove confirmation
   const [cardToRemove, setCardToRemove] = useState(null); // State to store the card to remove
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -55,22 +55,24 @@ const PackOpening = ({ addToCollection }) => {
     } else {
       console.warn('No card data found in local JSON file (all_pokemon_cards.json).');
       setError('Failed to fetch random cards (local data empty).');
-      return null;
+      // setError('Failed to fetch random cards (local data empty).');
     }
   };
 
   const openPack = async () => {
     if (openedCards.length > 0 && !isModalOpen) {
       setError("You must add the current cards to your collection before opening another pack!");
+      // setError("You must add the current cards to your collection before opening another pack!");
       return;
     }
 
     setIsOpening(true);
     setOpenedCards([]);
     setError(null);
-    const numberOfCardsInPack = 5;
+    // setError(null);
     const drawnCardIds = new Set();
     const newOpenedCards = [];
+    const numberOfCardsInPack = 5; // Set your desired pack size here
 
     for (let i = 0; i < numberOfCardsInPack; i++) {
       let randomCard = fetchRandomCard();
@@ -153,10 +155,12 @@ const PackOpening = ({ addToCollection }) => {
   const handleAddAllToCollection = () => {
     // Animate cards
     const cards = document.querySelectorAll('.opened-card, .modal-card');
+    const container = document.querySelector('.opened-cards');
+    
     cards.forEach((card, idx) => {
       setTimeout(() => {
         card.classList.add('collecting');
-      }, idx * 80); // Stagger for effect
+      }, idx * 80);
     });
 
     // Animate button
@@ -170,7 +174,14 @@ const PackOpening = ({ addToCollection }) => {
       setIsModalOpen(false);
       setPackClicked(false);
       setIsSplitting(false);
-    }, (cards.length * 80) + 700); // Wait for all cards + animation duration
+      
+      // Reset container height
+      if (container) {
+        container.style.height = '0';
+        container.style.padding = '0';
+        container.style.margin = '0';
+      }
+    }, (cards.length * 80) + 700);
   };
 
   useEffect(() => {
@@ -199,6 +210,11 @@ const PackOpening = ({ addToCollection }) => {
   return (
     <div className="pack-opening-container">
       <h2>Open a Booster Pack</h2>
+      {error && (
+        <div className="error-message">
+          {error}
+        </div>
+      )}
       {isInitialLoading ? (
         <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <LoadingSpinner />
