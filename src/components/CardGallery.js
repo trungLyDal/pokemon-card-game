@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CardGallery.css';
+import XIcon from '../assets/images/XIcon.png';
 
 const CardGallery = ({ collection, openCardDetails, removeFromCollection, removeAllFromCollection }) => {
   const [filter, setFilter] = useState('');
@@ -141,10 +142,10 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
       <div className="collection-info">
         <p className="pokemon-type-box">
           <strong>Total:</strong>{totalCardsText}
-        </p> ||
+        </p>
         <p className="pokemon-type-box">
           <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
-        </p> ||
+        </p>
         <p className="pokemon-type-box">
            {
             mostValuableCard ? (
@@ -171,7 +172,7 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
               <span className="placeholder-text">No cards yet</span>
             )
           }
-        </p> ||
+        </p> 
         <p className="pokemon-type-box">
            {
             leastValuableCard ? (
@@ -194,14 +195,26 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
       </div>
       <div className="filter-section">
         <label htmlFor="filter">Filter Cards:</label>
-        <input
-          type="text"
-          id="filter"
-          placeholder="Name, Type, Rarity, Set, Prices..."
-          value={filter}
-          onChange={handleFilterChange}
-          className="filter-input"
-        />
+        <div className="filter-input-wrapper" style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+          <input
+            type="text"
+            id="filter"
+            placeholder="Name, Type, Rarity, Set, Prices..."
+            value={filter}
+            onChange={handleFilterChange}
+            className="filter-input"
+          />
+          {filter && (
+            <button
+              type="button"
+              className="clear-filter-btn"
+              onClick={() => setFilter('')}
+              aria-label="Clear filter"
+            >
+              <img src={XIcon} alt="Clear" className="xicon-img" />
+            </button>
+          )}
+        </div>
         {filter && (
           <p id="filterNo">
             {filteredCollection.length} {filteredCollection.length === 1 ? 'card' : 'cards'}

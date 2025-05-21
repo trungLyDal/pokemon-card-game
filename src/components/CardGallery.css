@@ -53,6 +53,8 @@
   flex-grow: 1;
   font-size: 1em;
   color: #333;
+  width: 100%;
+  padding-right: 2em; /* Make space for the X button */
 }
 
 .filter-input:focus {
@@ -80,7 +82,7 @@
 }
 
 .card-item {
-  background-color: #a78b8b; /* White card background */
+  background-color: #f8efef16; /* White card background */
   border: 2px solid #ede4e4; /* Very light border */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); /* More noticeable shadow */
@@ -318,7 +320,7 @@
 .remove-button > svg {
   width: 1.5em; /* Adjust the size */
   height: 1.5em; /* Adjust the size */
-  stroke: #050505; /* Set the stroke color */
+  stroke: #f8f8f8; /* Set the stroke color */
   fill: none; /* Ensure it's not filled */
 }
 
@@ -915,4 +917,40 @@
   .page-number {
     padding: 0.3rem 0.6rem;
   }
+}
+
+.filter-input-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.clear-filter-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+  z-index: 2;
+}
+
+.xicon-img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+  pointer-events: none; 
+}
+
+.clear-filter-btn:hover .xicon-img:hover {
+  opacity: 1;
+  color: red;
 }
