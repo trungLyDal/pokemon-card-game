@@ -3,6 +3,8 @@ import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
 import cardData from '../data/all_pokemon_cards.json';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
+import PackToggle from "./PackToggle";
+import skipIcon from '../assets/images/skip-track.png';
 
 const PackOpening = ({ addToCollection }) => {
   const [openedCards, setOpenedCards] = useState([]);
@@ -20,6 +22,8 @@ const PackOpening = ({ addToCollection }) => {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false); // State for remove confirmation
   const [cardToRemove, setCardToRemove] = useState(null); // State to store the card to remove
   const [error, setError] = useState(null);
+  const [packsToOpen, setPacksToOpen] = useState(1);
+  const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,11 +52,12 @@ const PackOpening = ({ addToCollection }) => {
     setHoveredCardIndex(null);
   };
 
-   const handleLogoClickRegister = () => {
+  const handleLogoClickRegister = () => {
     const slideshow = document.getElementById('pack-opening-container-header');
     if (slideshow) {
       slideshow.scrollIntoView({ behavior: 'smooth' });
-    }};
+    }
+  };
 
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
@@ -61,8 +66,14 @@ const PackOpening = ({ addToCollection }) => {
     } else {
       console.warn('No card data found in local JSON file (all_pokemon_cards.json).');
       setError('Failed to fetch random cards (local data empty).');
-      // setError('Failed to fetch random cards (local data empty).');
     }
+  };
+
+  const handleSkipAll = () => {
+    setRevealedCardIndex(openedCards.length - 1);
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 100); // Small delay to allow the last card animation if needed
   };
 
   const openPack = async () => {
@@ -72,14 +83,16 @@ const PackOpening = ({ addToCollection }) => {
     }
 
     setIsOpening(true);
+    setShowLoadingScreen(true);
     setOpenedCards([]);
     setError(null);
-    // setError(null);
+
     const drawnCardIds = new Set();
     const newOpenedCards = [];
-    const numberOfCardsInPack = 5; // Set your desired pack size here
+    const numberOfPacks = packsToOpen;
+    const numberOfCardsInPack = 5;
 
-    for (let i = 0; i < numberOfCardsInPack; i++) {
+    for (let i = 0; i < numberOfPacks * numberOfCardsInPack; i++) {
       let randomCard = fetchRandomCard();
       if (randomCard) {
         while (drawnCardIds.has(randomCard.id)) {
@@ -91,17 +104,24 @@ const PackOpening = ({ addToCollection }) => {
           newOpenedCards.push(randomCard);
         } else {
           setIsOpening(false);
+          setShowLoadingScreen(false);
           return;
         }
       } else {
         setIsOpening(false);
+        setShowLoadingScreen(false);
         return;
       }
     }
-    setOpenedCards(newOpenedCards);
-    setIsOpening(false);
-    setIsModalOpen(true);
-    setRevealedCardIndex(0);
+
+    // Simulate loading delay for user feedback
+    setTimeout(() => {
+      setOpenedCards(newOpenedCards);
+      setIsOpening(false);
+      setShowLoadingScreen(false);
+      setIsModalOpen(true);
+      setRevealedCardIndex(0);
+    }, 1000); // 1 second loading screen
   };
 
   const handlePackClick = () => {
@@ -161,7 +181,7 @@ const PackOpening = ({ addToCollection }) => {
     // Animate cards
     const cards = document.querySelectorAll('.opened-card, .modal-card');
     const container = document.querySelector('.opened-cards');
-    
+
     cards.forEach((card, idx) => {
       setTimeout(() => {
         card.classList.add('collecting');
@@ -179,7 +199,7 @@ const PackOpening = ({ addToCollection }) => {
       setIsModalOpen(false);
       setPackClicked(false);
       setIsSplitting(false);
-      
+
       // Reset container height
       if (container) {
         container.style.height = '0';
@@ -189,6 +209,10 @@ const PackOpening = ({ addToCollection }) => {
     }, (cards.length * 80) + 700);
   };
 
+  const handleBacktoOpening = () => {
+    document.getElementById('pack-opening-container-header').scrollIntoView({ behavior: 'smooth' });
+  }
+
   useEffect(() => {
     if (!isModalOpen && packClicked) {
       setPackClicked(false);
@@ -196,7 +220,6 @@ const PackOpening = ({ addToCollection }) => {
       setIsSplitting(false);
     }
   }, [isModalOpen, packClicked]);
-
 
   const closeRemoveModal = () => {
     setIsRemoveModalOpen(false);
@@ -213,17 +236,16 @@ const PackOpening = ({ addToCollection }) => {
   };
 
   return (
-    <div className="pack-opening-container" id = "pack-opening-container-header">
+    <div className="pack-opening-container" id="pack-opening-container-header">
       <h2>Open a Booster Pack</h2>
       {error && (
         <div className="error-message">
           {error}
         </div>
       )}
-      {isInitialLoading ? (
+      {(isInitialLoading || showLoadingScreen) ? (
         <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <LoadingSpinner />
-          <div style={{ color: '#555', marginLeft: '10px' }}>Loading...</div>
         </div>
       ) : !packClicked ? (
         <div
@@ -247,11 +269,31 @@ const PackOpening = ({ addToCollection }) => {
           {isOpening ? <LoadingSpinner /> : <div className="booster-pack-loading-text">Opening Pack...</div>}
         </div>
       )}
-      <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '1px solid #ccc' }} />
+      <div className="pack-toggle-group">
+        <PackToggle
+          packsToOpen={packsToOpen}
+          setPacksToOpen={setPacksToOpen}
+          disabled={isOpening || isInitialLoading}
+        />
+      </div>
+      <hr style={{ width: '50%', margin: '10px auto', border: '0', borderTop: '3px solid #ccc' }} />
 
       {isModalOpen ? (
         <div className="modal-overlay" onClick={handleModalClick}>
           <div className="modal-content">
+            {/* Skip All Button for 50 cards */}
+            {openedCards.length >= 50 && revealedCardIndex < openedCards.length - 1 && (
+              <button
+                className="skip-all-btn"
+                onClick={e => {
+                  e.stopPropagation();
+                  handleSkipAll();
+                }}
+                aria-label="Skip All Animations"
+              >
+                <img src={skipIcon} alt="Skip All Animations" style={{ width: 32, height: 32 }} />
+              </button>
+            )}
             {openedCards.map((card, index) => {
               let cardClass = 'modal-card';
               if (index < revealedCardIndex) {
@@ -278,7 +320,7 @@ const PackOpening = ({ addToCollection }) => {
                 <div key={card.id} className={`opened-card card-${index}`}
                   onMouseEnter={() => handleCardMouseEnter(index)}
                   onMouseLeave={handleCardMouseLeave}
-                  >
+                >
                   <img src={card.images.large} alt={card.name} />
                   {hoveredCardIndex === index && card?.cardmarket?.prices && (
                     <div className="card-info">
@@ -290,19 +332,18 @@ const PackOpening = ({ addToCollection }) => {
                 </div>
               ))}
             </div>
-             <div className="pokemon-type-box">
-            Estimated Pack Value: ${totalPackValue}
-          </div>
+            <div className="pokemon-type-box">
+              Estimated Pack Value: ${totalPackValue}
+            </div>
             <button
               className="add-all-button"
               onClick={() => {
                 handleAddAllToCollection();
-                handleLogoClickRegister();
+                handleBacktoOpening(); // Using handleBacktoOpening here
               }}
             >
-                Register to Pokedex
-              </button>
-            
+              Register to Pokedex
+            </button>
           </>
         )
       )}

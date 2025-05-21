@@ -132,6 +132,35 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
       behavior: 'smooth'
     });
   };
+  function getPageNumbers(currentPage, totalPages) {
+  const delta = 2; 
+  const range = [];
+  const rangeWithDots = [];
+  let l;
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (
+      i === 1 ||
+      i === totalPages ||
+      (i >= currentPage - delta && i <= currentPage + delta)
+    ) {
+      range.push(i);
+    }
+  }
+
+  for (let i of range) {
+    if (l) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (i - l > 2) {
+        rangeWithDots.push('ellipsis');
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+  return rangeWithDots;
+}
 
   return (
     <div className="card-gallery-container">
@@ -292,17 +321,21 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
             Previous
           </button>
           
-          <div className="page-numbers">
-            {[...Array(totalPages)].map((_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => paginate(index + 1)}
-                className={`page-number ${currentPage === index + 1 ? 'active' : ''}`}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
+         <div className="page-numbers">
+  {getPageNumbers(currentPage, totalPages).map((item, idx) =>
+    item === 'ellipsis' ? (
+      <span key={`ellipsis-${idx}`} className="page-ellipsis">…</span>
+    ) : (
+      <button
+        key={item}
+        onClick={() => paginate(item)}
+        className={`page-number ${currentPage === item ? 'active' : ''}`}
+      >
+        {item}
+      </button>
+    )
+  )}
+</div>
 
           <button
             onClick={() => paginate(currentPage + 1)}

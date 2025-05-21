@@ -1,19 +1,29 @@
-/* src/components/LoadingSpinner.css */
-.loading-spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #3a5ca3; /* Pokémon blue */
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 1s linear infinite;
-  display: inline-block;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
+.loader {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    background: #fff;
+    border-radius: 50%;
+    overflow: hidden;
   }
-  100% {
-    transform: rotate(360deg);
+  .loader:after{
+    content: '';
+    position: absolute;
+    inset: 8px;
+    margin: auto;
+    background: #222b32;
+     border-radius: 50%;
   }
-}
+  .loader:before{
+    content: '';
+    position: absolute;
+    inset: 0px;
+    margin: auto;
+    background: #ffcb05;
+    animation: crlMugLoader 2s linear infinite alternate;
+  }
+  @keyframes crlMugLoader {
+    0%  ,10% { transform: translateY(64px) }
+    90% , 100% { transform: translateY(0px) }
+  }
+      
