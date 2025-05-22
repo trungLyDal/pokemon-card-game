@@ -10,7 +10,13 @@ const cardsRouter = require('./routes/cards'); // If you have a cards.js for /ap
 const app = express();
 
 // Middleware
-app.use(cors({ origin: 'https://pokemontcgcollection.netlify.app/' })); // Allow frontend dev server
+app.use(cors({
+  origin: [
+    'https://pokemontcgcollection.netlify.app',
+    'http://localhost:3000'
+  ],
+  credentials: true
+})); // Allow frontend dev server
 app.use(express.json());
 
 // API routes
