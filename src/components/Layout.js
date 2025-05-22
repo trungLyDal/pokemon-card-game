@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import ScrollToTopButton from './ScrollToTopButton';
 import './Layout.css';
-import AppLogo from '../assets/images/Pokémon_TCG_logo.png'; // Adjust the path as necessary
+import AppLogo from '../assets/images/Pokémon_TCG_logo.png'; 
+import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import PokeballImg from '../assets/images/9.png';
+
 
 function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -87,21 +90,100 @@ function Layout({ children }) {
 
       {showScroll && <ScrollToTopButton />}
 
-      {/* Footer with integrated Contact Us information */}
-      <footer className="main-app-layout-footer" id="footer">
-        <div className="main-app-layout-footer-contact-info">
-          <h3>Contact Us</h3>
-          <p>
-            <strong>Email:</strong> <a href="mailto:giatrung59@gmail.com">giatrung59@gmail.com</a>
-          </p>
-          <p>
-            <strong>Halifax, Nova Scotia, Canada</strong>
-          </p>
+        <footer className="main-app-layout-footer" id="footer">
+        <div className="footer">
+          <div className="bubbles">
+        {[...Array(48)].map((_, i) => (
+          <div
+            key={i}
+            className="bubble"
+            style={{
+          '--size': `${2 + Math.random() * 4}rem`,
+          '--distance': `${6 + Math.random() * 4}rem`,
+          '--position': `${-5 + Math.random() * 110}%`,
+          '--time': `${2 + Math.random() * 2}s`,
+          '--delay': `${-1 * (2 + Math.random() * 2)}s`
+            }}
+          />
+        ))}
+          </div>
+          <div className="content">
+        <div>
+          <div>
+            <b>Quick Links</b>
+            <a href="https://pokemoncardprices.io/card-info"     target="_blank"
+style={{ textDecoration: 'underline' }}
+          >Cards Prices</a>
+          </div>
+          <div>
+            <b>Contact Us</b>
+            <a
+          href="mailto:giatrung59@gmail.com"
+          style={{ textDecoration: 'underline' }}
+            >
+          giatrung59@gmail.com
+            </a>
+          </div>
+          <div>
+  <b>Follow Us</b>
+  <a
+    href="https://github.com/trungLyDal"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="GitHub"
+    style={{ fontSize: '1.5rem', marginRight: '0.5rem' }}
+  >
+    <FaGithub />
+  </a>
+  <a
+    href="https://www.linkedin.com/in/trung-ly-dal/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    style={{ fontSize: '1.5rem' }}
+  >
+    <FaLinkedin />
+  </a>
+  <a
+    href="mailto:giatrung59@gmail.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="LinkedIn"
+    style={{ fontSize: '1.5rem' }}
+  >
+    <FaEnvelope />
+  </a>
+</div>
         </div>
-        <p className="main-app-layout-copyright">
-         <strong>&copy; {new Date().getFullYear()} Pokemon Booster Card Simulator</strong> . All rights reserved.
-        </p>
-      </footer>
+        <div>
+          <a
+            className="image"
+            href="https://pokemontcgcollection.netlify.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+  backgroundImage: `url(${PokeballImg})`
+}}
+          />
+          <p>©2025 PBBS</p>
+        </div>
+          </div>
+        </div>
+        {/* SVG filter for bubbles */}
+  <svg style={{ position: 'fixed', top: '100vh' }}>
+    <defs>
+      <filter id="blob">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+        <feColorMatrix
+          in="blur"
+          mode="matrix"
+          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+          result="blob"
+        />
+      </filter>
+    </defs>
+  </svg>
+</footer>
     </div>
   );
 }
