@@ -174,8 +174,10 @@ const PackOpening = ({ addToCollection }) => {
 
   const handleAddAllToCollection = () => {
     // Animate cards
+        const container = document.querySelector('.opened-cards');
+
+    if(packsToOpen === 1){
     const cards = document.querySelectorAll('.opened-card, .modal-card');
-    const container = document.querySelector('.opened-cards');
 
     cards.forEach((card, idx) => {
       setTimeout(() => {
@@ -202,6 +204,22 @@ const PackOpening = ({ addToCollection }) => {
         container.style.margin = '0';
       }
     }, (cards.length * 80) + 700);
+  }
+    else{
+        openedCards.forEach(card => addToCollection(card));
+      setOpenedCards([]);
+      setIsModalOpen(false);
+      setPackClicked(false);
+      setIsSplitting(false);
+
+      // Reset container height
+      if (container) {
+        container.style.height = '0';
+        container.style.padding = '0';
+        container.style.margin = '0';
+      }
+    }
+    
   };
 
   const handleBacktoOpening = () => {

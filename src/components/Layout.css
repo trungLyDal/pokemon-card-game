@@ -11,8 +11,7 @@ html, body, #root, .main-app-layout-container {
 .main-app-layout-container {
   display: flex;
   flex-direction: column; /* Stack header, main, and footer vertically */
-  min-height: 100vh; /* Ensures the container always takes at least the full viewport height */
-  background-color: #1112123c; /* Dark background, matches your App.js assuming Tailwind-like colors */
+  background-color: rgb(255, 255, 255); /* Dark background, matches your App.js assuming Tailwind-like colors */
   color: #141515; /* Light text for contrast */
 }
 
@@ -36,6 +35,7 @@ html, body, #root {
   left: 0;
   right: 0;
   width: 100%;
+  height: 15vh;
   z-index: 1000; /* Ensure header stays on top */
 }
 
@@ -46,7 +46,7 @@ html, body, #root {
 .main-app-layout-header-content {
   display: flex;
   align-items: center;
-  margin: 0 auto;
+  margin-bottom: 0;;
   width: 100%;
   min-height: 64px;
   flex-wrap: wrap;
@@ -307,13 +307,14 @@ html, body, #root {
   }
   .main-app-layout-logo {
     margin-left: 0.25rem;
-    height: 40px;
-    min-width: 32px;
-    max-width: 60px;
+    height: auto;
+    min-width: 50px;
+    max-width: 120px;
   }
   .main-app-layout-nav-links {
     font-size: 1rem;
     gap: 0.5rem;
+    margin-top:200px;
   }
 
   .main-app-layout-main {

@@ -6,6 +6,7 @@ import Layout from './components/Layout'; // Import the Layout component
 import './App.css';
 import useCollection from './hooks/useCollection';
 import Slideshow from './components/Slideshow'; // Add this import
+import Separator from './components/Separator'; // Add this import
 
 function App() {
   const { collection, addToCollection, removeFromCollection, removeAllFromCollection } = useCollection();
@@ -22,9 +23,11 @@ function App() {
   return (
     <Layout>
       <Slideshow />
+      <div className="section-separator"></div>
       <div id="pack-opening-section">
         <PackOpening addToCollection={addToCollection} />
-      </div>        
+      </div>
+      <Separator />
       <div id="card-gallery-section">
         <CardGallery
           collection={collection}
