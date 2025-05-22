@@ -271,7 +271,6 @@
 }
 
 .modal-content {
-  /* Existing styles */
   display: flex;
   flex-direction: column;
   align-items: center;
