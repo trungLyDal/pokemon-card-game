@@ -8,7 +8,7 @@
 
 .card-gallery-container {
   margin: auto; /* Center the gallery with some top/bottom margin */
-  padding: 20px;
+  padding: 0;
   width: 100vw;
   background-color: #f8f8f8; /* Light gray background */
   border-radius: 8px;

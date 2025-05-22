@@ -8,7 +8,7 @@
   font-style: normal;
 }
 .pack-opening-container {
-  /*background-image: url('../assets/images/21007.webp');*/
+  background-image: url('../assets/images/backgroundPhotoPokemonReal.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -16,7 +16,6 @@
   min-height: 100vh;
   height: auto;
   padding: 20px;
-  border-radius: 8px;
   margin-bottom: 30px;
   text-align: center;
   position: relative;
@@ -32,7 +31,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(255, 255, 255, 0); /* Semi-transparent white */
   z-index: 1;
 }
 
@@ -54,10 +52,10 @@
 /* Responsive styles for mobile screens */
 @media (max-width: 600px) {
   .pack-opening-container {
-    padding: 30px !important; /* Increased padding significantly */
-    margin-bottom: 40px !important; /* Increased margin-bottom */
+    padding-bottom: 0;
     min-height: 0;
     height: auto;
+    margin-bottom: 0;
   }
   .booster-pack-container {
     width: 100% !important; /* Full width on mobile */
@@ -523,8 +521,13 @@
   position: relative;
   z-index: 2;
   opacity: 1;
-  background: rgba(255,255,255,0.18); 
   transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border-radius: 18px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  overflow: hidden;
 }
 
 .booster-pack-img {
@@ -729,4 +732,9 @@
     font-size: 1em;
     padding: 0.7em 1.2em;
   }
+}
+
+.pack-opening-container {
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
