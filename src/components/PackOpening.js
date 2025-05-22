@@ -38,7 +38,7 @@ fetch(`${API_BASE_URL}/api/cards?page=1&limit=10000`)
         setError('Failed to fetch cards from server.');
         setIsLoadingCards(false);
       });
-  }, []);
+  }, [API_BASE_URL]);
 
   // Initial loading spinner
   useEffect(() => {
