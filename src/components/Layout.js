@@ -111,9 +111,14 @@ function Layout({ children }) {
         <div>
           <div>
             <b>Quick Links</b>
-            <a href="https://pokemoncardprices.io/card-info"     target="_blank"
-style={{ textDecoration: 'underline' }}
-          >Cards Prices</a>
+           <a
+  href="https://pokemoncardprices.io/card-info"
+  target="_blank"
+  rel="noopener noreferrer"
+  style={{ textDecoration: 'underline' }}
+>
+  Cards Prices
+</a>
           </div>
           <div>
             <b>Contact Us</b>
@@ -148,7 +153,7 @@ style={{ textDecoration: 'underline' }}
     href="mailto:giatrung59@gmail.com"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="LinkedIn"
+    aria-label="Email"
     style={{ fontSize: '1.5rem' }}
   >
     <FaEnvelope />
