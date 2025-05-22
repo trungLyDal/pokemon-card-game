@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import './PackOpening.css';
 import LoadingSpinner from './LoadingSpinner';
-import cardData from '../data/all_pokemon_cards.json';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
 import PackToggle from "./PackToggle";
 import skipIcon from '../assets/images/skip-track.png';
 
-const PackOpening = ({ addToCollection }) => {
+const PackOpening = ({ addToCollection, addManyToCollection, collection }) => {
   const [openedCards, setOpenedCards] = useState([]);
   const [isOpening, setIsOpening] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -19,58 +18,65 @@ const PackOpening = ({ addToCollection }) => {
   const [isSplitting, setIsSplitting] = useState(false);
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
   const [totalPackValue, setTotalPackValue] = useState(0);
-  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false); // State for remove confirmation
-  const [cardToRemove, setCardToRemove] = useState(null); // State to store the card to remove
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
+  const [cardToRemove, setCardToRemove] = useState(null);
   const [error, setError] = useState(null);
   const [packsToOpen, setPacksToOpen] = useState(1);
   const [showLoadingScreen, setShowLoadingScreen] = useState(false);
+  const [cardData, setCardData] = useState([]);
+  const [isLoadingCards, setIsLoadingCards] = useState(true);
 
+  // Fetch all cards from backend
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsInitialLoading(false);
-    }, 500);
+    fetch('http://localhost:5000/api/cards?page=1&limit=10000')
+      .then(res => res.json())
+      .then(data => {
+        setCardData(data.cards);
+        setIsLoadingCards(false);
+      })
+      .catch(() => {
+        setError('Failed to fetch cards from server.');
+        setIsLoadingCards(false);
+      });
+  }, []);
 
+  // Initial loading spinner
+  useEffect(() => {
+    const timer = setTimeout(() => setIsInitialLoading(false), 500);
     return () => clearTimeout(timer);
   }, []);
 
+  // Calculate total pack value
   useEffect(() => {
     if (openedCards.length > 0) {
-      const total = openedCards.reduce((sum, card) => {
-        return sum + (card?.cardmarket?.prices?.averageSellPrice || 0);
-      }, 0);
+      const total = openedCards.reduce((sum, card) => (
+        sum + (card?.cardmarket?.prices?.averageSellPrice || 0)
+      ), 0);
       setTotalPackValue(total.toFixed(2));
     } else {
       setTotalPackValue(0);
     }
   }, [openedCards]);
 
-  const handleCardMouseEnter = (index) => {
-    setHoveredCardIndex(index);
-  };
+  const handleCardMouseEnter = (index) => setHoveredCardIndex(index);
+  const handleCardMouseLeave = () => setHoveredCardIndex(null);
 
-  const handleCardMouseLeave = () => {
-    setHoveredCardIndex(null);
-  };
-
-
-
+  // Draw a random card from the loaded cardData
   const fetchRandomCard = () => {
     if (cardData && cardData.length > 0) {
       const randomIndex = Math.floor(Math.random() * cardData.length);
       return cardData[randomIndex];
-    } else {
-      console.warn('No card data found in local JSON file (all_pokemon_cards.json).');
-      setError('Failed to fetch random cards (local data empty).');
     }
+    return null;
   };
 
+  // Skip all animations in modal
   const handleSkipAll = () => {
     setRevealedCardIndex(openedCards.length - 1);
-    setTimeout(() => {
-      setIsModalOpen(false);
-    }, 100); // Small delay to allow the last card animation if needed
+    setTimeout(() => setIsModalOpen(false), 100);
   };
 
+  // Open a pack and draw cards
   const openPack = async () => {
     if (openedCards.length > 0 && !isModalOpen) {
       setError("You must add the current cards to your collection before opening another pack!");
@@ -90,6 +96,7 @@ const PackOpening = ({ addToCollection }) => {
     for (let i = 0; i < numberOfPacks * numberOfCardsInPack; i++) {
       let randomCard = fetchRandomCard();
       if (randomCard) {
+        // Ensure no duplicates in this pack
         while (drawnCardIds.has(randomCard.id)) {
           randomCard = fetchRandomCard();
           if (!randomCard) break;
@@ -109,17 +116,21 @@ const PackOpening = ({ addToCollection }) => {
       }
     }
 
-    // Simulate loading delay for user feedback
     setTimeout(() => {
       setOpenedCards(newOpenedCards);
       setIsOpening(false);
       setShowLoadingScreen(false);
       setIsModalOpen(true);
       setRevealedCardIndex(0);
-    }, 1000); // 1 second loading screen
+    }, 1000);
   };
 
+  // Handle clicking the booster pack
   const handlePackClick = () => {
+    if (isLoadingCards || cardData.length === 0) {
+      setError("Cards are still loading. Please wait...");
+      return;
+    }
     if (openedCards.length > 0 && !isModalOpen) {
       setError("You must add the current cards to your collection before opening another pack!");
       return;
@@ -164,6 +175,7 @@ const PackOpening = ({ addToCollection }) => {
     }
   };
 
+  // Modal click to reveal next card or close
   const handleModalClick = () => {
     if (isModalOpen && revealedCardIndex < openedCards.length - 1) {
       setRevealedCardIndex(prevIndex => prevIndex + 1);
@@ -172,60 +184,50 @@ const PackOpening = ({ addToCollection }) => {
     }
   };
 
+  // Add all opened cards to collection
   const handleAddAllToCollection = () => {
-    // Animate cards
-        const container = document.querySelector('.opened-cards');
-
-    if(packsToOpen === 1){
-    const cards = document.querySelectorAll('.opened-card, .modal-card');
-
-    cards.forEach((card, idx) => {
+    const container = document.querySelector('.opened-cards');
+    if (packsToOpen === 1) {
+      const cards = document.querySelectorAll('.opened-card, .modal-card');
+      cards.forEach((card, idx) => {
+        setTimeout(() => {
+          card.classList.add('collecting');
+        }, idx * 80);
+      });
+      const button = document.querySelector('.add-all-button');
+      if (button) button.classList.add('collecting');
       setTimeout(() => {
-        card.classList.add('collecting');
-      }, idx * 80);
-    });
-
-    // Animate button
-    const button = document.querySelector('.add-all-button');
-    if (button) button.classList.add('collecting');
-
-    // Wait for animation, then clear
-    setTimeout(() => {
-      openedCards.forEach(card => addToCollection(card));
-      setOpenedCards([]);
+addManyToCollection(openedCards);        
+setOpenedCards([]);
+        setIsModalOpen(false);
+        setPackClicked(false);
+        setIsSplitting(false);
+        if (container) {
+          container.style.height = '0';
+          container.style.padding = '0';
+          container.style.margin = '0';
+        }
+      }, (cards.length * 80) + 700);
+    } else {
+addManyToCollection(openedCards);      
+setOpenedCards([]);
       setIsModalOpen(false);
       setPackClicked(false);
       setIsSplitting(false);
-
-      // Reset container height
-      if (container) {
-        container.style.height = '0';
-        container.style.padding = '0';
-        container.style.margin = '0';
-      }
-    }, (cards.length * 80) + 700);
-  }
-    else{
-        openedCards.forEach(card => addToCollection(card));
-      setOpenedCards([]);
-      setIsModalOpen(false);
-      setPackClicked(false);
-      setIsSplitting(false);
-
-      // Reset container height
       if (container) {
         container.style.height = '0';
         container.style.padding = '0';
         container.style.margin = '0';
       }
     }
-    
   };
 
+  // Scroll back to top after adding to collection
   const handleBacktoOpening = () => {
     document.getElementById('pack-opening-container-header').scrollIntoView({ behavior: 'smooth' });
-  }
+  };
 
+  // Reset UI state when modal closes
   useEffect(() => {
     if (!isModalOpen && packClicked) {
       setPackClicked(false);
@@ -234,6 +236,7 @@ const PackOpening = ({ addToCollection }) => {
     }
   }, [isModalOpen, packClicked]);
 
+  // Remove card modal logic
   const closeRemoveModal = () => {
     setIsRemoveModalOpen(false);
     setCardToRemove(null);
@@ -241,22 +244,19 @@ const PackOpening = ({ addToCollection }) => {
 
   const confirmRemoveCard = () => {
     if (cardToRemove) {
-      // Remove the card from the openedCards array
       setOpenedCards(prevCards => prevCards.filter(c => c.id !== cardToRemove.id));
     }
-    setIsRemoveModalOpen(false); // Close the modal
-    setCardToRemove(null); // Reset the card to remove
+    setIsRemoveModalOpen(false);
+    setCardToRemove(null);
   };
 
   return (
     <div className="pack-opening-container" id="pack-opening-container-header">
       <h2>Open a Booster Pack</h2>
       {error && (
-        <div className="error-message">
-          {error}
-        </div>
+        <div className="error-message">{error}</div>
       )}
-      {(isInitialLoading || showLoadingScreen) ? (
+      {(isInitialLoading || showLoadingScreen || isLoadingCards) ? (
         <div style={{ height: '300px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <LoadingSpinner />
         </div>
@@ -264,6 +264,7 @@ const PackOpening = ({ addToCollection }) => {
         <div
           className="booster-pack-container"
           onClick={handlePackClick}
+          style={{ pointerEvents: isLoadingCards ? 'none' : 'auto', opacity: isLoadingCards ? 0.5 : 1 }}
         >
           <img
             src={boosterPackImage}
@@ -315,11 +316,8 @@ const PackOpening = ({ addToCollection }) => {
                 cardClass += ' revealed';
               }
               return (
-                <div
-                  key={card.id}
-                  className={cardClass}
-                >
-                  <img src={card.images.large} alt={card.name} />
+                <div key={card.id} className={cardClass}>
+                  <img src={card.image} alt={card.name} />
                 </div>
               );
             })}
@@ -334,7 +332,7 @@ const PackOpening = ({ addToCollection }) => {
                   onMouseEnter={() => handleCardMouseEnter(index)}
                   onMouseLeave={handleCardMouseLeave}
                 >
-                  <img src={card.images.large} alt={card.name} />
+                  <img src={card.image} alt={card.name} />
                   {hoveredCardIndex === index && card?.cardmarket?.prices && (
                     <div className="card-info">
                       <p><strong>Avg Price:</strong> ${card.cardmarket.prices.averageSellPrice}</p>
@@ -352,7 +350,7 @@ const PackOpening = ({ addToCollection }) => {
               className="add-all-button"
               onClick={() => {
                 handleAddAllToCollection();
-                handleBacktoOpening(); // Using handleBacktoOpening here
+                handleBacktoOpening();
               }}
             >
               Register to Pokedex
