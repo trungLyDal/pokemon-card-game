@@ -524,8 +524,8 @@
   transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.4s cubic-bezier(0.77, 0, 0.175, 1);
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
   border-radius: 18px;
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1.5px solid rgba(255,255,255,0.18);
   overflow: hidden;
 }

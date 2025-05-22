@@ -8,8 +8,9 @@ import useCollection from './hooks/useCollection';
 import Slideshow from './components/Slideshow'; // Add this import
 import Separator from './components/Separator'; // Add this import
 
+
 function App() {
-  const { collection, addToCollection, removeFromCollection, removeAllFromCollection } = useCollection();
+  const { collection, addToCollection,addManyToCollection, removeFromCollection, removeAllFromCollection } = useCollection();
   const [selectedCard, setSelectedCard] = useState(null);
 
   const openCardDetails = (card) => {
@@ -25,7 +26,11 @@ function App() {
       <Slideshow />
       <div className="section-separator"></div>
       <div id="pack-opening-section">
-        <PackOpening addToCollection={addToCollection} />
+        <PackOpening
+  addToCollection={addToCollection}
+  addManyToCollection={addManyToCollection}
+  collection={collection}
+/>
       </div>
       <Separator />
       <div id="card-gallery-section">

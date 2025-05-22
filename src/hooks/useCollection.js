@@ -1,57 +1,77 @@
-// src/hooks/useCollection.js
 import { useState, useEffect } from 'react';
 
+const API_URL = 'http://localhost:5000/api/user-collection'; // Adjust if needed
+
 const useCollection = () => {
-  const [collection, setCollection] = useState(() => {
-    const storedCollection = localStorage.getItem('pokemonCollection');
-    return storedCollection ? JSON.parse(storedCollection) : [];
-  });
+  const [collection, setCollection] = useState([]);
 
+  // Fetch collection from backend on mount
   useEffect(() => {
-    localStorage.setItem('pokemonCollection', JSON.stringify(collection));
-  }, [collection]);
+    fetch(API_URL)
+      .then(res => res.json())
+      .then(data => setCollection(data.collection || []))
+      .catch(() => setCollection([]));
+  }, []);
 
-  const addToCollection = (card) => {
-    setCollection(prevCollection => {
-      const existingCardIndex = prevCollection.findIndex(item => item.id === card.id);
-      if (existingCardIndex !== -1) {
-        const updatedCollection = [...prevCollection];
-        updatedCollection[existingCardIndex] = {
-          ...updatedCollection[existingCardIndex],
-          count: (updatedCollection[existingCardIndex].count || 0) + 1,
-        };
-        return updatedCollection;
-      } else {
-        return [...prevCollection, { ...card, count: 1 }];
-      }
+  // Add multiple cards to collection in backend
+const addManyToCollection = async (cards) => {
+  try {
+    const res = await fetch(API_URL + '/addMany', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cards }),
     });
-  };
-
-  const removeFromCollection = (cardId) => {
-    setCollection(prevCollection => {
-      const existingCardIndex = prevCollection.findIndex(c => c.id === cardId);
-      if (existingCardIndex !== -1) {
-        const updatedCollection = [...prevCollection];
-        if (updatedCollection[existingCardIndex].count > 1) {
-          updatedCollection[existingCardIndex] = {
-            ...updatedCollection[existingCardIndex],
-            count: updatedCollection[existingCardIndex].count - 1,
-          };
-        } else {
-          updatedCollection.splice(existingCardIndex, 1);
-        }
-        return updatedCollection;
-      }
-      return prevCollection;
-    });
-  };
-
-  const removeAllFromCollection = () => {
-    setCollection([]); // Set the collection state to an empty array
-    localStorage.removeItem('pokemonCollection'); // Optionally clear from localStorage as well
-  };
-
-  return { collection, addToCollection, removeFromCollection, removeAllFromCollection };
+    const data = await res.json();
+    setCollection(data.collection);
+  } catch {
+    // handle error
+  }
 };
+const addToCollection = async (card) => {
+  try {
+    const res = await fetch(API_URL + '/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ card }),
+    });
+    const data = await res.json();
+    setCollection(data.collection);
+  } catch {
+    // handle error
+  }
+};  
+  // Remove card from collection in backend
+  const removeFromCollection = async (cardId) => {
+    try {
+      const res = await fetch(API_URL + '/remove', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cardId }),
+      });
+      const data = await res.json();
+      setCollection(data.collection);
+    } catch {
+      // handle error
+    }
+  };
+
+  // Remove all cards from collection in backend
+  const removeAllFromCollection = async () => {
+    try {
+      const res = await fetch(API_URL + '/clear', { method: 'POST' });
+      const data = await res.json();
+      setCollection(data.collection);
+    } catch {
+      // handle error
+    }
+  };
+
+return {
+  collection,
+  addToCollection,
+  addManyToCollection,
+  removeFromCollection,
+  removeAllFromCollection
+};};
 
 export default useCollection;

@@ -148,11 +148,11 @@ const CardDetails = ({ card, onClose }) => {
         </button>
         <div className="card-3d-container" ref={card3DRef} style={{ position: 'relative', overflow: 'hidden' }}>
           <img
-            src={card.images.large}
-            alt={card.name}
-            className="card-3d-image"
-            style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', cursor: 'none' }}
-          />
+  src={card.images?.large || card.images?.small || card.image}
+  alt={card.name}
+  className="card-3d-image"
+  style={{ display: 'block', width: '100%', height: '100%', objectFit: 'contain', cursor: 'none' }}
+/>
           <div
             ref={ballCursorRef}
             style={{

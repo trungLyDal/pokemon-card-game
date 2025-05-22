@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CardGallery.css';
 import XIcon from '../assets/images/XIcon.png';
 
+
 const CardGallery = ({ collection, openCardDetails, removeFromCollection, removeAllFromCollection }) => {
   const [filter, setFilter] = useState('');
   const [filteredCollection, setFilteredCollection] = useState(collection);
@@ -261,8 +262,12 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
               onMouseLeave={handleCardMouseLeave}
               style={{ position: 'relative', overflow: 'hidden' }}
             >
-              <img src={cardObj.images.small} alt={cardObj.name} onClick={() => openCardDetails(cardObj)} style={{ cursor: 'pointer' }} />
-              {cardObj.count > 1 && <div className="card-count">{cardObj.count}</div>}
+<img
+  src={cardObj.images?.small || cardObj.image}
+  alt={cardObj.name}
+  onClick={() => openCardDetails(cardObj)}
+  style={{ cursor: 'pointer' }}
+/>              {cardObj.count > 1 && <div className="card-count">{cardObj.count}</div>}
               <div className="card-actions">
                 <button className="remove-button" onClick={() => openRemoveConfirmation(cardObj.id)}>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
