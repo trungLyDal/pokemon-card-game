@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api/user-collection';
+const API_URL = (process.env.REACT_APP_API_URL || 'http://localhost:5000') + '/api/user-collection';
 
 const useCollection = () => {
   const [collection, setCollection] = useState([]);
