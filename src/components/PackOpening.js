@@ -28,7 +28,7 @@ const PackOpening = ({ addToCollection, addManyToCollection, collection }) => {
 
   // Fetch all cards from backend
   useEffect(() => {
-    fetch('http://localhost:5000/api/cards?page=1&limit=10000')
+fetch(`${API_BASE_URL}/api/cards?page=1&limit=10000`)
       .then(res => res.json())
       .then(data => {
         setCardData(data.cards);
@@ -75,6 +75,7 @@ const PackOpening = ({ addToCollection, addManyToCollection, collection }) => {
     setRevealedCardIndex(openedCards.length - 1);
     setTimeout(() => setIsModalOpen(false), 100);
   };
+const API_BASE_URL = process.env.REACT_APP_API_URL;
 
   // Open a pack and draw cards
   const openPack = async () => {
