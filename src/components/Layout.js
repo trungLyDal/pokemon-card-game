@@ -162,9 +162,15 @@ style={{ textDecoration: 'underline' }}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-  backgroundImage: `url(${PokeballImg})`
-}}
-          />
+              backgroundImage: `url(${PokeballImg})`
+            }}
+            aria-label="Pokeball Home"
+          >
+            {/* Add visually hidden text for accessibility */}
+            <span style={{ position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(1px, 1px, 1px, 1px)' }}>
+              Pokeball Home
+            </span>
+          </a>
           <p>©2025 PBBS</p>
         </div>
           </div>
