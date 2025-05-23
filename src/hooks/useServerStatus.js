@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 const useServerStatus = () => {
   const [serverReady, setServerReady] = useState(false);
 
+  // Get base URL from env variable or default to production URL
+const baseUrl = process.env.REACT_APP_API_URL || 'https://pokemon-card-game-pbfr.onrender.com';
+
   useEffect(() => {
     const checkServer = async () => {
       try {
-        const res = await fetch('https://pokemon-card-game-pbfr.onrender.com/api/healthcheck');
+        const res = await fetch(`${baseUrl}/api/healthcheck`);
         if (res.ok) {
           setServerReady(true);
         }
@@ -22,7 +25,7 @@ const useServerStatus = () => {
     }, 3000); // check every 3 seconds
 
     return () => clearInterval(interval);
-  }, [serverReady]);
+  }, [serverReady, baseUrl]);
 
   return serverReady;
 };
