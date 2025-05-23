@@ -30,7 +30,7 @@
   padding: 8px 15px;
   border-radius: 8px;
   border: 2px solid #555;
-  background-color: #f0f0f0;
+  background-color: #ffffff;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease-in-out; /* Add a smooth transition for the jump */
   cursor: pointer;
