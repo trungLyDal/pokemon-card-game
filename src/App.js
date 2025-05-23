@@ -8,6 +8,8 @@ import './App.css';
 import useCollection from './hooks/useCollection';
 import Slideshow from './components/Slideshow';
 import Separator from './components/Separator';
+import LoadingSpinner from './components/LoadingSpinner';
+
 
 function App() {
   const serverReady = useServerStatus(); 
@@ -20,6 +22,7 @@ function App() {
   if (!serverReady) {
     return (
       <div className="loading-screen">
+        <LoadingSpinner />
         <h2>Loading server...</h2>
         <p>Waking up the Render server. This may take a few seconds.</p>
       </div>
