@@ -396,27 +396,60 @@
 
   .card-grid {
     display: flex;
-    flex-direction: column; /* Single column layout */
-    gap: 15px; /* Spacing between cards */
-    padding: 10px;
-  }
-
-  .card-item {
-    margin-bottom: 10px; /* Spacing between stacked cards */
-    padding: 15px; /* Add some padding inside each card */
-    flex-direction: row; /* Arrange image and actions in a row */
-    align-items: center; /* Vertically align image and actions */
-  }
-
-  .card-item img {
-    max-width: 40%; /* Adjust image size within the row */
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 0;
+    padding: 0;
+    background: rgba(9, 9, 9, 0.18);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    border: none;
+    background-image: none;
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: -10px;
+    margin-right: -10px;
+    min-height: 0;
     height: auto;
   }
 
+  .card-item {
+    width: 47%;
+    margin: 1%;
+    height: 300px;
+    max-width: none;
+    min-width: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: none;
+    background-color: rgb(175, 110, 110);
+  }
+
+  .card-item img {
+    max-width: 90%;
+    max-height: 100%;
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+
   .card-actions {
-    width: 70%; /* Adjust width of the actions container */
-    margin-top: 0;
-    justify-content: flex-end; /* Align buttons to the right */
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 10px;
   }
 
   .remove-all-button {
@@ -436,6 +469,13 @@
     right: 5px;
     padding: 3px 6px;
   }
+  .remove-button {
+    margin: 0; /* Remove margin for smaller screens */
+    padding: 0; /* Remove padding for smaller screens */
+    color: black;
+  }
+
+  
 }
 
 
