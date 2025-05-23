@@ -9,6 +9,9 @@ const cardsRouter = require('./routes/cards'); // If you have a cards.js for /ap
 
 const app = express();
 
+app.get('/api/healthcheck', (req, res) => {
+  res.status(200).send('OK');
+});
 // Middleware
 app.use(cors({
   origin: [
