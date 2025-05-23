@@ -93,6 +93,10 @@
     max-width: 90%;
     max-height: 90%;
   }
+  .pack-opening-container h2 {
+    margin-top: 5vh; /* Adjust top margin for mobile */
+    font-size: 7vw !important; /* Responsive font size */
+  }
 }
 
 
