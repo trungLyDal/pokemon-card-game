@@ -1,29 +1,54 @@
+/* src/components/LoadingSpinner.css */
+
+/* --- NEW: Wrapper styles for the full-screen overlay --- */
+.loader-overlay-fullscreen {
+  position: fixed; /* Fixes it relative to the viewport */
+  top: 0;
+  left: 0;
+  width: 100vw;   /* Take full viewport width */
+  height: 100vh;  /* Take full viewport height */
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white overlay */
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center;   /* Center vertically */
+  z-index: 9999; /* Ensure it's on top of everything */
+}
+
+/* --- NEW: Base styles for inline usage (optional, if you reuse it elsewhere in a small context) --- */
+.loader-overlay-inline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
 .loader {
-    position: relative;
-    width: 64px;
-    height: 64px;
-    background: #fff;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  .loader:after{
-    content: '';
-    position: absolute;
-    inset: 8px;
-    margin: auto;
-    background: #222b32;
-     border-radius: 50%;
-  }
-  .loader:before{
-    content: '';
-    position: absolute;
-    inset: 0px;
-    margin: auto;
-    background: #ffcb05;
-    animation: crlMugLoader 2s linear infinite alternate;
-  }
-  @keyframes crlMugLoader {
-    0%  ,10% { transform: translateY(64px) }
-    90% , 100% { transform: translateY(0px) }
-  }
-      
+  position: relative;
+  width: 64px;
+  height: 64px;
+  background: #fff;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.loader:after{
+  content: '';
+  position: absolute;
+  inset: 8px;
+  margin: auto;
+  background: #222b32;
+  border-radius: 50%;
+}
+
+.loader:before{
+  content: '';
+  position: absolute;
+  inset: 0px;
+  margin: auto;
+  background: #ffcb05; /* Your yellow color */
+  animation: crlMugLoader 2s linear infinite alternate;
+}
+
+@keyframes crlMugLoader {
+  0% ,10% { transform: translateY(64px) }
+  90% , 100% { transform: translateY(0px) }
+}
