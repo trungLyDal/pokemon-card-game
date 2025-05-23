@@ -9,6 +9,7 @@ const cardsRouter = require('./routes/cards'); // If you have a cards.js for /ap
 
 const app = express();
 
+
 // Middleware
 app.use(cors({
   origin: [
@@ -18,6 +19,10 @@ app.use(cors({
   credentials: true
 })); // Allow frontend dev server
 app.use(express.json());
+
+app.get('/api/healthcheck', (req, res) => {
+  res.status(200).send('OK');
+});
 
 // API routes
 app.use('/api/user-collection', userCollectionRouter);
