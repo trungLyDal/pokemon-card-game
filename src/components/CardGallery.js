@@ -100,6 +100,7 @@ useEffect(() => {
     setLeastValuableCard(leastValuable);
   }, [collection]); // Recalculate when the main collection changes
 
+
   const totalCards = collection.length;
   const totalCardsText = ` ${totalCards}`;
 
@@ -293,7 +294,8 @@ useEffect(() => {
         </div>
                <button
     id="filterType"
-    onClick={() => setShowDropdown(v => !v)}
+    
+    onClick={e => {e.stopPropagation(); setShowDropdown(v => !v)}}
     type="button"
     aria-label="Show filter options"
   >
