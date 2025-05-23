@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './CardGallery.css';
 import XIcon from '../assets/images/XIcon.png';
+import { FaFilter } from "react-icons/fa";
 
 
 const CardGallery = ({ collection, openCardDetails, removeFromCollection, removeAllFromCollection }) => {
@@ -15,6 +16,51 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
   const [leastValuableCard, setLeastValuableCard] = useState(null); // State for least valuable card
   const [currentPage, setCurrentPage] = useState(1);
   const [cardsPerPage] = useState(12); // Adjust this number as needed
+    const [showDropdown, setShowDropdown] = useState(false);
+  const [sortOption, setSortOption] = useState('');
+  const [typeFilter, setTypeFilter] = useState('');
+  const dropdownRef = useRef(null);
+
+useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+    if (showDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showDropdown]);
+
+   const allTypes = Array.from(
+    new Set(collection.flatMap(card => card.types || []))
+  ).sort();
+
+  useEffect(() => {
+    let filtered = collection.filter(cardObj =>
+      cardObj.name.toLowerCase().includes(filter.toLowerCase()) ||
+      (cardObj.types && cardObj.types.some(type => type.toLowerCase().includes(filter.toLowerCase()))) ||
+      (cardObj.rarity && cardObj.rarity.toLowerCase().includes(filter.toLowerCase())) ||
+      (cardObj.set && cardObj.set.name.toLowerCase().includes(filter.toLowerCase())) ||
+      (cardObj.cardmarket && cardObj.cardmarket.prices && cardObj.cardmarket.prices.averageSellPrice.toString().includes(filter))
+    );
+    if (typeFilter) {
+      filtered = filtered.filter(card => (card.types || []).includes(typeFilter));
+    }
+    if (sortOption === 'priceHighLow') {
+      filtered = [...filtered].sort((a, b) =>
+        (b?.cardmarket?.prices?.averageSellPrice || 0) - (a?.cardmarket?.prices?.averageSellPrice || 0)
+      );
+    } else if (sortOption === 'priceLowHigh') {
+      filtered = [...filtered].sort((a, b) =>
+        (a?.cardmarket?.prices?.averageSellPrice || 0) - (b?.cardmarket?.prices?.averageSellPrice || 0)
+      );
+    }
+    setFilteredCollection(filtered);
+  }, [collection, filter, sortOption, typeFilter]);
 
   useEffect(() => {
     const filtered = collection.filter(cardObj =>
@@ -224,8 +270,7 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
         </p>
       </div>
       <div className="filter-section">
-        <label htmlFor="filter">Filter Cards:</label>
-        <div className="filter-input-wrapper" style={{ position: 'relative', display: 'inline-block', width: '100%' }}>
+        <div className="filter-input-wrapper">
           <input
             type="text"
             id="filter"
@@ -234,6 +279,7 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
             onChange={handleFilterChange}
             className="filter-input"
           />
+          
           {filter && (
             <button
               type="button"
@@ -245,12 +291,47 @@ const CardGallery = ({ collection, openCardDetails, removeFromCollection, remove
             </button>
           )}
         </div>
-        {filter && (
-          <p id="filterNo">
-            {filteredCollection.length} {filteredCollection.length === 1 ? 'card' : 'cards'}
-          </p>
-        )}
+               <button
+    id="filterType"
+    onClick={() => setShowDropdown(v => !v)}
+    type="button"
+    aria-label="Show filter options"
+  >
+    <FaFilter />
+  </button>
+  {showDropdown && (
+    <div className="filter-dropdown" ref={dropdownRef}>
+      <div className="dropdown-section">
+        <span className="dropdown-label">Sort by Price:</span>
+        <button
+          className={sortOption === 'priceHighLow' ? 'active' : ''}
+          onClick={() => { setSortOption('priceHighLow'); setShowDropdown(false); }}
+        >High → Low</button>
+        <button
+          className={sortOption === 'priceLowHigh' ? 'active' : ''}
+          onClick={() => { setSortOption('priceLowHigh'); setShowDropdown(false); }}
+        >Low → High</button>
       </div>
+      <div className="dropdown-section">
+        <span className="dropdown-label">Filter by Type:</span>
+        <select
+          value={typeFilter}
+          onChange={e => { setTypeFilter(e.target.value); setShowDropdown(false); }}
+        >
+          <option value="">All Types</option>
+          {allTypes.map(type => (
+            <option key={type} value={type}>{type}</option>
+          ))}
+        </select>
+      </div>
+      {(sortOption || typeFilter) && (
+        <button className="dropdown-clear" onClick={() => { setSortOption(''); setTypeFilter(''); }}>
+          Clear Filters
+        </button>
+      )}
+    </div>
+  )}
+        </div>
       <div className="card-grid">
         {currentCards.map(cardObj => {
           const glowClass = cardObj.types && cardObj.types[0] ? `glow-${cardObj.types[0].toLowerCase()}` : '';

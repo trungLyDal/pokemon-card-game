@@ -377,11 +377,18 @@
   }
 
   .filter-section {
-    flex-direction: column; /* Stack label and input vertically */
+    flex-direction: row; /* Stack label and input vertically */
     align-items: flex-start;
-    margin-bottom: 15px;
   }
 
+  #filterType{
+    margin-top: 5px; /* Remove margin for smaller screens */
+    padding: 8px 12px; 
+  border: 1px solid #ccc;
+  border-radius: 0cqb;
+
+
+  }
   .filter-section label {
     margin-right: 0;
     margin-bottom: 5px;
@@ -1001,3 +1008,56 @@
   opacity: 1;
   color: red;
 }
+
+#filterType {
+   margin: 0.5vw;
+   cursor: pointer;
+   border-radius: 10px;
+   padding: 10px;
+}
+
+  .filter-dropdown {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 100;
+    background: #fff;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    padding: 12px 16px;
+    min-width: 180px;
+    width: max-content;
+    font-size: 1em;
+  }
+  .dropdown-section {
+    margin-bottom: 10px;
+  }
+  .dropdown-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+    color: #333;
+  }
+  .filter-dropdown button,
+  .filter-dropdown select {
+    width: 100%;
+    margin-bottom: 6px;
+    padding: 7px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  .filter-dropdown button.active {
+    background: #ffe066;
+    color: #222;
+    font-weight: bold;
+  }
+  .dropdown-clear {
+    background: #eee;
+    color: #c0392b;
+    border: none;
+    margin-top: 4px;
+  }
