@@ -217,59 +217,77 @@ useEffect(() => {
         Remove Entire Collection
       </button>
       <div className="collection-info">
-        <p className="pokemon-type-box">
-          <strong>Total:</strong>{totalCardsText}
-        </p>
-        <p className="pokemon-type-box">
-          <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
-        </p>
-        <p className="pokemon-type-box">
-           {
-            mostValuableCard ? (
-              <span>
-                <span 
-                  className="clickable" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    openCardDetails(mostValuableCard);
-                  }}
-                >
-                  <strong>Most Valuable Card: </strong>{mostValuableCard.name}
-                </span>
-                {" "}({" "}
-                <span
-                  className="price-link-most clickable"
-                  onClick={handleMostValuablePriceClick}
-                >
-                  ${mostValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}
-                </span>
-                {" "})
-              </span>
-            ) : (
-              <span className="placeholder-text">No cards yet</span>
-            )
-          }
-        </p> 
-        <p className="pokemon-type-box">
-           {
-            leastValuableCard ? (
-              <span>
-                <span className="clickable" onClick={() => openCardDetails(leastValuableCard)}>
-                  <strong>Least Valuable Card: </strong>{leastValuableCard.name}
-                </span> (
-                <span
-                  className="price-link-least clickable"
-                  onClick={handleLeastValuablePriceClick}
-                >
-                  ${leastValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}
-                </span>)
-              </span>
-            ) : (
-              <span className="placeholder-text">No cards yet</span>
-            )
-          }
-        </p>
-      </div>
+  <p className="pokemon-type-box">
+    <strong>Total:</strong>{totalCardsText}
+  </p>
+  <p className="pokemon-type-box">
+    <strong>Total Collection Value (Avg):</strong> ${totalCollectionValue}
+  </p>
+
+  {/* Most Valuable Card Paragraph */}
+  <p
+    className="pokemon-type-box clickable-paragraph" // Added clickable-paragraph for styling
+    onClick={() => {
+      if (mostValuableCard) { // Ensure card exists before calling
+        openCardDetails(mostValuableCard);
+      }
+    }}
+  >
+    {mostValuableCard ? (
+      <span>
+        {/* The name part is no longer independently clickable for openCardDetails */}
+        <span>
+          <strong>Most Valuable Card: </strong>{mostValuableCard.name}
+        </span>
+        {" "}({" "}
+        <span
+          className="price-link-most clickable" // Keep this for specific price action
+          onClick={(e) => {
+            e.stopPropagation(); // VERY IMPORTANT: Prevents the <p>'s onClick from firing
+            handleMostValuablePriceClick(e); // Your existing handler for price
+          }}
+        >
+          ${mostValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}
+        </span>
+        {" "})
+      </span>
+    ) : (
+      <span className="placeholder-text">No cards yet</span>
+    )}
+  </p>
+
+  {/* Least Valuable Card Paragraph */}
+  <p
+    className="pokemon-type-box clickable-paragraph" // Added clickable-paragraph for styling
+    onClick={() => {
+      if (leastValuableCard) { // Ensure card exists before calling
+        openCardDetails(leastValuableCard);
+      }
+    }}
+  >
+    {leastValuableCard ? (
+      <span>
+        {/* The name part is no longer independently clickable for openCardDetails */}
+        <span>
+          <strong>Least Valuable Card: </strong>{leastValuableCard.name}
+        </span>
+        {" "} ({" "}
+        <span
+          className="price-link-least clickable" // Keep this for specific price action
+          onClick={(e) => {
+            e.stopPropagation(); // VERY IMPORTANT: Prevents the <p>'s onClick from firing
+            handleLeastValuablePriceClick(e); // Your existing handler for price
+          }}
+        >
+          ${leastValuableCard?.cardmarket?.prices?.averageSellPrice?.toFixed(2) || 0}
+        </span>
+        )
+      </span>
+    ) : (
+      <span className="placeholder-text">No cards yet</span>
+    )}
+  </p>
+</div>
       <div className="filter-section">
         <div className="filter-input-wrapper">
           <input

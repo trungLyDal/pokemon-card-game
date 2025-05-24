@@ -1,4 +1,6 @@
 /* src/components/CardDetails.css */
+
+
 .card-details-overlay {
   position: fixed;
   top: 0;
@@ -14,30 +16,180 @@
   animation: fadeIn 0.3s ease-out forwards;
 }
 
+/* --- Global Styles for Collection Info Container --- */
 .collection-info {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  justify-content: center;
+  flex-direction: row; /* Ensures boxes are in a row initially */
+  flex-wrap: wrap;     /* Allows boxes to wrap to the next line */
+  justify-content: center; /* Centers the rows of boxes horizontally */
+  align-items: flex-start; /* Aligns items to the start of the cross-axis (top) */
+  gap: 20px; /* Generous gap between boxes */
+  margin-bottom: 25px; /* Space below the collection info */
+  padding: 0 10px; /* Slight horizontal padding for edges */
+  max-width: 100%; /* Ensure it doesn't exceed parent width */
 }
 
+/* --- Styles for Individual Pokemon Type Boxes --- */
 .pokemon-type-box {
-  text-align: center;
-  margin-top: 0;
-  margin-bottom: 0;
-  font-size: 1.1em;
-  padding: 8px 15px;
-  border-radius: 8px;
-  border: 2px solid #555;
-  background-color: #ffffff;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease-in-out; /* Add a smooth transition for the jump */
-  cursor: pointer;
+  /* Core Structure and Background */
+  background-color: #f7f7f7; /* A very light, almost white background */
+  background-image:
+    repeating-linear-gradient(45deg, #e0e0e0 2px, transparent 2px, transparent 4px), /* Subtle diagonal lines */
+    repeating-linear-gradient(-45deg, #e0e0e0 2px, transparent 2px, transparent 4px); /* Combined for a grid-like texture */
+  background-size: 8px 8px; /* Control the density of the pattern */
+  border: 4px solid #000; /* Strong, bold black border, like a game UI element */
+  border-radius: 12px; /* Pronounced rounded corners */
+  padding: 15px 20px; /* Comfortable inner spacing */
+
+  /* Flexbox sizing for two-column layout */
+  flex-basis: calc(50% - 30px); /* Sets width to roughly 50% minus half the gap */
+  max-width: calc(50% - 30px);  /* Ensures max width also adheres to 50% */
+  flex-grow: 1; /* Allows boxes to grow to fill space if available */
+  flex-shrink: 1; /* Allows boxes to shrink if necessary */
+  min-width: 280px; /* Minimum width to prevent excessive squishing. Adjust as needed. */
+
+  margin-bottom: 20px; /* Add margin-bottom for spacing between rows */
+
+  /* Text Styling */
+  font-family: tbs_emerald, sans-serif; /* Clear, readable font for stats */
+  color: #333; /* Dark text for excellent readability */
+  line-height: 1.5; /* Good line spacing */
+  font-size: 1.1em; /* Base text size */
+
+  /* Layout and Shadow */
+  display: flex; /* Make the box itself a flex container */
+  flex-direction: column; /* Stack content vertically within the box */
+  align-items: center; /* Horizontally centers items within the box */
+  justify-content: center; /* Vertically centers items within the box (if there's extra space) */
+  text-align: center; /* Ensures text lines are centered */
+
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2); /* Chunky shadow */
+  transition: all 0.2s ease-out; /* Smooth transitions */
+  cursor: pointer; /* Indicate clickability */
 }
 
+/* Hover Effect: Give it a slight "press" or "pop" when hovered */
 .pokemon-type-box:hover {
-  transform: translateY(-5px); /* Move the element up by 5 pixels on hover */
+  transform: translate(2px, 2px); /* Shift down and right to "press" into the shadow */
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2); /* Make the shadow smaller to complete the "press" effect */
+}
+
+.pokemon-type-box strong {
+  font-family: 'Pokemon', sans-serif; /* Custom font for strong labels */
+  color: #0e0e0e; /* Heading color consistency */
+  margin-right: 0; /* Remove margin-right for centering */
+  font-weight: normal; /* Normal weight for custom font */
+  font-size: 1.2em; /* Slightly larger bold labels */
+  text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.7); /* Subtle text shadow */
+  display: block; /* Make strong a block element to control its own line */
+  margin-bottom: 5px; /* Space between strong and the value */
+}
+
+/* Styles for clickable text within the boxes */
+.pokemon-type-box .clickable {
+  cursor: pointer;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out, text-shadow 0.2s ease-in-out;
+  white-space: normal; /* Allow text to wrap naturally if needed for centering */
+}
+
+.pokemon-type-box .clickable:hover {
+  text-decoration: underline;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
+}
+
+/* Specific vibrant colors for price links */
+.price-link-most.clickable {
+  color: #007bff; /* Bright blue */
+}
+
+.price-link-most.clickable:hover {
+  color: #0056b3; /* Darker blue on hover */
+}
+
+.price-link-least.clickable {
+  color: #dc3545; /* Strong red */
+}
+
+.price-link-least.clickable:hover {
+  color: #c82333; /* Darker red on hover */
+}
+
+/* Placeholder text style */
+.pokemon-type-box .placeholder-text {
+  color: #888;
+  font-style: italic;
+  font-size: 0.95em;
+}
+
+/* Ensure the spans within the "Most Valuable Card" line behave well */
+.pokemon-type-box > span {
+  display: block; /* Make it a block element so text-align can center it */
+  text-align: center; /* Center the content of this span */
+}
+
+/* If you need the price and name to stick together (like Most Valuable Card: Charizard ($100)) */
+/* and the whole thing to center, you might wrap the name and price in another span inside the clickable */
+.pokemon-type-box .clickable .card-name-and-price {
+  display: inline-block; /* Treat it as a single block for centering */
+  white-space: normal; /* Allow the content inside to wrap if needed */
+  text-align: center;
+}
+
+
+/* --- Responsive Adjustments --- */
+/* For Tablets (up to 768px wide) - Will stack one per line */
+@media (max-width: 768px) {
+  .collection-info {
+    gap: 15px; /* Slightly smaller gap */
+    padding: 0 5px;
+  }
+
+  .pokemon-type-box {
+    flex-basis: calc(100% - 10px); /* Make them full width (one per line) */
+    max-width: calc(100% - 10px);
+    padding: 12px 15px; /* Reduced padding */
+    font-size: 1em; /* Adjusted font size */
+    min-width: 0; /* Allow to shrink freely when single column */
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.2); /* Slightly smaller shadow */
+    margin-bottom: 15px; /* Adjust spacing between stacked boxes */
+  }
+
+  .pokemon-type-box strong {
+    font-size: 1.1em; /* Adjusted bold label size */
+    margin-bottom: 3px; /* Slightly less space below strong */
+  }
+
+  .pokemon-type-box .clickable {
+    font-size: 1em; /* Ensure clickable text scales */
+  }
+}
+
+/* For Phones (up to 600px wide, overriding some above if needed) */
+@media (max-width: 600px) { /* Your existing mobile breakpoint */
+  .collection-info {
+    gap: 10px; /* Further reduce gap on mobile */
+    padding: 0 5px;
+  }
+
+  .pokemon-type-box {
+    padding: 10px 12px; /* Even more compact on mobile */
+    font-size: 0.95em; /* Slightly smaller text for better fit */
+    border-width: 3px; /* Slightly thinner border */
+    border-radius: 10px;
+    box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15); /* Even smaller shadow */
+    margin-bottom: 10px; /* Further reduce spacing between stacked boxes */
+  }
+
+  .pokemon-type-box strong {
+    font-size: 1.05em; /* Adjusted bold text for smallest screens */
+    margin-bottom: 2px;
+  }
+
+  .pokemon-type-box .clickable {
+    font-size: 0.95em; /* Ensure clickable text scales */
+  }
 }
 
 @keyframes fadeIn {
@@ -191,4 +343,31 @@
   .card-3d-container {
     transform: none !important;
   }
+}
+
+/* Base style with transition */
+.pokemon-type-box.clickable-paragraph {
+  display: block;
+  cursor: pointer;
+  padding: 15px; /* Adjust padding as needed */
+  background-color: #fff; /* Assuming a white or very light base */
+  border: 1px solid #f0f0f0; /* A subtle base border */
+  border-radius: 6px; /* Slightly rounded corners often pair well with shadows */
+
+  /* Transitions for a smooth hover effect */
+  /* Using a cubic-bezier for a more 'physical' feel to the animation */
+  transition: transform 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+              box-shadow 0.25s cubic-bezier(0.25, 0.8, 0.25, 1),
+              border-color 0.2s ease-in-out;
+              
+}
+/* Hover style */
+.pokemon-type-box.clickable-paragraph:hover {
+  transform: translateY(-4px) scale(1.01); /* Lift it up and slightly enlarge */
+  /* A more pronounced and layered shadow to enhance the 'floating' effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12), /* Softer, larger shadow for distance */
+              0 4px 8px rgba(0, 0, 0, 0.08);   /* Crisper, closer shadow for definition */
+  border-color: #e0e0e0; /* Make the border slightly more visible as it 'lifts' */
+  /* Optional: Very minimal background change if desired, or none at all */
+  /* background-color: #fcfcfc; */
 }
