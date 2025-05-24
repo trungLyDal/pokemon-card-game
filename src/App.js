@@ -8,23 +8,30 @@ import './App.css';
 import useCollection from './hooks/useCollection';
 import Slideshow from './components/Slideshow';
 import Separator from './components/Separator';
-import LoadingSpinner from './components/LoadingSpinner';
-
+import FakeLoading from './components/FakeLoading'; // Import the new loading component
 
 function App() {
-  const serverReady = useServerStatus(); 
+  const serverReady = useServerStatus();
   const { collection, addToCollection, addManyToCollection, removeFromCollection, removeAllFromCollection } = useCollection();
   const [selectedCard, setSelectedCard] = useState(null);
+  const [loadingComplete, setLoadingComplete] = useState(false);
 
   const openCardDetails = (card) => setSelectedCard(card);
   const closeCardDetails = () => setSelectedCard(null);
 
-  if (!serverReady) {
+  // Show FakeLoading until server is ready or fake loading completes
+  if (!serverReady && !loadingComplete) {
+    return (
+<FakeLoading serverReady={serverReady} onComplete={() => setLoadingComplete(true)} />
+    );
+  }
+
+  // If loading is complete but server is not ready, still show message or fallback
+  if (!serverReady && loadingComplete) {
     return (
       <div className="loading-screen">
-        <LoadingSpinner />
-        <h2>Loading server...</h2>
-        <p>Waking up the Render server. This may take a few seconds.</p>
+        <h2>Server still waking up...</h2>
+        <p>Please wait a moment more.</p>
       </div>
     );
   }
