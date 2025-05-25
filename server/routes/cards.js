@@ -22,4 +22,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+console.log("✅ Cards route loaded!");
+
+
 module.exports = router;
