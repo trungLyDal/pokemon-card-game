@@ -13,8 +13,11 @@ RUN npm install
 # Copy the rest of the server code
 COPY . .
 
-# Expose port (your backend runs on 5000)
+# Expose the port (must match your app's PORT)
 EXPOSE 5000
 
-# Start the backend server
+# Set environment variable (optional, if needed)
+ENV PORT=5000
+
+# Start the server
 CMD ["node", "server.js"]
