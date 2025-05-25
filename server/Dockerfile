@@ -14,10 +14,10 @@ RUN npm install
 COPY . .
 
 # Expose the port (must match your app's PORT)
-EXPOSE 8080
+EXPOSE 5000
 
 # Set environment variable (optional, if you want to enforce PORT)
-ENV PORT=8080
+ENV PORT=5000
 
 # Start the server
 CMD ["node", "server.js"]
