@@ -1,5 +1,6 @@
+// src/App.js
 import React, { useState } from 'react';
-import useServerStatus from './hooks/useServerStatus'; 
+import useServerStatus from './hooks/useServerStatus';
 import PackOpening from './components/PackOpening';
 import CardGallery from './components/CardGallery';
 import CardDetails from './components/CardDetails';
@@ -7,8 +8,9 @@ import Layout from './components/Layout';
 import './App.css';
 import useCollection from './hooks/useCollection';
 import Slideshow from './components/Slideshow';
+import TutorialCallout from './components/TutorialCallout'; 
 import Separator from './components/Separator';
-import FakeLoading from './components/FakeLoading'; // Import the new loading component
+import FakeLoading from './components/FakeLoading';
 
 function App() {
   const serverReady = useServerStatus();
@@ -19,14 +21,12 @@ function App() {
   const openCardDetails = (card) => setSelectedCard(card);
   const closeCardDetails = () => setSelectedCard(null);
 
-  // Show FakeLoading until server is ready or fake loading completes
   if (!serverReady && !loadingComplete) {
     return (
-<FakeLoading serverReady={serverReady} onComplete={() => setLoadingComplete(true)} />
+      <FakeLoading serverReady={serverReady} onComplete={() => setLoadingComplete(true)} />
     );
   }
 
-  // If loading is complete but server is not ready, still show message or fallback
   if (!serverReady && loadingComplete) {
     return (
       <div className="loading-screen">
@@ -39,7 +39,9 @@ function App() {
   return (
     <Layout>
       <Slideshow />
-      <div className="section-separator"></div>
+      <div className="section-separator"></div> 
+      <TutorialCallout /> 
+      <div className="section-separator"></div> 
       <div id="pack-opening-section">
         <PackOpening
           addToCollection={addToCollection}
@@ -57,6 +59,8 @@ function App() {
         />
       </div>
       {selectedCard && <CardDetails card={selectedCard} onClose={closeCardDetails} />}
+
+      
     </Layout>
   );
 }

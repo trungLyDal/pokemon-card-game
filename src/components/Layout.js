@@ -1,6 +1,5 @@
 // src/components/Layout.js
-import React, { useState, useEffect } from 'react';
-import ScrollToTopButton from './ScrollToTopButton';
+import React, { useState } from 'react';
 import './Layout.css';
 import AppLogo from '../assets/images/Pokémon_TCG_logo.png'; 
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
@@ -9,19 +8,6 @@ import PokeballImg from '../assets/images/9.png';
 
 function Layout({ children }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [showScroll, setShowScroll] = useState(false);
-
-  useEffect(() => {
-    const checkScrollTop = () => {
-      const scrolled = window.scrollY;
-      setShowScroll(scrolled > 100); // Lower threshold for better UX
-    };
-
-    window.addEventListener('scroll', checkScrollTop);
-    checkScrollTop(); // Check initial position
-    
-    return () => window.removeEventListener('scroll', checkScrollTop);
-  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -88,7 +74,6 @@ function Layout({ children }) {
         {children}
       </main>
 
-      {showScroll && <ScrollToTopButton />}
 
         <footer className="main-app-layout-footer" id="footer">
         <div className="footer">
