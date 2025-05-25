@@ -11,7 +11,7 @@ const demoCard = {
 const TutorialCallout = () => {
   const cardRef = useRef(null);
 
-  const maxTilt = 20; // Degrees
+  const maxTilt = 15; // Degrees
 
   const handleMove = (x, y, width, height) => {
     const centerX = width / 2;
