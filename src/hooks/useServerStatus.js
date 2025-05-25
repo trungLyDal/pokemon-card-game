@@ -35,7 +35,7 @@ const res = await fetch(`${cleanBaseUrl}/api/healthcheck`);
     checkServer();
 
     return () => clearTimeout(timeoutId);
-  }, [baseUrl]);
+  }, [cleanBaseUrl]);
 
   return serverReady;
 };
