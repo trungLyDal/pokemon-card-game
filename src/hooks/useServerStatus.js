@@ -39,5 +39,7 @@ const res = await fetch(`${cleanBaseUrl}/api/healthcheck`);
 
   return serverReady;
 };
+console.log('API Base URL:', process.env.REACT_APP_API_URL);
+
 
 export default useServerStatus;
