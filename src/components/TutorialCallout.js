@@ -66,8 +66,22 @@ const TutorialCallout = () => {
   }, []);
 
   return (
-    <section className="tutorial-callout-wrapper">
-      <h2>Try the Interactive 3D Card Viewer!</h2>
+   <section className="tutorial-callout-wrapper">
+  <h2>Try the Interactive 3D Card Viewer!</h2>
+  <div className="tutorial-content">
+    <div className="instruction-text">
+  <h3>How It Works</h3>
+  <ul>
+    <li>🎴 Open Pokémon card packs — one at a time or 10 at once.</li>
+    <li>📦 Collect and organize your favorite cards in your collection.</li>
+    <li>🌀 View your cards in 3D — tilt and interact for a full effect.</li>
+    <li>💰 Instantly check each card’s average market price.</li>
+    <li>📊 See your most and least valuable cards at a glance.</li>
+    <li>🗑️ Remove any cards you no longer want in your deck.</li>
+  </ul>
+</div>
+
+    <div className="card-viewer">
       <div className="card-tilt-container" ref={cardRef}>
         <img
           src={demoCard.images.large}
@@ -76,7 +90,10 @@ const TutorialCallout = () => {
         />
       </div>
       <p>Hover or drag to see the 3D effect!</p>
-    </section>
+    </div>
+  </div>
+</section>
+
   );
 };
 

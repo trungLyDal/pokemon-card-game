@@ -41,7 +41,7 @@ function App() {
   return (
     <Layout>
       <Slideshow />
-      {/* TutorialCallout is now directly interactive */}
+      <div className="section-separator"></div> 
       <TutorialCallout /> 
       <div className="section-separator"></div> 
       <div id="pack-opening-section">
