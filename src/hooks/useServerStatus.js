@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 const useServerStatus = () => {
   const [serverReady, setServerReady] = useState(false);
-  const baseUrl = process.env.REACT_APP_API_URL || 'https://pokemon-card-game-pbfr.onrender.com';
+  const baseUrl = process.env.REACT_APP_API_URL || 'https://pokemon-card-game-xi.vercel.app/';
 
   useEffect(() => {
     let attempt = 0;
