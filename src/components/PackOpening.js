@@ -30,15 +30,17 @@ const API_BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
   // Fetch all cards from backend
   useEffect(() => {
 fetch(`${API_BASE_URL}/api/cards?page=1&limit=10000`)
-      .then(res => res.json())
-      .then(data => {
-        setCardData(data.cards);
-        setIsLoadingCards(false);
-      })
-      .catch(() => {
-        setError('Failed to fetch cards from server.');
-        setIsLoadingCards(false);
-      });
+  .then(res => res.json())
+  .then(data => {
+    console.log("✅ Successfully fetched cards:", data);
+    setCardData(data.cards);
+    setIsLoadingCards(false);
+  })
+  .catch((err) => {
+    console.error("❌ Failed to fetch cards from server:", err);
+    setError('Failed to fetch cards from server.');
+    setIsLoadingCards(false);
+  });
   }, [API_BASE_URL]);
 
   // Initial loading spinner
