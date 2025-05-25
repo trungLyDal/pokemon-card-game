@@ -84,6 +84,7 @@
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 5vh;
 }
 
 .instruction-text {
@@ -124,6 +125,9 @@
 
   .instruction-text li {
     font-size: 0.95rem;
+  }
+  .card-image{
+    margin-top: 1vh;
   }
 }
 
