@@ -9,18 +9,16 @@ const useCollection = () => {
   const [collection, setCollection] = useState([]);
   // 'loading': initial state, 'online': backend connected, 'offline': backend unreachable
   const [backendStatus, setBackendStatus] = useState('loading');
-  const [lastLocalSyncTime, setLastLocalSyncTime] = useState(null); // To help with future re-sync logic
 
   // --- Helper to save to Local Storage ---
   const saveCollectionToLocalStorage = useCallback((currentCollection) => {
     try {
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentCollection));
-      setLastLocalSyncTime(Date.now()); // Update last sync time
     } catch (error) {
       console.error("Failed to save collection to localStorage:", error);
       // Optionally notify user that local saving failed
     }
-  }, []);
+  }, []); // No dependencies needed as it only uses `localStorage` and `setLastLocalSyncTime` (which is stable)
 
   // --- Helper to load from Local Storage ---
   const loadCollectionFromLocalStorage = useCallback(() => {
@@ -31,39 +29,12 @@ const useCollection = () => {
       console.error("Failed to parse collection from localStorage, starting fresh:", error);
       return [];
     }
-  }, []);
-
-  // --- Initial Fetch/Sync Logic ---
-  useEffect(() => {
-    const fetchAndSyncCollection = async () => {
-      try {
-        const res = await fetch(USER_COLLECTION_API_URL);
-        if (!res.ok) {
-          throw new Error(`Backend fetch failed: ${res.status}`);
-        }
-        const data = await res.json();
-        const backendCollection = data.collection || [];
-        setCollection(backendCollection);
-        setBackendStatus('online');
-        // If backend is available, overwrite local storage with backend's data
-        saveCollectionToLocalStorage(backendCollection);
-        console.log("✅ Collection synced with backend.");
-
-      } catch (error) {
-        console.warn("❌ Backend is offline or fetch failed, falling back to local storage:", error);
-        const localCollection = loadCollectionFromLocalStorage();
-        setCollection(localCollection);
-        setBackendStatus('offline');
-        // Notify user about offline mode, if desired in UI
-      }
-    };
-
-    fetchAndSyncCollection();
-  }, [saveCollectionToLocalStorage, loadCollectionFromLocalStorage]); // Dependencies for useCallback
+  }, []); // No dependencies needed
 
   // --- Function to update collection (both backend and local) ---
   // This is the core logic that all add/remove operations will use
-  const updateCollectionState = async (operation, payload) => {
+  // Wrap updateCollectionState in useCallback
+  const updateCollectionState = useCallback(async (operation, payload) => {
     try {
       if (backendStatus === 'online') {
         let res;
@@ -165,11 +136,43 @@ const useCollection = () => {
         setBackendStatus('offline');
         // Re-attempt local update for consistency, as the backend attempt failed
         // This might re-run the switch logic, ensuring local state is correctly updated
-        updateCollectionState(operation, payload); // Recursive call for local update
+        // IMPORTANT: Be careful with recursive calls. In this specific case,
+        // calling updateCollectionState again with the same parameters
+        // will now execute the 'else' block (backendStatus is 'offline'),
+        // which is the desired behavior for a local fallback.
+        updateCollectionState(operation, payload);
       }
       // If already offline, the local update already happened.
     }
-  };
+  }, [backendStatus, collection, saveCollectionToLocalStorage]); // Dependencies for updateCollectionState
+
+  // --- Initial Fetch/Sync Logic ---
+  useEffect(() => {
+    const fetchAndSyncCollection = async () => {
+      try {
+        const res = await fetch(USER_COLLECTION_API_URL);
+        if (!res.ok) {
+          throw new Error(`Backend fetch failed: ${res.status}`);
+        }
+        const data = await res.json();
+        const backendCollection = data.collection || [];
+        setCollection(backendCollection);
+        setBackendStatus('online');
+        // If backend is available, overwrite local storage with backend's data
+        saveCollectionToLocalStorage(backendCollection);
+        console.log("✅ Collection synced with backend.");
+
+      } catch (error) {
+        console.warn("❌ Backend is offline or fetch failed, falling back to local storage:", error);
+        const localCollection = loadCollectionFromLocalStorage();
+        setCollection(localCollection);
+        setBackendStatus('offline');
+        // Notify user about offline mode, if desired in UI
+      }
+    };
+
+    fetchAndSyncCollection();
+  }, [saveCollectionToLocalStorage, loadCollectionFromLocalStorage]); // Dependencies for useCallback
 
   // --- Public functions for the hook ---
   const addManyToCollection = useCallback((cards) => updateCollectionState('addMany', cards), [updateCollectionState]);

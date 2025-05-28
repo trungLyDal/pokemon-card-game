@@ -51,7 +51,6 @@ const PackOpening = ({ addToCollection, addManyToCollection, collection }) => {
       } catch (err) {
         // If an error occurs during fetch (e.g., network error, server down, HTTP error)
         console.error("❌ Failed to fetch cards from server:", err);
-        setError('Failed to fetch cards from server. Using fallback data.'); // Inform the user
         setCardData(fallbackPokemonData); // Use the imported local fallback data
       } finally {
         setIsLoadingCards(false); // Always set loading to false after attempt
