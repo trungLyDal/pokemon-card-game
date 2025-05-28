@@ -4,7 +4,7 @@ import XIcon from '../assets/images/XIcon.png';
 import { FaFilter } from "react-icons/fa";
 
 
-const CardGallery = ({ collection, openCardDetails, removeFromCollection, removeAllFromCollection }) => {
+const CardGallery = ({ collection, cardData, openCardDetails, removeFromCollection, removeAllFromCollection }) => {
   const [filter, setFilter] = useState('');
   const [filteredCollection, setFilteredCollection] = useState(collection);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
@@ -210,6 +210,23 @@ useEffect(() => {
   return rangeWithDots;
 }
 
+  // Helper to get the full card info from cardData
+  function getFullCard(card) {
+    return cardData.find(c => c.id === card.id) || card;
+  }
+
+  // Helper to get the best image URL for a card
+  function getCardImage(card) {
+    const fullCard = getFullCard(card);
+    if (fullCard.images?.large) return fullCard.images.large;
+    if (fullCard.image?.large) return fullCard.image.large;
+    if (fullCard.images?.small) return fullCard.images.small;
+    if (fullCard.image?.small) return fullCard.image.small;
+    if (typeof fullCard.image === 'string') return fullCard.image;
+    if (typeof fullCard.images === 'string') return fullCard.images;
+    return '';
+  }
+
   return (
     <div className="card-gallery-container">
       <h2>My Collection</h2>
@@ -364,7 +381,7 @@ useEffect(() => {
               style={{ position: 'relative', overflow: 'hidden' }}
             >
 <img
-  src={cardObj.images?.small || cardObj.image}
+  src={getCardImage(cardObj)}
   alt={cardObj.name}
   onClick={() => openCardDetails(cardObj)}
   style={{ cursor: 'pointer' }}

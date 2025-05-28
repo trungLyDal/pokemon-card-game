@@ -1,6 +1,5 @@
 // src/App.js
 import React, { useState } from 'react';
-import useServerStatus from './hooks/useServerStatus';
 import PackOpening from './components/PackOpening';
 import CardGallery from './components/CardGallery';
 import CardDetails from './components/CardDetails';
@@ -10,8 +9,10 @@ import useCollection from './hooks/useCollection';
 import Slideshow from './components/Slideshow';
 import TutorialCallout from './components/TutorialCallout'; 
 import Separator from './components/Separator';
+import allPokemonCards from './data/all_pokemon_cards.json';
 
 function App() {
+  const [cardData] = useState(allPokemonCards);
   const { collection, addToCollection, addManyToCollection, removeFromCollection, removeAllFromCollection } = useCollection();
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -41,19 +42,21 @@ function App() {
       <div className="section-separator"></div> 
       <div id="pack-opening-section">
         <PackOpening
-          addToCollection={addToCollection}
-          addManyToCollection={addManyToCollection}
-          collection={collection}
-        />
+  addToCollection={addToCollection}
+  addManyToCollection={addManyToCollection}
+  collection={collection}
+  cardData={cardData}
+/>
       </div>
       <Separator />
       <div id="card-gallery-section">
         <CardGallery
-          collection={collection}
-          openCardDetails={openCardDetails}
-          removeFromCollection={removeFromCollection}
-          removeAllFromCollection={removeAllFromCollection}
-        />
+  collection={collection}
+  cardData={cardData}
+  openCardDetails={openCardDetails}
+  removeFromCollection={removeFromCollection}
+  removeAllFromCollection={removeAllFromCollection}
+/>
       </div>
       {selectedCard && <CardDetails card={selectedCard} onClose={closeCardDetails} />}
 
