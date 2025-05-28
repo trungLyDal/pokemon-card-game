@@ -10,31 +10,28 @@ import useCollection from './hooks/useCollection';
 import Slideshow from './components/Slideshow';
 import TutorialCallout from './components/TutorialCallout'; 
 import Separator from './components/Separator';
-import FakeLoading from './components/FakeLoading';
 
 function App() {
-  const serverReady = useServerStatus();
   const { collection, addToCollection, addManyToCollection, removeFromCollection, removeAllFromCollection } = useCollection();
   const [selectedCard, setSelectedCard] = useState(null);
-  const [loadingComplete, setLoadingComplete] = useState(false);
 
   const openCardDetails = (card) => setSelectedCard(card);
   const closeCardDetails = () => setSelectedCard(null);
 
-  if (!serverReady && !loadingComplete) {
-    return (
-      <FakeLoading serverReady={serverReady} onComplete={() => setLoadingComplete(true)} />
-    );
-  }
+  // if (!serverReady && !loadingComplete) {
+  //   return (
+  //     <FakeLoading serverReady={serverReady} onComplete={() => setLoadingComplete(true)} />
+  //   );
+  // }
 
-  if (!serverReady && loadingComplete) {
-    return (
-      <div className="loading-screen">
-        <h2>Server still waking up...</h2>
-        <p>Please wait a moment more.</p>
-      </div>
-    );
-  }
+  // if (!serverReady && loadingComplete) {
+  //   return (
+  //     <div className="loading-screen">
+  //       <h2>Server still waking up...</h2>
+  //       <p>Please wait a moment more.</p>
+  //     </div>
+  //   );
+  // }
 
   return (
     <Layout>
