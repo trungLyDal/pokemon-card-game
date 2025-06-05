@@ -4,7 +4,7 @@ import LoadingSpinner from './LoadingSpinner';
 import boosterPackImage from '../assets/images/boosterPackScarletandViolet.webp';
 import PackToggle from "./PackToggle";
 import skipIcon from '../assets/images/skip-track.png';
-import fallbackPokemonData from '../data/all_pokemon_cards.json';
+import fallbackPokemonData from '../data/all_pokemon_cards.json'; // Still used as a fallback for card data
 
 const PackOpening = ({ addToCollection, addManyToCollection, collection }) => {
   // State variables for managing the pack opening process and UI
@@ -34,6 +34,8 @@ const PackOpening = ({ addToCollection, addManyToCollection, collection }) => {
   /**
    * useEffect hook to fetch all card data from the backend API.
    * Includes a fallback mechanism to use local JSON data if the API call fails.
+   * IMPORTANT: This fetch is for the pool of cards to draw from, NOT the user's collection.
+   * The user's collection is managed by useCollection hook.
    */
   useEffect(() => {
     const fetchCards = async () => {
@@ -47,11 +49,44 @@ const PackOpening = ({ addToCollection, addManyToCollection, collection }) => {
         }
         const data = await res.json(); // Parse the JSON response
         console.log("✅ Successfully fetched cards from server:", data);
-        setCardData(data.cards); // Set the fetched card data to state
+
+        // Normalize card data fetched from the API before setting to state
+        // This is crucial to ensure 'images.large' exists for all cards.
+        const normalizedCardData = data.cards.map(card => {
+          if (card.images && card.images.large) {
+            return card;
+          }
+          // Assuming the API might return 'imageUrl' or 'image' if not 'images.large'
+          const primaryImageUrl = card.imageUrl || card.image || 'https://via.placeholder.com/200x280?text=No+Image';
+          return {
+            ...card,
+            images: {
+              large: primaryImageUrl,
+              small: primaryImageUrl,
+            },
+          };
+        }).filter(Boolean); // Filter out any nulls
+
+        setCardData(normalizedCardData); // Set the fetched and normalized card data to state
       } catch (err) {
         // If an error occurs during fetch (e.g., network error, server down, HTTP error)
-        console.error("❌ Failed to fetch cards from server:", err);
-        setCardData(fallbackPokemonData); // Use the imported local fallback data
+        console.error("❌ Failed to fetch cards from server, falling back to local data:", err);
+        // Normalize fallback data as well
+        const normalizedFallbackData = fallbackPokemonData.map(card => {
+            if (card.images && card.images.large) {
+                return card;
+            }
+            // Assuming fallback data also has 'imageUrl' or 'image'
+            const primaryImageUrl = card.imageUrl || card.image || 'https://via.placeholder.com/200x280?text=No+Image';
+            return {
+                ...card,
+                images: {
+                    large: primaryImageUrl,
+                    small: primaryImageUrl,
+                },
+            };
+        }).filter(Boolean);
+        setCardData(normalizedFallbackData); // Use the imported local fallback data
       } finally {
         setIsLoadingCards(false); // Always set loading to false after attempt
       }
