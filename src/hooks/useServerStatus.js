@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 
 const useServerStatus = () => {
   const [serverReady, setServerReady] = useState(false);
-  const baseUrl = process.env.REACT_APP_API_URL || 'https://pokemon-card-game-pbfr.onrender.com';
+  const baseUrl = process.env.REACT_APP_API_URL || 'https://pokemon-card-game-xi.vercel.app';
+  const cleanBaseUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+
 
   useEffect(() => {
     let attempt = 0;
@@ -14,7 +16,7 @@ const useServerStatus = () => {
       console.log(`[${now}] ⏳ Checking server (attempt ${attempt + 1})...`);
 
       try {
-        const res = await fetch(`${baseUrl}/api/healthcheck`);
+const res = await fetch(`${cleanBaseUrl}/api/healthcheck`);
         if (res.ok) {
           console.log(`[${now}] ✅ Server is ready!`);
           setServerReady(true);
@@ -33,9 +35,11 @@ const useServerStatus = () => {
     checkServer();
 
     return () => clearTimeout(timeoutId);
-  }, [baseUrl]);
+  }, [cleanBaseUrl]);
 
   return serverReady;
 };
+console.log('API Base URL:', process.env.REACT_APP_API_URL);
+
 
 export default useServerStatus;
